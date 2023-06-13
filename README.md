@@ -1,17 +1,17 @@
 # Micro-Finance App
-Project Title
 [Include a descriptive title for your project.]
 
-Description
+**Description**
 [Provide a brief overview of your project, explaining its purpose and key features.]
 
-Table of Contents
+**Table of Contents**
 Installation
 Usage
 Features
 Contributing
 License
-Installation
+
+**Installation**
 [Provide step-by-step instructions on how to install and set up your project. Include any dependencies or prerequisites needed.]
 
 Usage
