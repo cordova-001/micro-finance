@@ -5,11 +5,11 @@
 [Provide a brief overview of your project, explaining its purpose and key features.]
 
 **Table of Contents**
-Installation
-Usage
-Features
-Contributing
-License
+<li>Installation</li>
+<li>Usage</li>
+<li>Features</li>
+<li>Contributing</li>
+<li>License</li>
 
 **Installation**
 [Provide step-by-step instructions on how to install and set up your project. Include any dependencies or prerequisites needed.]
