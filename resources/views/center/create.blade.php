@@ -7,7 +7,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                   <div class="nk-block-between">
                     <div class="nk-block-head-content">
-                      <h3 class="nk-block-title page-title">Create Branch</h3>
+                      <h3 class="nk-block-title page-title">Create Center</h3>
                     </div><!-- .nk-block-head-content -->
                   </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
@@ -16,17 +16,30 @@
                     <div class="card-inner">
                       <div class="tab-content">
                         <div class="tab-pane active" id="tabItem5">
-                          <h5 class="title">Add A Branch </h5>
                           
-                          <form action="{{ route('branch.store') }}" class="pt-2" method="POST" enctype="multipart/form-data">
+                          
+                          <form action="{{ route('center.store') }}" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name">Branch Name</label>
-                                  <input type="text" name="branch_name" class="form-control" id="branch-name" placeholder="Branch name">
+                                  <label class="form-label" for="first-name">Branch ID</label>
+                                  <select class="form-control" name="branch_id">
+                                    @foreach ($branch as $branch)
+                                      
+                                    <option value="{{ $branch->branch_id }}">{{ $branch->branch_name }}</option>
+                                    @endforeach
+                                  </select>
+                                 
                                 </div>
                               </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label" for="last-name">Center Name</label>
+                                  <input type="text" name="center_name" class="form-control" id="email" placeholder="Email">
+                                </div>
+                              </div>
+
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="last-name">Email Address</label>
@@ -50,8 +63,8 @@
                              
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="address-st">Branch ID</label>
-                                  <input type="text" name="branch_id" class="form-control" id="branch_id" placeholder="branch_id">
+                                  <label class="form-label" for="address-st">Center ID</label>
+                                  <input type="text" name="center_id" class="form-control" id="center_id" placeholder="Center ID">
                                 </div>
                               </div>
 
@@ -59,7 +72,7 @@
                               <div class="col-md-12">
                                 <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                                   <li>
-                                    <button name="create_branch" class="btn btn-primary">Add Branch</button>
+                                    <button name="create_center" class="btn btn-primary">Add Center</button>
                                   </li>
 
                                 </ul>

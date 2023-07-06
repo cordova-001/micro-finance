@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Branch;
+use App\Models\LoanProduct;
 
-class BranchController extends Controller
+class LoanProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class BranchController extends Controller
      */
     public function index()
     {
-        $branch = Branch::all();
-        return view('branch.index', compact('branch'));
+        $loan_product = LoanProduct::all();
+        return view('loan.product', compact('loan_product'));
     }
 
     /**
@@ -26,7 +26,7 @@ class BranchController extends Controller
      */
     public function create()
     {
-        return view('branch.create');
+        return view('loan.create_product');
     }
 
     /**
@@ -37,15 +37,26 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-         $branch = Branch::create([
-        'branch_name' => $request->input('branch_name'),
-        'email' => $request->input('email'),
-        'phone' => $request->input('phone'),
-        'address' => $request->input('address'),
-        'branch_id' => $request->input('branch_id'),
+        $request->validate([
+            'loan_product' => 'required|unique',
+            'minimum_amount' => 'required',
+            'maximum_amount' => 'required',
+            
+            // if('minimum_amount' >= 'maximum_amount'){
+            //     echo "The minimum amount must be less than maximum amount";
+            // }
         ]);
 
-        return redirect('/branch');
+        $loan_product = LoanProduct::create([
+            'loan_product' => $request->input('loan_product'),
+            'minimum_amount' => $request->input('minimum_amount'),
+            'maximum_amount' => $request->input('maximum_amount'),
+            'product_id' => $request->input('product_id'),
+            'interest_rate' => $request->input('interest_rate'),
+            'description' => $request->input('description')
+        ]);
+
+        return redirect('/loan_product');
     }
 
     /**
@@ -67,8 +78,7 @@ class BranchController extends Controller
      */
     public function edit($id)
     {
-         $branch = Branch::find($id);
-        return view('branch.edit', compact('branch'));
+        //
     }
 
     /**
@@ -80,20 +90,7 @@ class BranchController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $branch = Branch::where('id', $id)
-            ->update([
-                'first_name' => $request->input('first_name'),
-                'last_name' => $request->input('last_name'),
-                'email' => $request->input('email'),
-                'phone' => $request->input('phone'),
-                'address' => $request->input('address'),
-                'gender' => $request->input('gender'),
-                'date_of_birth' => $request->input('date_of_birth'),
-                'state_of_origin' => $request->input('state_of_origin'),
-                'customer_id' => $request->input('customer_id'),
-        ]);
-
-        return redirect('/customer');
+        //
     }
 
     /**

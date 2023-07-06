@@ -70,7 +70,10 @@
                             <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
                         </li>
                         <li class="nk-menu-item">
-                            <a href="manage_branch" class="nk-menu-link"><span class="nk-menu-text">Manage Branch</span></a>
+                            <a href="{{ route('branch.create') }}" class="nk-menu-link"><span class="nk-menu-text">Create Branch</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('branch.index') }}" class="nk-menu-link"><span class="nk-menu-text">View All Branch</span></a>
                         </li>
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
@@ -84,7 +87,10 @@
                             <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
                         </li>
                         <li class="nk-menu-item">
-                            <a href="manage_center" class="nk-menu-link"><span class="nk-menu-text">Manage Center</span></a>
+                            <a href="{{ route('center.create') }}" class="nk-menu-link"><span class="nk-menu-text">Create Center</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('center.index') }}" class="nk-menu-link"><span class="nk-menu-text">View All Center</span></a>
                         </li>
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
@@ -109,10 +115,10 @@
                     </a>
                     <ul class="nk-menu-sub">
                         <li class="nk-menu-item">
-                            <a href="manage_customer" class="nk-menu-link"><span class="nk-menu-text"> Manage Customer </span></a>
+                            <a href="manage_customer" class="nk-menu-link"><span class="nk-menu-text"> Add Customer </span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="add_customer" class="nk-menu-link"><span class="nk-menu-text"> Add Customer </span></a>
+                            <a href="add_customer" class="nk-menu-link"><span class="nk-menu-text"> View All Customer </span></a>
                         </li>
 
 
@@ -126,7 +132,7 @@
                     </a>
                     <ul class="nk-menu-sub">
                         <li class="nk-menu-item">
-                            <a href="loan_product" class="nk-menu-link"><span class="nk-menu-text">Loan Products</span></a>
+                            <a href="{{ route('loan.product') }}" class="nk-menu-link"><span class="nk-menu-text">Loan Products</span></a>
                         </li>
                         <li class="nk-menu-item">
                             <a href="loan_request" class="nk-menu-link"><span class="nk-menu-text">Loan Request</span></a>
