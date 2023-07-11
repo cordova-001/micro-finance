@@ -19,7 +19,7 @@ class CreateBranchesTable extends Migration
             $table->string('address');
             $table->string('email');
             $table->string('phone');
-            $table->string('branch_id');
+            $table->string('branch_no');
             $table->timestamps();
         });
     }

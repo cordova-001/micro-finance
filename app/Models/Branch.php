@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Branch extends Model
 {
+
     use HasFactory;
 
     protected $fillable = [
@@ -14,6 +15,11 @@ class Branch extends Model
         'address',
         'email',
         'phone',
-        'branch_id'
+        'branch_no'
     ];
+
+     public function centers()
+    {
+        return $this->hasMany(Center::class);
+    }
 }
