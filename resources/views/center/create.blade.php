@@ -25,9 +25,8 @@
                                 <div class="form-group">
                                   <label class="form-label" for="first-name">Branch ID</label>
                                   <select class="form-control" name="branch_id">
-                                    @foreach ($branch as $branch)
-                                      
-                                    <option value="{{ $branch->branch_id }}">{{ $branch->branch_name }}</option>
+                                    @foreach ($branches as $branch)
+                                    <option value="{{ $branch->id }}">{{ $branch->branch_name }}</option>
                                     @endforeach
                                   </select>
                                  
@@ -36,7 +35,7 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="last-name">Center Name</label>
-                                  <input type="text" name="center_name" class="form-control" id="email" placeholder="Email">
+                                  <input type="text" name="name" class="form-control" id="name" placeholder="Center Name">
                                 </div>
                               </div>
 
@@ -64,7 +63,7 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Center ID</label>
-                                  <input type="text" name="center_id" class="form-control" id="center_id" placeholder="Center ID">
+                                  <input type="text" name="center_no" class="form-control" id="center_id" placeholder="Center ID">
                                 </div>
                               </div>
 

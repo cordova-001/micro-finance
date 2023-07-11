@@ -14,17 +14,17 @@ class CreateCentersTable extends Migration
     public function up()
     {
         Schema::create('centers', function (Blueprint $table) {
-            $table->id('id');
-            // $table->unsignedInteger('branch_id');
-            $table->string('center_name');
+            $table->increments('id');
+            $table->unsignedInteger('branch_id');
+            $table->string('name');
             $table->string('address');
             $table->string('email');
             $table->string('phone');
-            $table->string('center_id');
-            $table->string('branch_id');
-                // ->references('id')
-                // ->on('branches')
-                // ->onDelete('cascade');
+            $table->string('center_no');
+            $table->foreign('branch_id')
+                ->references('id')
+                ->on('branches')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -42,11 +42,12 @@ class BranchController extends Controller
         'email' => $request->input('email'),
         'phone' => $request->input('phone'),
         'address' => $request->input('address'),
-        'branch_id' => $request->input('branch_id'),
+        'branch_no' => $request->input('branch_no'),
         ]);
 
         return redirect('/branch');
     }
+ 
 
     /**
      * Display the specified resource.
@@ -71,7 +72,7 @@ class BranchController extends Controller
         return view('branch.edit', compact('branch'));
     }
 
-    /**
+    /** 
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

@@ -4,17 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+// use App\Models\Branch;
 
 class Center extends Model
 {
+    
     use HasFactory;
 
     protected $fillable = [
-        'branch_id',
-        'center_name',
+        'name',
         'address',
         'email',
         'phone',
-        'center_id'
+        'center_no',
+        'branch_id'
     ];
+
+     public function Branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
 }

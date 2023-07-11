@@ -42,8 +42,9 @@
                                                                 <label class="custom-control-label" for="uid"></label>
                                                             </div>
                                                         </div>
-                                                        <div class="nk-tb-col"><span class="sub-text">Center Name</span></div>
                                                         <div class="nk-tb-col"><span class="sub-text">Center ID</span></div>
+                                                        <div class="nk-tb-col"><span class="sub-text">Center Name</span></div>
+                                                        
                                                         <div class="nk-tb-col"><span class="sub-text">Branch ID</span></div>
                                                         <div class="nk-tb-col tb-col-md"><span class="sub-text">Phone</span></div>
                                                         <div class="nk-tb-col tb-col-lg"><span class="sub-text">Email</span></div>
@@ -72,20 +73,21 @@
                                                                 <label class='custom-control-label' for='uid1'></label>
                                                             </div>
                                                         </div>
+                                                        <div class='nk-tb-col tb-col-md'>
+                                                            <span>{{ $center->id }}</span>
+                                                        </div>
                                                         <div class='nk-tb-col'>
                                                             <a href='#'>
                                                                 <div class='user-card'>
 
                                                                     <div class='user-info'>
-                                                                        <span class='tb-lead'>{{ $center->center_name }} <span class='dot dot-success d-md-none ms-1'></span></span>
+                                                                        <span class='tb-lead'>{{ $center->name }} <span class='dot dot-success d-md-none ms-1'></span></span>
 
                                                                     </div>
                                                                 </div>
                                                             </a>
                                                         </div>
-                                                        <div class='nk-tb-col tb-col-md'>
-                                                            <span>{{ $center->center_id }}</span>
-                                                        </div>
+                                                        
                                                         <div class='nk-tb-col tb-col-md'>
                                                             <span>{{ $center->branch_id }}</span>
                                                         </div>

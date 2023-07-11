@@ -17,7 +17,7 @@ class CenterController extends Controller
     public function index()
     {
         $center = Center::all();
-        return view ('center.index', compact('center'));
+        return view('center.index', compact('center'));
     }
 
     /**
@@ -27,7 +27,8 @@ class CenterController extends Controller
      */
     public function create()
     {
-        return view('center.create');
+        $branches = Branch::all();
+        return view('center.create', compact('branches'));
     }
 
     /**
@@ -38,16 +39,25 @@ class CenterController extends Controller
      */
     public function store(Request $request)
     {
-        $center = Center::create([
-            'branch_id' => $request->input('branch_id'),
-            'center_name' => $request->input('center_name'),
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required', 
+            'phone' => 'required',
+            'center_no' => 'required'
+        ]);
+
+        $center = new Center([
+            'name' => $request->input('name'),
             'address' => $request->input('address'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
-            'center_id' => $request->input('center_id')
+            'center_no' => $request->input('center_no'),
+            'branch_id' => $request->input('branch_id'),
         ]);
 
-        return redirect('/center');
+        $center->save();
+
+        return redirect()->route('center.index')->with('success', 'Center created successfully');
     }
 
     /**

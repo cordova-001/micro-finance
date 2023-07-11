@@ -50,11 +50,10 @@
                              
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="address-st">Branch ID</label>
-                                  <input type="text" name="branch_id" class="form-control" id="branch_id" placeholder="branch_id">
+                                  <label class="form-label" for="address-st">Branch No</label>
+                                  <input type="text" name="branch_no" class="form-control" id="branch_id" readonly value="{{ rand(100000, 999999) }}">
                                 </div>
                               </div>
-
 
                               <div class="col-md-12">
                                 <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
