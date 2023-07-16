@@ -7,7 +7,7 @@
                                 <div class="nk-block-head nk-block-head-sm">
                                     <div class="nk-block-between">
                                         <div class="nk-block-head-content">
-                                            <h3 class="nk-block-title page-title"> Center Management</h3>
+                                            <h3 class="nk-block-title page-title"> Customer Management</h3>
                                         </div>
                                         <div class="nk-block-head-content">
                                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -22,7 +22,7 @@
                                                         </li>
                                                         <li class="nk-block-tools-opt">
                                                             <a href="#" class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
-                                                            <a class="btn btn-primary d-none d-md-inline-flex"  href="{{ route('center.create') }}"><em class="icon ni ni-plus"></em><span>Add Center</span></a>
+                                                            <a class="btn btn-primary d-none d-md-inline-flex"  href="{{ route('customer.create') }}"><em class="icon ni ni-plus"></em><span>Add Customer</span></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -42,13 +42,12 @@
                                                                 <label class="custom-control-label" for="uid"></label>
                                                             </div>
                                                         </div>
-                                                        <div class="nk-tb-col"><span class="sub-text">Center ID</span></div>
-                                                        <div class="nk-tb-col"><span class="sub-text">Center Name</span></div>
-                                                        
-                                                        <div class="nk-tb-col"><span class="sub-text">Branch ID</span></div>
+                                                        <div class="nk-tb-col"><span class="sub-text"> Name</span></div>
+                                                        <div class="nk-tb-col"><span class="sub-text">Customer ID</span></div>
                                                         <div class="nk-tb-col tb-col-md"><span class="sub-text">Phone</span></div>
                                                         <div class="nk-tb-col tb-col-lg"><span class="sub-text">Email</span></div>
                                                         <div class="nk-tb-col tb-col-lg"><span class="sub-text">Address</span></div>
+                                                        <div class="nk-tb-col tb-col-lg"><span class="sub-text">Status</span></div>
 
                                                         <div class="nk-tb-col nk-tb-col-tools">
                                                             <ul class="nk-tb-actions gx-1 my-n1">
@@ -63,7 +62,7 @@
                                                             </ul>
                                                         </div>
                                                     </div><!-- .nk-tb-item -->
-                                                    @foreach ($center as $center)
+                                                    @foreach ($customer as $customers)
                                                       
                                                    
                                                    <div class='nk-tb-item'>
@@ -73,32 +72,32 @@
                                                                 <label class='custom-control-label' for='uid1'></label>
                                                             </div>
                                                         </div>
-                                                        <div class='nk-tb-col tb-col-md'>
-                                                            <span>{{ $center->id }}</span>
-                                                        </div>
                                                         <div class='nk-tb-col'>
                                                             <a href='#'>
                                                                 <div class='user-card'>
 
                                                                     <div class='user-info'>
-                                                                        <span class='tb-lead'>{{ $center->name }} <span class='dot dot-success d-md-none ms-1'></span></span>
+                                                                        <span class='tb-lead'>{{ $customer->first_name }} {{ $customer->last_name }} <span class='dot dot-success d-md-none ms-1'></span></span>
 
                                                                     </div>
                                                                 </div>
                                                             </a>
                                                         </div>
-                                                        
                                                         <div class='nk-tb-col tb-col-md'>
-                                                            <span>{{ $center->branch_id }}</span>
+                                                            <span>{{ $customer->customer_id }}</span>
                                                         </div>
                                                         <div class='nk-tb-col tb-col-lg'>
-                                                            <span>{{ $center->phone }}</span>
+                                                            <span>{{ $customer->phone }}</span>
                                                         </div>
                                                         <div class='nk-tb-col tb-col-lg'>
-                                                            <span>{{ $center->email }}</span>
+                                                            <span>{{ $customer->email }}</span>
                                                         </div>
                                                         <div class='nk-tb-col tb-col-md'>
-                                                            <span class='tb-status text-success'>{{ $center->address }}</span>
+                                                            <span class='tb-status text-success'>{{ $customer->address }}</span>
+                                                        </div>
+
+                                                        <div class='nk-tb-col tb-col-md'>
+                                                            <span class='tb-status text-success'>{{ $customer->status }}</span>
                                                         </div>
 
                                                        
@@ -107,37 +106,18 @@
 
                                                                 <li>
                                                                     <div class='drodown'>
-                                                                        {{-- <a href='' class='dropdown-toggle btn btn-icon btn-trigger' data-bs-toggle='dropdown'><em class='icon ni ni-more-h'></em></a>
+                                                                        <a href='' class='dropdown-toggle btn btn-icon btn-trigger' data-bs-toggle='dropdown'><em class='icon ni ni-more-h'></em></a>
                                                                         <div class='dropdown-menu dropdown-menu-end'>
-                                                                        <form method='post' action="{{ route('center.edit', $center->id) }}">
-                                                                            @csrf
-                                                                            @method('DELETE')
+                                                                        <form method='get'>
                                                                             <ul class='link-list-opt no-bdr'>
-                                                                              <li><span><em class='icon ni ni-eye'></em><input name='branch_details' formaction='{{ route('center.show', $center->id) }}' type='submit' style='border: 0px; background-color: white; float: center;' value='View Details' class='icon ni ni-eye' /></span></li>
+                                                                              <li><span><em class='icon ni ni-eye'></em><input name='branch_details' formaction='branch_details' type='submit' style='border: 0px; background-color: white; float: center;' value='View Details' class='icon ni ni-eye' /></span></li>
                                                                               <br>
                                                                               <input type='text' name='bid' value='$bid' hidden />
                                                                               <li><em class='icon ni ni-activity-round'></em><input name='edit_branch' type='submit' formaction='edit_branch' style='border: 0px; background-color: white; float: center;' value='Edit Branch' class='icon ni ni-eye' /></li>
                                                                                 
                                                                             </ul>
                                                                             </form>
-                                                                        </div> --}}
-                                                                        <td class="nk-tb-col nk-tb-col-tools">
-                                                                            <ul class="nk-tb-actions gx-1 my-n1">
-                                                                                <li class="me-n1">
-                                                                                    <div class="dropdown">
-                                                                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                                                            <ul class="link-list-opt no-bdr">
-                                                                                                <li><a href="#"><em class="icon ni ni-edit"></em><span>Edit </span></a></li>
-                                                                                                <li><a href="#"><em class="icon ni ni-eye"></em><span>View </span></a></li>
-                                                                                                {{-- <li><a href="#"><em class="icon ni ni-activity-round"></em><span> Delete</span></a></li> --}}
-                                                                                                <li><a href="#"><em class="icon ni ni-trash"></em><span> Delete</span></a></li>
-                                                                                            </ul>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </td>
+                                                                        </div>
                                                                     </div>
                                                                 </li>
                                                             </ul>

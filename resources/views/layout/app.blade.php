@@ -115,10 +115,10 @@
                     </a>
                     <ul class="nk-menu-sub">
                         <li class="nk-menu-item">
-                            <a href="manage_customer" class="nk-menu-link"><span class="nk-menu-text"> Add Customer </span></a>
+                            <a href="{{ route('customer.create') }}" class="nk-menu-link"><span class="nk-menu-text"> Add Customer </span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="add_customer" class="nk-menu-link"><span class="nk-menu-text"> View All Customer </span></a>
+                            <a href="{{ route('customer.index') }}" class="nk-menu-link"><span class="nk-menu-text"> View All Customer </span></a>
                         </li>
 
 

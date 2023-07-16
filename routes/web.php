@@ -5,6 +5,7 @@ use App\Http\Controllers\BranchController;
 use App\Http\Controllers\LoanProductController;
 use App\Http\Controllers\CenterController;
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\CustomerControllers;
 
 
 
@@ -31,3 +32,8 @@ Route::get('/create-center', [CenterController::class, 'create'])->name('center.
 Route::resource('chart', ChartController::class);
 Route::get('/create_chart_of_account', [ChartController::class, 'create'])->name('account.create');
 Route::get('/chart_of_account', [ChartController::class, 'index'])->name('account.chart');
+
+//customer url details
+Route::resource('chart', CustomerControllers::class);
+Route::get('/create_customer', [CustomerControllers::class, 'create'])->name('customer.create');
+Route::get('/customer', [CustomerControllers::class, 'index'])->name('customer.index');
