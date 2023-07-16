@@ -24,4 +24,9 @@ class Center extends Model
     {
         return $this->belongsTo(Branch::class);
     }
+
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
 }

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\Customers;
+use App\Models\Branch;
+use App\Models\Center;
 class CustomerControllers extends Controller
 {
     /**
@@ -14,7 +16,8 @@ class CustomerControllers extends Controller
      */
     public function index()
     {
-        //
+        $customer = Customers::all();
+        return view ('customer.index', compact('customer'));
     }
 
     /**
@@ -24,7 +27,9 @@ class CustomerControllers extends Controller
      */
     public function create()
     {
-        //
+        $branch = Branch::all();
+        $center = Center::all();
+        return view('customer.create', compact('branch', 'center'));
     }
 
     /**
