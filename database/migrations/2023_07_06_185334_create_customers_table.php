@@ -18,7 +18,7 @@ class CreateCustomersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
-            $table->interger('phone');
+            $table->integer('phone');
             $table->enum('choices', array('Male', 'Female'));	
             $table->string('address');
             $table->string('state_of_origin');
@@ -28,8 +28,8 @@ class CreateCustomersTable extends Migration
             $table->date('date_of_birth');
             $table->string('occupation');
             $table->string('status');
-            $table->interger('customer_id');
-            $table->unsignedInteger('branch-id');
+            $table->integer('customer_id');
+            $table->unsignedInteger('branch_id');
             $table->foreign('branch_id')
                 ->references('id')
                 ->on('branches')

@@ -18,11 +18,6 @@ class Branch extends Model
         'branch_no'
     ];
 
-     public function centers()
-    {
-        return $this->hasMany(Center::class);
-    }
-
     public function customers()
     {
         return $this->hasMany(Customer::class);

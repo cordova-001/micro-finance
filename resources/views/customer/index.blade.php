@@ -77,27 +77,27 @@
                                                                 <div class='user-card'>
 
                                                                     <div class='user-info'>
-                                                                        <span class='tb-lead'>{{ $customer->first_name }} {{ $customer->last_name }} <span class='dot dot-success d-md-none ms-1'></span></span>
+                                                                        <span class='tb-lead'>{{ $customers->first_name }} {{ $customers->last_name }} <span class='dot dot-success d-md-none ms-1'></span></span>
 
                                                                     </div>
                                                                 </div>
                                                             </a>
                                                         </div>
                                                         <div class='nk-tb-col tb-col-md'>
-                                                            <span>{{ $customer->customer_id }}</span>
+                                                            <span>{{ $customers->customer_id }}</span>
                                                         </div>
                                                         <div class='nk-tb-col tb-col-lg'>
-                                                            <span>{{ $customer->phone }}</span>
+                                                            <span>{{ $customers->phone }}</span>
                                                         </div>
                                                         <div class='nk-tb-col tb-col-lg'>
-                                                            <span>{{ $customer->email }}</span>
+                                                            <span>{{ $customers->email }}</span>
                                                         </div>
                                                         <div class='nk-tb-col tb-col-md'>
-                                                            <span class='tb-status text-success'>{{ $customer->address }}</span>
+                                                            <span class='tb-status text-success'>{{ $customers->address }}</span>
                                                         </div>
 
                                                         <div class='nk-tb-col tb-col-md'>
-                                                            <span class='tb-status text-success'>{{ $customer->status }}</span>
+                                                            <span class='tb-status text-success'>{{ $customers->status }}</span>
                                                         </div>
 
                                                        

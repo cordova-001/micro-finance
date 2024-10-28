@@ -24,8 +24,7 @@ class Customers extends Model
          'occupation', 
          'status', 
          'customer_id', 
-         'branch-id', 
-         'center_id', 
+         'branch_id', 
          'utility', 
          'id_card', 
          'paasport'
@@ -35,9 +34,8 @@ class Customers extends Model
     {
         return $this->belongsTo(Branch::class);
     }
-
-    public function Center()
-    {
-        return $this->belongsTo(Center::class);
-    }
 }
+
+// 1004263561
+// uba
+// smartweb

@@ -18,7 +18,8 @@
                         <div class="tab-pane active" id="tabItem5">
                           <h5 class="title">Add A Customer </h5>
                           
-                          <form action="" class="pt-2" method="POST" enctype="multipart/form-data">
+                          <form action="{{ route('customer.add') }}" class="pt-2" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <div class="row gy-4">
                               <div class="col-md-6">
                                 <div class="form-group">
@@ -69,6 +70,37 @@
                                     <option>Anambra State</option>
                                     <option>Bauchi State</option>
                                     <option>Bayelsa State</option>
+                                    <option>Benue State</option>
+                                    <option>Borno State</option>
+                                    <option>Cross River State</option>
+                                    <option>Delta State</option>
+                                    <option>Ebonyi State</option>
+                                    <option>Edo State</option>
+                                    <option>Ekiti State</option>
+                                    <option>Enugu State</option>
+                                    <option>Gombe State</option>
+                                    <option>Imo State</option>
+                                    <option>Jigawa State</option>
+                                    <option>Kaduna State</option>
+                                    <option>Kano State</option>
+                                    <option>Katsina State</option>
+                                    <option>Kebbi State</option>
+                                    <option>Kogi State</option>
+                                    <option>Kwara State</option>
+                                    <option>Lagos State</option>
+                                    <option>Nasarawa State</option>
+                                    <option>Niger State</option>
+                                    <option>Ogun State</option>
+                                    <option>Ondo State</option>
+                                    <option>Osun State</option>
+                                    <option>Oyo State</option>
+                                    <option>Plateau State</option>
+                                    <option>Rivers State</option>
+                                    <option>Sokoto State</option>
+                                    <option>Taraba State</option>
+                                    <option>Yobe State</option>
+                                    <option>Zamfara State</option>
+                                    
                                   </select>
                                 </div>
                               </div>
@@ -127,7 +159,7 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Branch</label>
-                                  <select class='form-select js-select2' id='branch' name='branch'>
+                                  <select class='form-select js-select2' id='branch' name='branch_id'>
                                    @foreach ($branch as $branches)
                                     <option value="{{ $branches->id }}">{{ $branches->branch_name }}</option>
                                     @endforeach
@@ -136,17 +168,7 @@
                                 </div>
                               </div>
 
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="address-st">Branch</label>
-                                  <select class='form-select js-select2' id='branch' name='branch'>
-                                   @foreach ($center as $centers)
-                                    <option value="{{ $centers->id }}">{{ $centers->name }}</option>
-                                    @endforeach
-
-                                  </select>
-                                </div>
-                              </div>
+                             
 
                               <div class="col-md-6">
                                 <div class="form-group">

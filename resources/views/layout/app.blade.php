@@ -9,8 +9,9 @@
     <meta name="description" content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
     <!-- Fav Icon  -->
     <link rel="shortcut icon" href="./images/favicon.png">
+    {{-- <script src="https://code.highcharts.com/highcharts.js"></script> --}}
     <!-- Page Title  -->
-    <title>Financial Automation Software</title>
+    <title>:: Primax | Microfinance Automation Software</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="./assets/css/dashlite.css?ver=3.0.3">
     <link id="skin-default" rel="stylesheet" href="./assets/css/theme.css?ver=3.0.3">
@@ -27,10 +28,10 @@
                     <div class="nk-sidebar-element nk-sidebar-head">
     <div class="nk-sidebar-brand">
         <a href="index" class="logo-link nk-sidebar-logo">
-            <h2>E<sup>2</sup>PAI</h2>
-            <!-- <img class="logo-light logo-img" src="./images/logo.png" srcset="./images/logo2x.png 2x" alt="logo">
-                            <img class="logo-dark logo-img" src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">
-                            <img class="logo-small logo-img logo-img-small" src="./images/logo-small.png" srcset="./images/logo-small2x.png 2x" alt="logo-small"> -->
+            {{-- <h2>PRIMAX</h2> --}}
+            <img class="logo-light logo-img" src="./images/cordovalogo.png" srcset="./images/cordovalogo.png 2x" alt="logo">
+                            <img class="logo-dark logo-img" src="./images/cordovalogo.png" srcset="./images/cordovalogo.png 2x" alt="logo-dark">
+                            <img class="logo-small logo-img logo-img-small" src="./images/cordovalogo.png" srcset="./images/cordovalogo.png 2x" alt="logo-small"> 
         </a>
     </div>
     <div class="nk-menu-trigger me-n2">
@@ -41,15 +42,15 @@
 <!-- .nk-sidebar-element -->
 
 <div class="nk-sidebar-element nk-sidebar-head">
-    
-    
+
+
 </div><!-- .nk-sidebar-element -->
 <div class="nk-sidebar-element">
     <div class="nk-sidebar-content">
         <div class="nk-sidebar-menu" data-simplebar>
             <ul class="nk-menu">
                 <li class="nk-menu-item">
-                    <a href="index" class="nk-menu-link">
+                    <a href="{{ route('dashboard') }}" class="nk-menu-link">
                         <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
                         <span class="nk-menu-text">Dashboard</span>
                     </a>
@@ -63,38 +64,42 @@
                 <li class="nk-menu-item has-sub">
                     <a href="#" class="nk-menu-link nk-menu-toggle">
                         <span class="nk-menu-icon"><em class="icon ni ni-book-fill"></em></span>
-                        <span class="nk-menu-text">Branch Management</span>
+                        <span class="nk-menu-text">Branch </span>
                     </a>
                     <ul class="nk-menu-sub">
                         <li class="nk-menu-item">
                             <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
                         </li>
                         <li class="nk-menu-item">
-                            <a href="{{ route('branch.create') }}" class="nk-menu-link"><span class="nk-menu-text">Create Branch</span></a>
+                            <a href="{{ route('branch.create') }}" class="nk-menu-link"><span class="nk-menu-text">Add Branch</span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="{{ route('branch.index') }}" class="nk-menu-link"><span class="nk-menu-text">View All Branch</span></a>
+                            <a href="{{ route('branch.index') }}" class="nk-menu-link"><span class="nk-menu-text">Manage Branch</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('branch.index') }}" class="nk-menu-link"><span class="nk-menu-text">Generate Branch Report</span></a>
                         </li>
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
+
                 <li class="nk-menu-item has-sub">
                     <a href="#" class="nk-menu-link nk-menu-toggle">
-                        <span class="nk-menu-icon"><em class="icon ni ni-book-fill"></em></span>
-                        <span class="nk-menu-text">Center Management</span>
+                        <span class="nk-menu-icon"><em class="icon ni ni-user-fill"></em></span>
+                        <span class="nk-menu-text">Customer</span>
                     </a>
                     <ul class="nk-menu-sub">
                         <li class="nk-menu-item">
-                            <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
+                            <a href="{{ route('customer.create') }}" class="nk-menu-link"><span class="nk-menu-text"> Add Customer </span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="{{ route('center.create') }}" class="nk-menu-link"><span class="nk-menu-text">Create Center</span></a>
+                            <a href="{{ route('customer.index') }}" class="nk-menu-link"><span class="nk-menu-text"> Manage All Customer </span></a>
                         </li>
-                        <li class="nk-menu-item">
-                            <a href="{{ route('center.index') }}" class="nk-menu-link"><span class="nk-menu-text">View All Center</span></a>
-                        </li>
+
+
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
-                <li class="nk-menu-item has-sub">
+                
+                {{-- <li class="nk-menu-item has-sub">
                     <a href="#" class="nk-menu-link nk-menu-toggle">
                         <span class="nk-menu-icon"><em class="icon ni ni-book-fill"></em></span>
                         <span class="nk-menu-text">Staff Management</span>
@@ -107,21 +112,91 @@
                             <a href="manage_staff" class="nk-menu-link"><span class="nk-menu-text">Manage Staff</span></a>
                         </li>
                     </ul><!-- .nk-menu-sub -->
-                </li><!-- .nk-menu-item -->
+                </li><!-- .nk-menu-item --> --}}
+                
+
                 <li class="nk-menu-item has-sub">
                     <a href="#" class="nk-menu-link nk-menu-toggle">
-                        <span class="nk-menu-icon"><em class="icon ni ni-user-fill"></em></span>
-                        <span class="nk-menu-text">Customer</span>
+                        <span class="nk-menu-icon"><em class="icon ni ni-book-fill"></em></span>
+                        <span class="nk-menu-text">Savings </span>
                     </a>
                     <ul class="nk-menu-sub">
                         <li class="nk-menu-item">
-                            <a href="{{ route('customer.create') }}" class="nk-menu-link"><span class="nk-menu-text"> Add Customer </span></a>
+                            <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
                         </li>
                         <li class="nk-menu-item">
-                            <a href="{{ route('customer.index') }}" class="nk-menu-link"><span class="nk-menu-text"> View All Customer </span></a>
+                            <a href="savings_product" class="nk-menu-link"><span class="nk-menu-text">Savings Product</span></a>
                         </li>
+                        <li class="nk-menu-item">
+                            <a href="add_deposit" class="nk-menu-link"><span class="nk-menu-text">Add Savings</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="manage_savings" class="nk-menu-link"><span class="nk-menu-text">Manage All Savings</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('center.index') }}" class="nk-menu-link"><span class="nk-menu-text">Upload Bulk Savings</span></a>
+                        </li>
+                    </ul><!-- .nk-menu-sub -->
+                </li><!-- .nk-menu-item -->
 
+                <li class="nk-menu-item has-sub">
+                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                        <span class="nk-menu-icon"><em class="icon ni ni-book-fill"></em></span>
+                        <span class="nk-menu-text">Withdrawal </span>
+                    </a>
+                    <ul class="nk-menu-sub">
+                        <li class="nk-menu-item">
+                            <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="add_withdrawal" class="nk-menu-link"><span class="nk-menu-text">Add Withdrawal</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="manage_withdrawal" class="nk-menu-link"><span class="nk-menu-text">View Withdrawal</span></a>
+                        </li>
+                        
+                    </ul><!-- .nk-menu-sub -->
+                </li><!-- .nk-menu-item -->
 
+                <li class="nk-menu-item has-sub">
+                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                        <span class="nk-menu-icon"><em class="icon ni ni-book-fill"></em></span>
+                        <span class="nk-menu-text">Transfers </span>
+                    </a>
+                    <ul class="nk-menu-sub">
+                        <li class="nk-menu-item">
+                            <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="intra_bank_transfer" class="nk-menu-link"><span class="nk-menu-text">Intra-Bank Transfer</span></a>
+                        </li>
+                        {{-- <li class="nk-menu-item">
+                            <a href="{{ route('center.index') }}" class="nk-menu-link"><span class="nk-menu-text">Inter-Bank Transfer</span></a>
+                        </li> --}}
+                        
+                        
+                    </ul><!-- .nk-menu-sub -->
+                </li><!-- .nk-menu-item -->
+
+                <li class="nk-menu-item has-sub">
+                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                        <span class="nk-menu-icon"><em class="icon ni ni-book-fill"></em></span>
+                        <span class="nk-menu-text">Investment </span>
+                    </a>
+                    <ul class="nk-menu-sub">
+                        <li class="nk-menu-item">
+                            <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('center.create') }}" class="nk-menu-link"><span class="nk-menu-text">Add an Investment</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('center.index') }}" class="nk-menu-link"><span class="nk-menu-text">Manage Investment</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('center.index') }}" class="nk-menu-link"><span class="nk-menu-text"> Investment Subscription</span></a>
+                        </li>
+                        
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
 
@@ -162,20 +237,7 @@
                         </li>
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
-                <li class="nk-menu-item has-sub">
-                    <a href="#" class="nk-menu-link nk-menu-toggle">
-                        <span class="nk-menu-icon"><em class="icon ni ni-property-add"></em></span>
-                        <span class="nk-menu-text">Transactions</span>
-                    </a>
-                    <ul class="nk-menu-sub">
-                        <li class="nk-menu-item">
-                            <a href="savings" class="nk-menu-link"><span class="nk-menu-text">Savings</span></a>
-                        </li>
-                        <li class="nk-menu-item">
-                            <a href="withdrawal" class="nk-menu-link"><span class="nk-menu-text">Withdrawal </span></a>
-                        </li>
-                    </ul><!-- .nk-menu-sub -->
-                </li><!-- .nk-menu-item -->
+                
 
                 <li class="nk-menu-item has-sub">
                     <a href="#" class="nk-menu-link nk-menu-toggle">
@@ -344,12 +406,20 @@
                             </div>
                             <div class="nk-header-brand d-xl-none">
                                 <a href="index.php" class="logo-link">
-                                    <h2>E<sup>2</sup>PAI</h2>
+                                    <a href="index" class="logo-link nk-sidebar-logo">
+                                        {{-- <h2>PRIMAX</h2> --}}
+                                        <img class="logo-light logo-img" src="./images/cordovalogo.png" srcset="./images/cordovalogo.png 2x" alt="logo">
+                                                        <img class="logo-dark logo-img" src="./images/cordovalogo.png" srcset="./images/cordovalogo.png 2x" alt="logo-dark">
+                                                        <img class="logo-small logo-img logo-img-small" src="./images/logo-small.png" srcset="./images/logo-small2x.png 2x" alt="logo-small"> 
+                                    </a>
                                 </a>
                             </div><!-- .nk-header-brand -->
                             <div class="nk-header-search ms-3 ms-xl-0">
-                                <em class="icon ni ni-search"></em>
-                                <input type="text" class="form-control border-transparent form-focus-none" placeholder="Search anything">
+                                
+                                {{-- <em class="icon ni ni-search"></em> --}}
+                                <h3>Articulate</h3>
+                                {{-- <input type="text" class="form-control border-transparent form-focus-none" placeholder="Search anything"> --}}
+                                
                             </div><!-- .nk-header-news -->
                             <div class="nk-header-tools">
                                 <ul class="nk-quick-nav">
@@ -387,7 +457,7 @@
                                                     </li>
 
 
-                                                    <li><a href="#"><em class="icon ni ni-signout"></em><span>Sign out</span></a>
+                                                    <li><a href="{{ route('logout') }}"><em class="icon ni ni-signout"></em><span>Sign out</span></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -401,10 +471,10 @@
                 </div>
                 <!-- main header @e -->
                 <!-- content @s -->
-                
-                
-                
-                
+
+
+
+
                 @yield('content')
 
 
@@ -413,7 +483,7 @@
                 <div class="nk-footer">
                   <div class="container-fluid">
                       <div class="nk-footer-wrap">
-                          <div class="nk-footer-copyright"> &copy; <?php echo date('Y') ?> E-PAI. Powered by <a href="https://articulate.ng" target="_blank">Articulate Tech</a>
+                          <div class="nk-footer-copyright"> &copy; <?php echo date('Y') ?> PRIMAX. Powered by <a href="https://cordova.ng" target="_blank">Cordova Business Solution Ltd</a>
                           </div>
                           <div class="nk-footer-links">
                               <ul class="nav nav-sm">
@@ -433,10 +503,11 @@
     <!-- select region modal -->
 
     <!-- Add instructor-->
-    
+
     <!-- JavaScript -->
     <script src="./assets/js/bundle.js?ver=3.0.3"></script>
     <script src="./assets/js/scripts.js?ver=3.0.3"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
 </body>
 
 </html>

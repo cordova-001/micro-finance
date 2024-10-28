@@ -38,10 +38,10 @@ class LoanProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'loan_product' => 'required|unique',
+            'loan_product' => 'required',
             'minimum_amount' => 'required',
             'maximum_amount' => 'required',
-            
+
             // if('minimum_amount' >= 'maximum_amount'){
             //     echo "The minimum amount must be less than maximum amount";
             // }
