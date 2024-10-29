@@ -417,7 +417,7 @@
                             <div class="nk-header-search ms-3 ms-xl-0">
                                 
                                 {{-- <em class="icon ni ni-search"></em> --}}
-                                <h3>Articulate</h3>
+                                <h3 style="text-align: center">{{ Auth::user()->business_name }}</h3>
                                 {{-- <input type="text" class="form-control border-transparent form-focus-none" placeholder="Search anything"> --}}
                                 
                             </div><!-- .nk-header-news -->
@@ -434,18 +434,16 @@
                                                 </div>
                                                 <div class="user-info d-none d-xl-block">
                                                     <!-- <div class="user-status user-status-active">Administator</div> -->
-                                                    <div class="user-name dropdown-indicator">Super Admin</div>
+                                                    <div class="user-name dropdown-indicator">{{ Auth::user()->name }}</div>
                                                 </div>
                                             </div>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-md dropdown-menu-end">
                                             <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
                                                 <div class="user-card">
-                                                    <div class="user-avatar">
-                                                        <span>AB</span>
-                                                    </div>
+                                                    
                                                     <div class="user-info">
-                                                        <span class="lead-text">Super Admin</span>
+                                                        <span class="lead-text">{{ Auth::user()->name }}</span>
                                                         <!-- <span class="sub-text">info@softnio.com</span> -->
                                                     </div>
                                                 </div>

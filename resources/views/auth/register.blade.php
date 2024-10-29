@@ -46,7 +46,7 @@
                                     <div class="form-group">
                                         <label class="form-label" for="name">Name of Organization</label>
                                         <div class="form-control-wrap">
-                                            <input type="text" class="form-control form-control-lg" name="name" id="name" placeholder="Enter your name">
+                                            <input type="text" class="form-control form-control-lg" name="business_name" id="business name" placeholder="Enter your business name">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -56,15 +56,21 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label" for="email">Email or Username</label>
+                                        <label class="form-label" for="email">Email </label>
                                         <div class="form-control-wrap">
-                                            <input type="text" class="form-control form-control-lg" id="email" name="email" placeholder="Enter your email address or username">
+                                            <input type="text" class="form-control form-control-lg" id="email" name="email" placeholder="Enter your email address ">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="email">Telephone Number </label>
+                                        <div class="form-control-wrap">
+                                            <input type="text" class="form-control form-control-lg" id="phone" name="phone" placeholder="Telephone Number ">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" for="email">Business ID</label>
                                         <div class="form-control-wrap">
-                                            <input type="text" readonly class="form-control form-control-lg" id="email" name="email" placeholder="Enter your email address or username">
+                                            <input type="text"  class="form-control form-control-lg" id="business_id" name="business_id" placeholder="Business ID">
                                         </div>
                                     </div>
                                     <div class="form-group">

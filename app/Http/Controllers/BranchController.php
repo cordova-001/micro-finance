@@ -17,6 +17,7 @@ class BranchController extends Controller
     {
         $branch = Branch::all();
         return view('branch.index', compact('branch'));
+        
     }
 
     /**
@@ -27,6 +28,7 @@ class BranchController extends Controller
     public function create()
     {
         return view('branch.create');
+        
     }
 
     /**
@@ -37,15 +39,18 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-         $branch = Branch::create([
+        $business_id = Auth::user()->business_id;
+        $branch = Branch::create([
         'branch_name' => $request->input('branch_name'),
         'email' => $request->input('email'),
         'phone' => $request->input('phone'),
         'address' => $request->input('address'),
         'branch_no' => $request->input('branch_no'),
+        'businesss_id' => $business_id,
         ]);
 
-        return redirect('/branch');
+        return redirect()->route('branch.index')->with('success', 'The branch has been created successfully');
+        // return redirect()->route('get-property')->with('Success', 'The branh was added successfully');
     }
  
 
