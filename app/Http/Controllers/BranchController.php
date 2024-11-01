@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Branch;
@@ -40,13 +40,14 @@ class BranchController extends Controller
     public function store(Request $request)
     {
         $business_id = Auth::user()->business_id;
+        // dd($business_id);
         $branch = Branch::create([
         'branch_name' => $request->input('branch_name'),
         'email' => $request->input('email'),
         'phone' => $request->input('phone'),
         'address' => $request->input('address'),
         'branch_no' => $request->input('branch_no'),
-        'businesss_id' => $business_id,
+        'business_id' => $business_id,
         ]);
 
         return redirect()->route('branch.index')->with('success', 'The branch has been created successfully');

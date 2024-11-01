@@ -63,15 +63,19 @@
                                   <div class="form-group">
                                     <label class="form-label">Account Number</label>
                                     <div class="form-control-wrap">
-                                       @foreach ($customers as $customer) 
+                                       
                                         
                                      
                                         <select class="form-select js-select2" data-search="on" name="account_number">
-                                            <option value=""> {{  $customer->account_number }}  </option>
-                                            <option value="the account number">Account number and other details like the name and etc</option>
-                                            
+                                          @foreach ($customers as $customer) 
+                                          <option value="">Enter Account Number</option>
+                                            <option value="{{ $customer->customer_id }} ">  
+                                              {{ $customer->customer_id }} - {{ $customer->first_name }} {{ $customer->last_name }}
+                                            </option>
+                                           
+                                          @endforeach      
                                         </select>
-                                      @endforeach
+                                      
                                     </div>
                                 </div>
                                 </div>
@@ -80,14 +84,14 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-line2">Deposit Amount</label>
-                                  <input type="number" step="0.1" class="form-control" name="amount" id="amount" >
+                                  <input type="number" step="0.1" class="form-control" name="deposit_amount" id="deposit_amount" >
                                 </div>
                               </div>
                              
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st"> Depositor </label>
-                                  <input type="text" name="depositor" class="form-control" id="depositor" >
+                                  <input type="text" name="depositor_name" class="form-control" id="depositor_name" >
                                 </div>
                               </div>
 
@@ -101,7 +105,7 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st"> Branch </label>
-                                  <input type="text" name="branch" class="form-control" id="branch" >
+                                  <input type="text" name="branch" readonly value="{{ $branch->branch_name }}" class="form-control" id="branch" >
                                 </div>
                               </div>
 
@@ -118,8 +122,10 @@
                                   <label class="form-label" for="phone-no">Savings Product</label>
                                   {{-- <input type="text" name="savings_product" class="form-control" id="account_name"  placeholder="Account Name"> --}}
                                   <select name="savings_product" id="" class="form-control">
-                                    <option value="">Select a Savings Product</option>
-                                    <option value="">Target Savings</option>
+                                    @foreach($sproducts as $sproduct)
+                                    <option value=""> {{ $sproduct->product_name }} </option>
+                                    
+                                    @endforeach
                                   </select>
                                 </div>
                               </div>

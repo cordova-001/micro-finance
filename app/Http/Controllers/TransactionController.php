@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
 use App\Models\Customers;
+use App\Models\Branch;
+use App\Models\SavingsProduct;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -16,8 +18,11 @@ class TransactionController extends Controller
     public function allCustomers()
     {
         $user = Auth::user();
-        $customers = Customer::where('business_id', $user->business_id);
-        return view('transactions.add_savings', compact('customers', 'user'));
+        $branch = Branch::where('business_id', $user->business_id)->first();
+        $customers = Customers::where('business_id', $user->business_id)->get();
+        $sproducts = SavingsProduct::where('business_id', $user->business_id)->get();
+        // dd($branch);
+        return view('transactions.add_savings', compact('customers', 'user', 'sproducts', 'branch'));
     }
 
     /**
@@ -25,10 +30,6 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -40,7 +41,17 @@ class TransactionController extends Controller
     {
         $business_id = Auth::user()->business_id;
         $acctNo = $request->input('account_number');
-        //
+        
+        $request->validate([
+            'account_number' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|unique:customers|email',
+            'phone' => 'required|unique:customers',
+            'customer_id' => 'required',
+            'passport' => 'image|mimes:jpeg,png,jpg,gif|max:5000',
+            'international_passport' => 'image|mimes:jpeg,png,jpg,gif|max:5000',
+            'national_id' => 'image|mimes:jpeg,png,jpg,gif|max:5000',
+        ]);
     }
 
     
