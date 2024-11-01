@@ -1,5 +1,40 @@
 @extends('layout.app');
 @section('content')
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#confirmAccountNumberBtn').on('click', function (e) {
+            e.preventDefault();
+
+            let accountNumber = $('#accountNumberInput').val();
+
+            $.ajax({
+                url: '{{ route("validate.account.number") }}',
+                method: 'POST',
+                data: {
+                    account_number: accountNumber,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function (response) {
+                    if (response.success) {
+                        // Populate the form fields with data from response
+                        $('#accountNameInput').val(response.data.account_name);
+                        $('#branchNameInput').val(response.data.branch_name);
+                        // Populate other fields as needed
+                    } else {
+                        alert(response.message); // Show error message
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(error); // Handle error
+                    alert('An error occurred while validating the account number.');
+                }
+            });
+        });
+    });
+</script>
+
   <div class="nk-content ">
           <div class="container-fluid">
             <div class="nk-content-inner">
@@ -18,30 +53,29 @@
                         <div class="tab-pane active" id="tabItem5">
                           <h5 class="title">Add Deposit </h5>
                           
-                          <form action="{{ route('branch.store') }}" class="pt-2" method="POST" enctype="multipart/form-data">
+                          <form action="" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
-                              <div class="col-md-9">
+                              <div class="col-md-12">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name">Account Number Name</label>
-                                  <input type="text" name="branch_name" class="form-control" id="branch-name" placeholder="Branch name">
+                                  {{-- <label class="form-label" for="first-name">Account Number Name</label> --}}
+                                  {{-- <input type="text" name="account_number" class="form-control" id="accountNumberInput" placeholder="Account Number"> --}}
+                                  <div class="form-group">
+                                    <label class="form-label">Account Number</label>
+                                    <div class="form-control-wrap">
+                                       @foreach ($customers as $customer) 
+                                        
+                                     
+                                        <select class="form-select js-select2" data-search="on" name="account_number">
+                                            <option value=""> {{  $customer->account_number }}  </option>
+                                            <option value="the account number">Account number and other details like the name and etc</option>
+                                            
+                                        </select>
+                                      @endforeach
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="col-md-3">
-                                <div class="form-group">
-                                  <label class="form-label" for="last-name">.</label>
-                                  <input type="submit" name="email" class="form-control btn btn-primary" id="email" value="Confirm Account Number">
                                 </div>
-                              </div>
-                              <hr>
-                             
-
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="phone-no">Account Name</label>
-                                  <input type="text" name="account_name" class="form-control" id="account_name"  placeholder="Account Name">
-                                </div>
-                              </div>
+                              </div>                                                           
                               
                               <div class="col-md-6">
                                 <div class="form-group">

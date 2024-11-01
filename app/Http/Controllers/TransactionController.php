@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
+use App\Models\Customers;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -12,9 +13,11 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function allCustomers()
     {
-        //
+        $user = Auth::user();
+        $customers = Customer::where('business_id', $user->business_id);
+        return view('transactions.add_savings', compact('customers', 'user'));
     }
 
     /**
@@ -33,10 +36,14 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function addDeposit(Request $request)
     {
+        $business_id = Auth::user()->business_id;
+        $acctNo = $request->input('account_number');
         //
     }
+
+    
 
     /**
      * Display the specified resource.

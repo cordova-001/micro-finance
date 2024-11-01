@@ -125,7 +125,10 @@
                             <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
                         </li>
                         <li class="nk-menu-item">
-                            <a href="savings_product" class="nk-menu-link"><span class="nk-menu-text">Savings Product</span></a>
+                            <a href="{{ route('all.savings.product') }}" class="nk-menu-link"><span class="nk-menu-text">Savings Product</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('savings.product') }}" class="nk-menu-link"><span class="nk-menu-text">Add Savings Product</span></a>
                         </li>
                         <li class="nk-menu-item">
                             <a href="add_deposit" class="nk-menu-link"><span class="nk-menu-text">Add Savings</span></a>
@@ -209,9 +212,16 @@
                         <li class="nk-menu-item">
                             <a href="{{ route('loan.product') }}" class="nk-menu-link"><span class="nk-menu-text">Loan Products</span></a>
                         </li>
+
+                        <li class="nk-menu-item">
+                            <a href="{{ route('loan.create_product') }}" class="nk-menu-link"><span class="nk-menu-text">Create Loan Product</span></a>
+                        </li>
                         <li class="nk-menu-item">
                             <a href="loan_request" class="nk-menu-link"><span class="nk-menu-text">Loan Request</span></a>
                         </li>
+
+                        
+
                         <li class="nk-menu-item">
                             <a href="loan_management" class="nk-menu-link"><span class="nk-menu-text">Loan Management</span></a>
                         </li>

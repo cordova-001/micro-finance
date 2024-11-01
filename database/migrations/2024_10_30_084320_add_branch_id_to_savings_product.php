@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddBizprofileToSavingsProduct extends Migration
+class AddBranchIdToSavingsProduct extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddBizprofileToSavingsProduct extends Migration
     public function up()
     {
         Schema::table('savings_products', function (Blueprint $table) {
-            $table->string('business_id');
+            //
         });
     }
 
@@ -26,7 +26,7 @@ class AddBizprofileToSavingsProduct extends Migration
     public function down()
     {
         Schema::table('savings_products', function (Blueprint $table) {
-            $table->string('business_id');
+            //
         });
     }
 }

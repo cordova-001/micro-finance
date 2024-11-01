@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Customers;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Branch;
 use App\Models\Center;
 class CustomerControllers extends Controller
@@ -16,6 +17,7 @@ class CustomerControllers extends Controller
      */
     public function index()
     {
+        $business_id = Auth::user()->business_id;
         $customer = Customers::all();
         return view ('customer.index', compact('customer'));
     }
@@ -44,6 +46,7 @@ class CustomerControllers extends Controller
 
     public function addCustomer(Request $request)
     {
+        $business_id = Auth::user()->business_id;
     // Validate the form data
     $request->validate([
         'first_name' => 'required',
@@ -73,6 +76,7 @@ class CustomerControllers extends Controller
         $customer->state_of_origin = $request->input('state_of_origin');
         $customer->next_of_kin = $request->input('next_of_kin');
         $customer->address_of_next_of_kin = $request->input('address_of_next_of_kin');
+        $customer->business_id = $business_id;
         //  'utility', 
         //  'id_card', 
         //  'paasport'

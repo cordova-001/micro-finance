@@ -18,27 +18,22 @@
                         <div class="tab-pane active" id="tabItem5">
                           <h5 class="title">Create Savings Product </h5>
                           
-                          <form action="{{ route('branch.store') }}" class="pt-2" method="POST" enctype="multipart/form-data">
+                          <form action="{{ route('savings.add.product') }}" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="first-name">Product Name</label>
-                                  <input type="text" name="branch_name" class="form-control" id="branch-name" placeholder="Branch name">
+                                  <input type="text" name="product_name" class="form-control" id="product-name" placeholder="Product name">
                                 </div>
                               </div>
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="last-name">Email Address</label>
-                                  <input type="text" name="email" class="form-control" id="email" placeholder="Email">
-                                </div>
-                              </div>
+                             
                               
                               
                               <div class="col-md-12">
                                 <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                                   <li>
-                                    <button name="create_branch" class="btn btn-primary">Create Savings Product</button>
+                                    <button name="create_savings_product" class="btn btn-primary">Create Savings Product</button>
                                   </li>
 
                                 </ul>

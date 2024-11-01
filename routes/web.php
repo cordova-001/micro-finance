@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\LoanProductController;
 use App\Http\Controllers\CenterController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CustomerControllers;
 use App\Http\Controllers\HighChartController;
+use App\Http\Controllers\SavingsProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,6 +57,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/new_customer', [CustomerControllers::class, 'addCustomer'])->name('customer.add');
 
     Route::get('/chart', [HighchartController::class, 'handleChart']);
+
+    Route::get('/all_savings_product', [SavingsProductController::class, 'index'])->name('all.savings.product');
+    Route::get('/add_savings_product', [SavingsProductController::class, 'create'])->name('savings.product');
+    Route::post('/addSavingsProduct', [SavingsProductController::class, 'createSavingsProduct'])->name('savings.add.product');
+
+    Route::get('/validate_account_number', [TransactionController::class, 'validateAccountNumber'])->name('validate.account.number');
 
     Route::get('savings_product', function () {
         return view('transactions.savings_product');
