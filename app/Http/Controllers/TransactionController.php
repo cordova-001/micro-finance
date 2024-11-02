@@ -48,9 +48,6 @@ class TransactionController extends Controller
             'email' => 'required|unique:customers|email',
             'phone' => 'required|unique:customers',
             'customer_id' => 'required',
-            'passport' => 'image|mimes:jpeg,png,jpg,gif|max:5000',
-            'international_passport' => 'image|mimes:jpeg,png,jpg,gif|max:5000',
-            'national_id' => 'image|mimes:jpeg,png,jpg,gif|max:5000',
         ]);
     }
 
