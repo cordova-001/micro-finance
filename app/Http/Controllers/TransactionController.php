@@ -44,11 +44,23 @@ class TransactionController extends Controller
         
         $request->validate([
             'account_number' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|unique:customers|email',
-            'phone' => 'required|unique:customers',
-            'customer_id' => 'required',
+            'deposit_amount' => 'required',
+            'depositor_phone' => 'required|unique:customers|email',
+            'branch' => 'required|unique:customers',
+            'deposit_date' => 'required',
+            'savings_product' => 'required',
         ]);
+
+        $add_deposit = Transaction::create([
+            'account_number' => $request->input('account_number'),
+            'deposit_amount' => $request->input('deposit_amount'),
+            'depositor_phone' => $request->input('depositor_phone'),
+            'branch' => $request->input('branch'),
+            'deposit_date' => $request->input('deposit_date'),
+            'savings_product' => $request->input('savings_product'),
+        ]);
+
+        return redirect()->route('branch.index')->with('success', 'The branch has been created successfully');
     }
 
     
