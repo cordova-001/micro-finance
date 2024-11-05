@@ -41,6 +41,9 @@ class TransactionController extends Controller
     {
         $business_id = Auth::user()->business_id;
         $acctNo = $request->input('account_number');
+        $totalAmountReceived = Transaction::sum('amount_received');
+        $totalAmountPaid = Transaction::sum('amount_paid');
+        $balance = $totalAmountReceived - $totalAmountPaid;
         
         $request->validate([
             'account_number' => 'required',
@@ -58,6 +61,8 @@ class TransactionController extends Controller
             'branch' => $request->input('branch'),
             'deposit_date' => $request->input('deposit_date'),
             'savings_product' => $request->input('savings_product'),
+            'business_id' => $business_id,
+            'total_balance' => $balance,
         ]);
 
         return redirect()->route('branch.index')->with('success', 'The branch has been created successfully');
