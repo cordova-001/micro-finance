@@ -15,8 +15,8 @@ class Transaction extends Model
         'branch_id',
         'deposit_date',
         'withdrawal_date',
-        'deposit_amount',
-        'withdrawal_amount',
+        'amount_received',
+        'amount_paid',
         'transaction_id',
         'narration',
         'withdrawn_by',
@@ -29,6 +29,8 @@ class Transaction extends Model
         'transfer_date',
         'total_balance',
         'customer_id',
+        'transaction_type',
+        // 'transaction_id',
     ];
 
     public function customers()

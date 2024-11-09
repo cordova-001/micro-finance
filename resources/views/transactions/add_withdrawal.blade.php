@@ -18,13 +18,13 @@
                         <div class="tab-pane active" id="tabItem5">
                           <h5 class="title">Add Withdrawal </h5>
                           
-                          <form action="{{ route('branch.store') }}" class="pt-2" method="POST" enctype="multipart/form-data">
+                          <form action="{{ route('confirm.accountNo') }}" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
                               <div class="col-md-9">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name">Account Number Name</label>
-                                  <input type="text" name="branch_name" class="form-control" id="branch-name" placeholder="Branch name">
+                                  <label class="form-label" for="first-name">Confirm Account Number </label>
+                                  <input type="text" name="account_number" class="form-control" id="branch-name" placeholder="Confirm Account Number">
                                 </div>
                               </div>
                               <div class="col-md-3">
@@ -35,112 +35,13 @@
                               </div>
                               <hr>
 
-                              <div class="nk-block nk-block-lg">
-                                
-                                <div class="card card-bordered card-preview">
-                                    <div class="card-inner">
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div class="card card-bordered">
-                                                    <img src="./images/slides/slide-a.jpg" class="card-img-top" alt="">
-                                                    <div class="card-inner">
-                                                        <h5 class="card-title">Passport Photo</h5>
-                                                       
-                                                        {{-- <a href="#" class="btn btn-primary">Download</a> --}}
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-3">
-                                              <div class="card card-bordered">
-                                                  <img src="./images/slides/slide-a.jpg" class="card-img-top" alt="">
-                                                  <div class="card-inner">
-                                                      <h5 class="card-title">Signature</h5>
-                                                     
-                                                      {{-- <a href="#" class="btn btn-primary">Download</a> --}}
-                                                  </div>
-                                              </div>
-                                          </div>
-
-                                          <div class="col-lg-6">
-                                            <div class="card card-bordered">
-                                                {{-- <img src="./images/slides/slide-a.jpg" class="card-img-top" alt=""> --}}
-                                                <div class="card-inner">
-                                                    <h5 class="card-title">Utility</h5>
-                                                   
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        </div>
-                                    </div>
-                                </div><!-- .card-preview -->
+                              
                                 
                                 
                             </div>
                              
 
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="phone-no">Account Name</label>
-                                  <input type="text" name="account_name" class="form-control" id="account_name"  placeholder="Account Name">
-                                </div>
-                              </div>
                               
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="address-line2">Withdrawal Amount</label>
-                                  <input type="number" step="0.1" class="form-control" name="amount" id="amount" >
-                                </div>
-                              </div>
-                             
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="address-st"> Depositor </label>
-                                  <input type="text" name="depositor" class="form-control" id="depositor" >
-                                </div>
-                              </div>
-
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="address-st"> Depositor Phone Number </label>
-                                  <input type="text" name="depositor_phone" class="form-control" id="depositor_phone" >
-                                </div>
-                              </div>
-
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="address-st"> Branch </label>
-                                  <input type="text" name="branch" class="form-control" id="branch" >
-                                </div>
-                              </div>
-
-
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="address-st"> Withdrawal Date </label>
-                                  <input type="date" name="depositor" class="form-control" id="depositor" >
-                                </div>
-                              </div>
-
-                             
-
-
-
-
-
-
-
-                              <div class="col-md-12">
-                                <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
-                                  <li>
-                                    <button name="create_branch" class="btn btn-primary">Add Withdrawal</button>
-                                  </li>
-
-                                </ul>
-                              </div>
                             </div>
                           </form>
                         </div>
