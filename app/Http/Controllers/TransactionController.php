@@ -60,7 +60,7 @@ class TransactionController extends Controller
 
         $add_deposit = Transaction::create([
             'account_number' => $request->input('account_number'),
-            'deposit_amount' => $request->input('deposit_amount'),
+            'amount_paid' => $request->input('deposit_amount'),
             'depositor_phone' => $request->input('depositor_phone'),
             'branch' => $request->input('branch'),
             'deposit_date' => $request->input('deposit_date'),
@@ -101,13 +101,18 @@ class TransactionController extends Controller
         $acctNo = $request->input('account_number');
         $totalSavings = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('amount_paid');
         $totalWithdrawal = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('amount_received');
+        $withdraw_amount = $request->input('withdraw_amount');
         $balance = $totalSavings - $totalWithdrawal;
+        $currentBalance = $balance - $withdraw_amount;
         $transaction_id = substr(Str::uuid()->toString(), 0, 15);
-        $withdrawn_amount = $request->input('withdrawn_amount');
         $withdraw_date = $request->input('withdraw_date');
+        $withdrawn_by = $request->input('withdrawn_by');
         $staff = $request->input('staff');
-        // $naration = 
         $transaction_type = 'Withdrawal';
+
+        if($balance < $withdraw_amount){
+            return "Insufficient Fund";
+        }
         
         $request->validate([
             'account_number' => 'required',
@@ -118,20 +123,20 @@ class TransactionController extends Controller
             'savings_product' => 'required',
         ]);
 
-        $add_deposit = Transaction::create([
+        $add_withdrawal = Transaction::create([
             'account_number' => $request->input('account_number'),
-            'deposit_amount' => $request->input('deposit_amount'),
-            'depositor_phone' => $request->input('depositor_phone'),
+            'amount_received' => $withdraw_amount,
+            'withdrawn_by' => $withdrawn_by,
             'branch' => $request->input('branch'),
-            'deposit_date' => $request->input('deposit_date'),
-            'savings_product' => $request->input('savings_product'),
+            'withdraw_date' => $request->input('withdraw_date'),
             'business_id' => $business_id,
             'total_balance' => $balance,
             'transaction_id' => $transaction_id,
-            'transaction_type' => $transaction_type
+            'transaction_type' => $transaction_type,
+            $staff = $staff,
         ]);
 
-        return redirect()->route('transactions.add_savings')->with('success', 'The Deposit has been created successfully');
+        return redirect()->back()->with('success', 'The withdrawal was successful');
     }
 
     
