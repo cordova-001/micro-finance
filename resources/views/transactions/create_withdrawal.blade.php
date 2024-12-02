@@ -18,7 +18,7 @@
                         <div class="tab-pane active" id="tabItem5">
                           <h5 class="title">Add Withdrawal </h5>
                           
-                          <form action="{{ route('branch.store') }}" class="pt-2" method="POST" enctype="multipart/form-data">
+                          <form action="{{ route('initiate_withdrawal') }}" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">                             
                               <div class="nk-block nk-block-lg">

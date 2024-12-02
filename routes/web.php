@@ -63,8 +63,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/addSavingsProduct', [SavingsProductController::class, 'createSavingsProduct'])->name('savings.add.product');
 
     Route::get('/validate_account_number', [TransactionController::class, 'validateAccountNumber'])->name('validate.account.number');
-    Route::post('/add_deposit', [TransactionController::class, 'allCustomers'])->name('customer.for.transaction');
+    Route::get('/add_deposit', [TransactionController::class, 'newDeposit'])->name('customer.for.transaction');
+    Route::post('/new_deposit', [TransactionController::class, 'addDeposit'])->name('add.new.deposit');
     Route::post('/confirm_account', [TransactionController::class, 'confirmAccountForWithdrawal'])->name('confirm.accountNo');
+    Route::get('/add_withdrawal', [TransactionController::class, 'newWithdrawal'])->name('add.withdrawal');
+    Route::post('/initate_withdrawal', [TransactionController::class, 'addWithdrawal'])->name('initiate_withdrawal');
+    Route::get('/start_transfer', [TransactionController::class, 'newTransfer'])->name('start_transfer');
+    Route::post('/confirm_for_transfer', [TransactionController::class, 'ConfirmAccountForTransfer'])->name('confirm_for_transfer');
 
     Route::get('savings_product', function () {
         return view('transactions.savings_product');

@@ -1,3 +1,22 @@
+{{-- <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    You're logged in!
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout> --}}
+
+
 @extends('layout.app')
 @section('content')
 <div class="nk-content ">
@@ -25,10 +44,10 @@
                 </div><!-- .nk-block-head -->
                 <div class="nk-block">
                     <div class="row g-gs">
-                        <div class="col-xxl-6">
+                        <div class="col-xxl-12">
                             <div class="row g-gs">
-                                <div class="col-md-12">
-                                    <div class="card">
+                                <div class="col-md-12" >
+                                    <div class="card" style="background-color: rgb(14, 11, 103)">
                                         <div class="card-inner">
                                             <div class="card-title-group align-start mb-2">
                                                 <div class="card-title">
@@ -41,14 +60,14 @@
                                             </div>
                                             <div class="align-end gy-3 gx-5 flex-wrap flex-md-nowrap flex-lg-wrap flex-xxl-nowrap">
                                                 <div class="nk-sale-data-group flex-md-nowrap g-4">
-                                                    <!-- <div class="nk-sale-data">
+                                                     <div class="nk-sale-data">
                                                         <span class="amount">5490 <span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>16.93%</span></span>
                                                         <span class="sub-title">This Month</span>
                                                     </div>
                                                     <div class="nk-sale-data">
                                                         <span class="amount">1480<span class="change up text-success"><em class="icon ni ni-arrow-long-up"></em>4.26%</span></span>
                                                         <span class="sub-title">This Week</span>
-                                                    </div> -->
+                                                    </div> 
                                                 </div>
                                                 <div class="nk-sales-ck sales-revenue">
                                                     <canvas class="student-enrole" id="enrolement"></canvas>
@@ -63,21 +82,20 @@
                                             <div class="card-inner pb-0">
                                                 <div class="card-title-group">
                                                     <div class="card-title">
-                                                        <h6 class="title">Pending Loan Application</h6>
+                                                        <h6 class="title">123  </h6>
                                                     </div>
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">123</div>
+                                                        <div class="amount fw-normal"></div>
                                                         <div class="info text-end">
-                                                            <!-- <h5> 123 Customers</h5> -->
+                                                            <h6> 123 </h6>
+                                                             <h5> Pending Loan Application</h5> 
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div><!-- .card-inner -->
-                                            <div class="nk-ecwg3-ck">
-                                                <!-- <canvas class="courseSells" id="totalSells"></canvas> -->
-                                            </div>
+                                           
                                         </div><!-- .nk-ecwg -->
                                     </div><!-- .card -->
                                 </div><!-- .col -->
@@ -99,9 +117,7 @@
                                                     </div>
                                                 </div>
                                             </div><!-- .card-inner -->
-                                            <div class="nk-ecwg3-ck">
-                                                <!-- <canvas class="courseSells" id="totalSells"></canvas> -->
-                                            </div>
+                                            
                                         </div><!-- .nk-ecwg -->
                                     </div><!-- .card -->
                                 </div><!-- .col -->
@@ -121,9 +137,7 @@
                                                     </div>
                                                 </div>
                                             </div><!-- .card-inner -->
-                                            <div class="nk-ecwg3-ck">
-                                                <!-- <canvas class="courseSells" id="weeklySells"></canvas> -->
-                                            </div>
+                                            
                                         </div><!-- .nk-ecwg -->
                                     </div><!-- .card -->
                                 </div><!-- .col -->
@@ -144,9 +158,7 @@
                                                     </div>
                                                 </div>
                                             </div><!-- .card-inner -->
-                                            <div class="nk-ecwg3-ck">
-                                                <!-- <canvas class="courseSells" id="weeklySells"></canvas> -->
-                                            </div>
+                                           
                                         </div><!-- .nk-ecwg -->
                                     </div><!-- .card -->
                                 </div><!-- .col -->
@@ -157,45 +169,17 @@
                                             <div class="card-inner pb-0">
                                                 <div class="card-title-group">
                                                     <div class="card-title">
-                                                        <h6 class="title">Total Loan Disbursed</h6>
+                                                        <h6 class="title">Total Loan Repaid</h6>
                                                     </div>
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">244</div>
-                                                        <div class="info text-end">
+                                                        <div class="amount fw-normal">#21</div>
 
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div><!-- .card-inner -->
-                                            <div class="nk-ecwg3-ck">
-                                                <!-- <canvas class="courseSells" id="totalSells"></canvas> -->
-                                            </div>
-                                        </div><!-- .nk-ecwg -->
-                                    </div><!-- .card -->
-                                </div><!-- .col -->
-                                <div class="col-md-3">
-                                    <div class="card" style="background-color: skyblue;">
-                                        <div class="nk-ecwg nk-ecwg3">
-                                            <div class="card-inner pb-0">
-                                                <div class="card-title-group">
-                                                    <div class="card-title">
-                                                        <h6 class="title">Total Loan Disbursed</h6>
-                                                    </div>
-                                                </div>
-                                                <div class="data">
-                                                    <div class="data-group">
-                                                        <div class="amount fw-normal">2345</div>
-                                                        <div class="info text-end">
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div><!-- .card-inner -->
-                                            <div class="nk-ecwg3-ck">
-                                                <!-- <canvas class="courseSells" id="totalSells"></canvas> -->
-                                            </div>
+                                           
                                         </div><!-- .nk-ecwg -->
                                     </div><!-- .card -->
                                 </div><!-- .col -->
@@ -215,9 +199,27 @@
                                                     </div>
                                                 </div>
                                             </div><!-- .card-inner -->
-                                            <div class="nk-ecwg3-ck">
-                                                <!-- <canvas class="courseSells" id="weeklySells"></canvas> -->
-                                            </div>
+                                           
+                                        </div><!-- .nk-ecwg -->
+                                    </div><!-- .card -->
+                                </div><!-- .col -->
+                                <div class="col-md-3">
+                                    <div class="card" style="background-color: skyblue;">
+                                        <div class="nk-ecwg nk-ecwg3">
+                                            <div class="card-inner pb-0">
+                                                <div class="card-title-group">
+                                                    <div class="card-title">
+                                                        <h6 class="title">Total Loan Repaid</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="data">
+                                                    <div class="data-group">
+                                                        <div class="amount fw-normal">#21</div>
+
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card-inner -->
+                                           
                                         </div><!-- .nk-ecwg -->
                                     </div><!-- .card -->
                                 </div><!-- .col -->
@@ -237,9 +239,7 @@
                                                     </div>
                                                 </div>
                                             </div><!-- .card-inner -->
-                                            <div class="nk-ecwg3-ck">
-                                                <!-- <canvas class="courseSells" id="weeklySells"></canvas> -->
-                                            </div>
+                                           
                                         </div><!-- .nk-ecwg -->
                                     </div><!-- .card -->
                                 </div><!-- .col -->

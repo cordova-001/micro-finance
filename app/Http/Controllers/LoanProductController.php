@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\LoanProduct;
 
@@ -47,13 +49,15 @@ class LoanProductController extends Controller
             // }
         ]);
 
+        $business_id = Auth::user()->business_id;
         $loan_product = LoanProduct::create([
             'loan_product' => $request->input('loan_product'),
             'minimum_amount' => $request->input('minimum_amount'),
             'maximum_amount' => $request->input('maximum_amount'),
             'product_id' => $request->input('product_id'),
             'interest_rate' => $request->input('interest_rate'),
-            'description' => $request->input('description')
+            'description' => $request->input('description'),
+            'business_id' => $business_id,
         ]);
 
         return redirect('/loan_product');

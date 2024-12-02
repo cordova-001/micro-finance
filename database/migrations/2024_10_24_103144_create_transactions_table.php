@@ -16,7 +16,7 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('account_number');
-            $table->string('account_name');
+            $table->string('account_name')->nullable();
             $table->unsignedInteger('branch_id');
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->unsignedInteger('customer_id');

@@ -18,6 +18,7 @@ class CustomerControllers extends Controller
     public function index()
     {
         $business_id = Auth::user()->business_id;
+        // $customer = Customers::where('business_id', $business_id)->get();
         $customer = Customers::all();
         return view ('customer.index', compact('customer'));
     }

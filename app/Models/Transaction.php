@@ -14,7 +14,7 @@ class Transaction extends Model
         'account_name',
         'branch_id',
         'deposit_date',
-        'withdrawal_date',
+        // 'withdrawal_date',
         'amount_received',
         'amount_paid',
         'transaction_id',
@@ -25,12 +25,14 @@ class Transaction extends Model
         'savings_product',
         'transfer_amount',
         'transfer_source_account',
-        'transfer_destination_acconut',
+        'transfer_destination_account',
         'transfer_date',
         'total_balance',
         'customer_id',
         'transaction_type',
-        // 'transaction_id',
+        'business_id',
+        'transction_date',
+        'staff',
     ];
 
     public function customers()

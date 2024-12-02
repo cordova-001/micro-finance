@@ -30,80 +30,40 @@
                                         </div><!-- .nk-block-head-content -->
                                     </div><!-- .nk-block-between -->
                                 </div><!-- .nk-block-head -->
-                                <div class="nk-block">
-                                    <div class="card">
-                                        <div class="card-inner-group">
-                                            <div class="card-inner p-0">
-                                                <div class="nk-tb-list nk-tb-ulist">
-                                                    <div class="nk-tb-item nk-tb-head">
-                                                        <div class="nk-tb-col nk-tb-col-check">
-                                                            <div class="custom-control custom-control-sm custom-checkbox notext">
-                                                                <input type="checkbox" class="custom-control-input" id="uid">
-                                                                <label class="custom-control-label" for="uid"></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="nk-tb-col"><span class="sub-text"> Name</span></div>
-                                                        <div class="nk-tb-col"><span class="sub-text">Customer ID</span></div>
-                                                        <div class="nk-tb-col tb-col-md"><span class="sub-text">Phone</span></div>
-                                                        <div class="nk-tb-col tb-col-lg"><span class="sub-text">Email</span></div>
-                                                        <div class="nk-tb-col tb-col-lg"><span class="sub-text">Address</span></div>
-                                                        <div class="nk-tb-col tb-col-lg"><span class="sub-text">Status</span></div>
+                                
 
-                                                        <div class="nk-tb-col nk-tb-col-tools">
-                                                            <ul class="nk-tb-actions gx-1 my-n1">
-                                                                <li>
-                                                                    <div class="drodown">
-                                                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                                        <div class="dropdown-menu dropdown-menu-end">
 
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div><!-- .nk-tb-item -->
+
+
+                                <div class="nk-block nk-block-lg">
+                                    <div class="nk-block-head">
+                                        
+                                    </div>
+                                    <div class="card card-bordered card-preview">
+                                        <div class="card-inner">
+                                            <table class="datatable-init-export nowrap table" data-export-title="Export">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Account Number</th>
+                                                        <th>Phone Number</th>
+                                                        <th>Email</th>
+                                                        <th>Address date</th>
+                                                        <th>Status</th>    
+                                                        <th>Action</th>                                                   
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
                                                     @foreach ($customer as $customers)
-                                                      
-                                                   
-                                                   <div class='nk-tb-item'>
-                                                        <div class='nk-tb-col nk-tb-col-check'>
-                                                            <div class='custom-control custom-control-sm custom-checkbox notext'>
-                                                                <input type='checkbox' class='custom-control-input' id='uid1'>
-                                                                <label class='custom-control-label' for='uid1'></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class='nk-tb-col'>
-                                                            <a href='#'>
-                                                                <div class='user-card'>
-
-                                                                    <div class='user-info'>
-                                                                        <span class='tb-lead'>{{ $customers->first_name }} {{ $customers->last_name }} <span class='dot dot-success d-md-none ms-1'></span></span>
-
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                        <div class='nk-tb-col tb-col-md'>
-                                                            <span>{{ $customers->customer_id }}</span>
-                                                        </div>
-                                                        <div class='nk-tb-col tb-col-lg'>
-                                                            <span>{{ $customers->phone }}</span>
-                                                        </div>
-                                                        <div class='nk-tb-col tb-col-lg'>
-                                                            <span>{{ $customers->email }}</span>
-                                                        </div>
-                                                        <div class='nk-tb-col tb-col-md'>
-                                                            <span class='tb-status text-success'>{{ $customers->address }}</span>
-                                                        </div>
-
-                                                        <div class='nk-tb-col tb-col-md'>
-                                                            <span class='tb-status text-success'>{{ $customers->status }}</span>
-                                                        </div>
-
-                                                       
-                                                        <div class='nk-tb-col nk-tb-col-tools'>
-                                                            <ul class='nk-tb-actions gx-1'>
-
+                                                        <tr>
+                                                            <td> {{ $customers->first_name }} {{ $customers->last_name }} </td>
+                                                            <td>{{ $customers->customer_id }}</td>
+                                                            <td>{{ $customers->phone }}</td>
+                                                            <td>{{ $customers->email }}</td>
+                                                            <td>{{ $customers->address }}</td>
+                                                            <td>{{ $customers->status }}</td>
+                                                            <td>
                                                                 <li>
                                                                     <div class='drodown'>
                                                                         <a href='' class='dropdown-toggle btn btn-icon btn-trigger' data-bs-toggle='dropdown'><em class='icon ni ni-more-h'></em></a>
@@ -120,30 +80,21 @@
                                                                         </div>
                                                                     </div>
                                                                 </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div><!-- .nk-tb-item -->
+                                                            </td>
+                                                        </tr>
+                                                        
                                                     @endforeach
-                                                    
-
-
-
-
-                                                </div><!-- .nk-tb-list -->
-                                            </div>
-                                            <div class="card-inner">
-                                                <div class="nk-block-between-md g-3">
-
-                                                    <div class="g">
-
-                                                    </div><!-- .pagination-goto -->
-                                                </div><!-- .nk-block-between -->
-                                            </div>
-                                            <!--card inner-->
+                                                   
+                                                </tbody>
+                                            </table>
                                         </div>
-                                    </div>
-                                    <!--card-->
-                                </div><!-- .nk-block -->
+                                    </div><!-- .card-preview -->
+                                </div> <!-- nk-block -->
+
+
+
+
+
                             </div>
                         </div>
                     </div>

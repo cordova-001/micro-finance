@@ -16,5 +16,6 @@ class LoanProduct extends Model
         'product_id',
         'interest_rate',
         'description',
+        'business_id',
     ];
 }

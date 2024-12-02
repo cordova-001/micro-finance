@@ -53,7 +53,7 @@
                         <div class="tab-pane active" id="tabItem5">
                           <h5 class="title">Add Deposit </h5>
                           
-                          <form action="" class="pt-2" method="POST" enctype="multipart/form-data">
+                          <form action="{{ route('add.new.deposit') }}" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
                               <div class="col-md-12">
@@ -103,17 +103,27 @@
                               </div>
 
                               <div class="col-md-6">
-                                <div class="form-group">
+                                {{-- {{-- <div class="form-group"> --}}
                                   <label class="form-label" for="address-st"> Branch </label>
-                                  <input type="text" name="branch" readonly value="{{ $branch->branch_name }}" class="form-control" id="branch" >
-                                </div>
+                                  {{-- <input type="text" name="branch" readonly value="{{ $branch->branch_name }}" class="form-control" id="branch" > --}}
+                                {{-- </div>  --}}
+                                <select class="form-select"  name="branch">
+                                  <option value="">Select Branch</option>
+                                  @foreach ($branches as $branch) 
+                                  
+                                    <option value="{{ $branch->id }} ">  
+                                      {{ $branch->branch_name }}
+                                    </option>
+                                   
+                                  @endforeach      
+                                </select>
                               </div>
 
 
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st"> Deposit Date </label>
-                                  <input type="date" name="depositor" class="form-control" id="depositor" >
+                                  <input type="date" name="deposit_date" class="form-control" id="depositor" >
                                 </div>
                               </div>
 
@@ -123,10 +133,19 @@
                                   {{-- <input type="text" name="savings_product" class="form-control" id="account_name"  placeholder="Account Name"> --}}
                                   <select name="savings_product" id="" class="form-control">
                                     @foreach($sproducts as $sproduct)
-                                    <option value=""> {{ $sproduct->product_name }} </option>
+                                    <option value="{{ $sproduct->product_name }}"> {{ $sproduct->product_name }} </option>
                                     
                                     @endforeach
                                   </select>
+                                </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label" for="phone-no">Narration</label>
+                                  
+                                  <textarea name="narration" id="" cols="30" rows="10" class="form-control"></textarea>
+                                  
                                 </div>
                               </div>
 
