@@ -123,7 +123,7 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st"> Deposit Date </label>
-                                  <input type="date" name="deposit_date" class="form-control" id="depositor" >
+                                  <input type="date" name="deposit_date" class="form-control" id="deposit_date" >
                                 </div>
                               </div>
 

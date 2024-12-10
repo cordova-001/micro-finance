@@ -28,7 +28,7 @@
                                         <div class="row">
                                             <div class="col-lg-3">
                                                 <div class="card card-bordered">
-                                                    <img src="./images/slides/slide-a.jpg" class="card-img-top" alt="">
+                                                    <img src="{{ asset('images/' . $checkAccountNo->paasport) }}" class="card-img-top" alt="">
                                                     <div class="card-inner">
                                                         <h5 class="card-title">Passport Photo</h5>
                                                        
@@ -37,18 +37,18 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-3">
+                                            {{-- <div class="col-lg-3">
                                               <div class="card card-bordered">
-                                                  <img src="./images/slides/slide-a.jpg" class="card-img-top" alt="">
+                                                  <img src="{{ asset('images/' . $checkAccountNo->paasport) }}" class="card-img-top" alt="">
                                                   <div class="card-inner">
                                                       <h5 class="card-title">Signature</h5>
                                                      
-                                                      {{-- <a href="#" class="btn btn-primary">Download</a> --}}
+                                                      <a href="#" class="btn btn-primary">Download</a>
                                                   </div>
                                               </div>
-                                          </div>
+                                          </div> --}}
 
-                                          <div class="col-lg-6">
+                                          <div class="col-lg-9">
                                             <div class="card card-bordered">
                                                 {{-- <img src="./images/slides/slide-a.jpg" class="card-img-top" alt=""> --}}
                                                 <div class="card-inner">

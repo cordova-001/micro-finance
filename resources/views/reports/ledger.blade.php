@@ -7,7 +7,7 @@
                                 <div class="nk-block-head nk-block-head-sm">
                                     <div class="nk-block-between">
                                         <div class="nk-block-head-content">
-                                            <h3 class="nk-block-title page-title"> Withdrawal Management</h3>
+                                            <h3 class="nk-block-title page-title"> General Ledger Report </h3>
                                         </div>
                                         <div class="nk-block-head-content">
                                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -22,7 +22,7 @@
                                                         </li>
                                                         <li class="nk-block-tools-opt">
                                                             <a href="#" class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
-                                                            <a class="btn btn-primary d-none d-md-inline-flex"  href="{{ route('customer.for.transaction') }}"><em class="icon ni ni-plus"></em><span>Add Withdrawal</span></a>
+                                                            {{-- <a class="btn btn-primary d-none d-md-inline-flex"  href=""><em class="icon ni ni-plus"></em><span>Add Customer</span></a> --}}
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -44,53 +44,51 @@
                                             <table class="datatable-init-export nowrap table" data-export-title="Export">
                                                 <thead>
                                                     <tr>
-                                                        <th>SN</th>
-                                                        <th>Account Name</th>
+                                                        <th>Name</th>
                                                         <th>Account Number</th>
-                                                        <th>Transaction Type</th>
-                                                        <th>Transaction ID</th>
-                                                        <th>Withdrawn By</th>
-                                                        {{-- <th>Savings Product</th>  --}}
-                                                        <th>Amount Withdrawn</th>
-                                                          
-                                                        <th>Transaction Date</th>                                                   
+                                                        <th>Phone Number</th>
+                                                        <th>Email</th>
+                                                        <th>Address date</th>
+                                                        <th>Status</th>    
+                                                        <th>Action</th>                                                   
 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($transaction as $transactions)
+                                                    {{-- @foreach ($customer as $customers) --}}
                                                         <tr>
-                                                            <td> {{ $transactions->id }}</td>
-                                                            <td> {{ $transactions->account_name }} </td>
-                                                            <td>{{ $transactions->account_number }}</td>
-                                                            <td>{{ $transactions->transaction_type }}</td>
-                                                            <td>{{ $transactions->transaction_id }}</td>
-                                                            <td>{{ $transactions->withdrawn_by }}</td>
-                                                            {{-- <td>{{ $transactions->savings_product }}</td> --}}
-                                                            <td>{{ $transactions->amount_received }}</td>
-                                                            
+                                                            <td> <img src="X" alt="" class="thumb" style="width: 30px; height: 30px;"> # </td>
+                                                            {{-- <td>{{ $customers->customer_id }}</td>
+                                                            <td>{{ $customers->phone }}</td>
+                                                            <td>{{ $customers->email }}</td>
+                                                            <td>{{ $customers->address }}</td>
+                                                            <td>{{ $customers->status }}</td> --}}
+                                                            <td>#</td>
+                                                            <td>#</td>
+                                                            <td>#</td>
+                                                            <td>#</td>
+                                                            <td>#</td>
                                                             <td>
-                                                                {{ $transactions->created_at }}
-                                                                {{-- <li>
+                                                                <li>
                                                                     <div class='drodown'>
                                                                         <a href='' class='dropdown-toggle btn btn-icon btn-trigger' data-bs-toggle='dropdown'><em class='icon ni ni-more-h'></em></a>
                                                                         <div class='dropdown-menu dropdown-menu-end'>
                                                                         <form method='get'>
                                                                             <ul class='link-list-opt no-bdr'>
-                                                                              <li><span><em class='icon ni ni-eye'></em><input name='branch_details' formaction='branch_details' type='submit' style='border: 0px; background-color: white; float: center;' value='View Details' class='icon ni ni-eye' /></span></li>
+                                                                              <li class="form-control"><span><em class='icon ni ni-eye'></em><input name='branch_details' formaction='branch_details' type='submit' style='border: 0px; background-color: white; float: center;' value='View Details' class='icon ni ni-eye' /></span></li>
                                                                               <br>
                                                                               <input type='text' name='bid' value='$bid' hidden />
-                                                                              <li><em class='icon ni ni-activity-round'></em><input name='edit_branch' type='submit' formaction='edit_branch' style='border: 0px; background-color: white; float: center;' value='Edit Branch' class='icon ni ni-eye' /></li>
+                                                                              <li class="form-control"><em class='icon ni ni-activity-round'></em><input name='edit_branch'  type='submit' formaction='edit_branch' style='border: 0px; background-color: white; float: center;' value='Edit Customer' class='icon ni ni-eye' /></li>
                                                                                 
                                                                             </ul>
                                                                             </form>
                                                                         </div>
                                                                     </div>
-                                                                </li> --}}
+                                                                </li>
                                                             </td>
                                                         </tr>
                                                         
-                                                    @endforeach
+                                                    {{-- @endforeach --}}
                                                    
                                                 </tbody>
                                             </table>

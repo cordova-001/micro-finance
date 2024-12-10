@@ -67,27 +67,37 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/new_deposit', [TransactionController::class, 'addDeposit'])->name('add.new.deposit');
     Route::post('/confirm_account', [TransactionController::class, 'confirmAccountForWithdrawal'])->name('confirm.accountNo');
     Route::get('/add_withdrawal', [TransactionController::class, 'newWithdrawal'])->name('add.withdrawal');
-    Route::post('/initate_withdrawal', [TransactionController::class, 'addWithdrawal'])->name('initiate_withdrawal');
+    Route::post('/initiate_withdrawal', [TransactionController::class, 'addWithdrawal'])->name('initiate_withdrawal');
     Route::get('/start_transfer', [TransactionController::class, 'newTransfer'])->name('start_transfer');
     Route::post('/confirm_for_transfer', [TransactionController::class, 'ConfirmAccountForTransfer'])->name('confirm_for_transfer');
+    Route::get('/manage_deposit', [TransactionController::class, 'manageDeposit'])->name('manage_deposit');
+    Route::get('/manage_withdrawal', [TransactionController::class, 'manageWithdrawal'])->name('manage_withdrawal');
 
     Route::get('savings_product', function () {
         return view('transactions.savings_product');
     });
-    // Route::get('add_deposit', function () {
-    //     return view('transactions.add_savings');
-    // });
-    Route::get('add_withdrawal', function () {
-        return view('transactions.add_withdrawal');
+    Route::get('add_deposits', function () {
+        return view('transactions.add_savings');
     });
+    // Route::get('add_withdrawal', function () {
+    //     return view('transactions.add_withdrawal');
+    // });
     Route::get('intra_bank_transfer', function () {
         return view('transactions.intra_bank_transfer');
     });
     Route::get('manage_savings', function () {
         return view('transactions.manage_savings');
     });
-    Route::get('manage_withdrawal', function () {
-        return view('transactions.manage_withdrawal');
+    Route::get('loan_management', function () {
+        return view('loan.loan_management');
+    });
+
+    Route::get('loan_request', function () {
+        return view('loan.request_loan');
+    });
+
+    Route::get('customer_details', function(){
+        return view('customer.details');
     });
     
     

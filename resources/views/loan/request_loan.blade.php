@@ -7,7 +7,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                   <div class="nk-block-between">
                     <div class="nk-block-head-content">
-                      <h3 class="nk-block-title page-title">Add Withdrawal</h3>
+                      <h3 class="nk-block-title page-title"> Loan Request</h3>
                     </div><!-- .nk-block-head-content -->
                   </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
@@ -16,15 +16,15 @@
                     <div class="card-inner">
                       <div class="tab-content">
                         <div class="tab-pane active" id="tabItem5">
-                          <h5 class="title">Add Withdrawal </h5>
+                          <h5 class="title">Loan Request </h5>
                           
-                          <form action="{{ route('branch.store') }}" class="pt-2" method="POST" enctype="multipart/form-data">
+                          <form action="" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
                               <div class="col-md-9">
                                 <div class="form-group">
                                   <label class="form-label" for="first-name">Account Number Name</label>
-                                  <input type="text" name="branch_name" class="form-control" id="branch-name" placeholder="Branch name">
+                                  <input type="text" name="branch_name" class="form-control" id="branch-name" placeholder="Acount Number">
                                 </div>
                               </div>
                               <div class="col-md-3">
@@ -37,46 +37,7 @@
 
                               <div class="nk-block nk-block-lg">
                                 
-                                <div class="card card-bordered card-preview">
-                                    <div class="card-inner">
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div class="card card-bordered">
-                                                    <img src="./images/slides/slide-a.jpg" class="card-img-top" alt="">
-                                                    <div class="card-inner">
-                                                        <h5 class="card-title">Passport Photo</h5>
-                                                       
-                                                        {{-- <a href="#" class="btn btn-primary">Download</a> --}}
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-3">
-                                              <div class="card card-bordered">
-                                                  <img src="./images/slides/slide-a.jpg" class="card-img-top" alt="">
-                                                  <div class="card-inner">
-                                                      <h5 class="card-title">Signature</h5>
-                                                     
-                                                      {{-- <a href="#" class="btn btn-primary">Download</a> --}}
-                                                  </div>
-                                              </div>
-                                          </div>
-
-                                          <div class="col-lg-6">
-                                            <div class="card card-bordered">
-                                                {{-- <img src="./images/slides/slide-a.jpg" class="card-img-top" alt=""> --}}
-                                                <div class="card-inner">
-                                                    <h5 class="card-title">Utility</h5>
-                                                   
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        </div>
-                                    </div>
-                                </div><!-- .card-preview -->
+                                
                                 
                                 
                             </div>
@@ -91,7 +52,7 @@
                               
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="address-line2">Withdrawal Amount</label>
+                                  <label class="form-label" for="address-line2">Loan Amount</label>
                                   <input type="number" step="0.1" class="form-control" name="amount" id="amount" >
                                 </div>
                               </div>

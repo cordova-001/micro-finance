@@ -23,8 +23,8 @@ class TransactionController extends Controller
         $branches = Branch::where('business_id', $user->business_id)->get();
         $customers = Customers::where('business_id', $user->business_id)->get();
         $sproducts = SavingsProduct::where('business_id', $user->business_id)->get();
-        // dd($branch->branch_name);
-        // dd($branch);
+        // dd($branches->branch_name);
+        // dd($customers);
         return view('transactions.add_savings', compact('customers', 'user', 'sproducts', 'branches'));
     }
 
@@ -45,15 +45,17 @@ class TransactionController extends Controller
         $business_id = Auth::user()->business_id;
         $acctNo = $request->input('account_number');
         $totalAmountReceived = Transaction::sum('amount_received');
+        $amount_paid = $request->input('deposit_amount');
         $totalAmountPaid = Transaction::sum('amount_paid');
         $customer = Customers::where('customer_id', $acctNo)->first(); // Fetch the customer record
     if (!$customer) {
         return back()->withErrors(['error' => 'Account number not found!']);
     }
-        $balance = $totalAmountReceived - $totalAmountPaid;
+        $balance = $totalAmountPaid - $totalAmountReceived + $amount_paid;
         $transaction_id = substr(Str::uuid()->toString(), 0, 15);
+        // dd($totalAmountPaid);
         // $naration = 
-        $transaction_type = 'Deposit';
+        $transaction_type = 'Credit';
         $branch = $request->input('branch');
 
         $d_date = $request->input('deposit_date');
@@ -87,7 +89,7 @@ class TransactionController extends Controller
                 
             ]);
 
-            return redirect()->route('transactions.add_savings')->with('success', 'The Deposit has been created successfully');
+            return redirect('add_savings')->with('success', 'The Deposit has been created successfully');
 
                 
         }catch (\Illuminate\Validation\ValidationException $e) {
@@ -97,11 +99,22 @@ class TransactionController extends Controller
         }
     }
 
+    public function manageDeposit()
+    {
+        $business_id = Auth::user()->business_id;
+        $transaction = Transaction::where('business_id', $business_id)->where('transaction_type', 'Credit')->get();
+        // dd($transaction);
+        return view ('transactions.manage_savings', compact('transaction'));
+    }
+
+
+
     public function newWithdrawal()
     {
         $user = Auth::user();
         return view('transactions.add_withdrawal' );
     }
+
 
     public function confirmAccountForWithdrawal(Request $request)
     {
@@ -125,6 +138,14 @@ class TransactionController extends Controller
         
     }
 
+    public function manageWithdrawal()
+    {
+        $business_id = Auth::user()->business_id;
+        $transaction = Transaction::where('business_id', $business_id)->where('transaction_type', 'Debit')->get();
+        // dd($transaction);
+        return view ('transactions.manage_withdrawal', compact('transaction'));
+    }
+
     public function addWithdrawal(Request $request)
     {
         $business_id = Auth::user()->business_id;
@@ -139,7 +160,7 @@ class TransactionController extends Controller
         $withdraw_date = $request->input('withdraw_date');
         $withdrawn_by = $request->input('withdrawn_by');
         $staff = $request->input('staff');
-        $transaction_type = 'Withdrawal';
+        $transaction_type = 'Debit';
 
         // if($balance < $withdraw_amount){
         //     return "Insufficient Fund";

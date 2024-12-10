@@ -7,7 +7,7 @@
                                 <div class="nk-block-head nk-block-head-sm">
                                     <div class="nk-block-between">
                                         <div class="nk-block-head-content">
-                                            <h3 class="nk-block-title page-title"> Withdrawal Management</h3>
+                                            <h3 class="nk-block-title page-title"> Manage Expenses </h3>
                                         </div>
                                         <div class="nk-block-head-content">
                                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -22,7 +22,7 @@
                                                         </li>
                                                         <li class="nk-block-tools-opt">
                                                             <a href="#" class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
-                                                            <a class="btn btn-primary d-none d-md-inline-flex"  href="{{ route('customer.for.transaction') }}"><em class="icon ni ni-plus"></em><span>Add Withdrawal</span></a>
+                                                            <a class="btn btn-primary d-none d-md-inline-flex"  href=""><em class="icon ni ni-plus"></em><span> Manage Expenses </span></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -49,28 +49,38 @@
                                                         <th>Account Number</th>
                                                         <th>Transaction Type</th>
                                                         <th>Transaction ID</th>
-                                                        <th>Withdrawn By</th>
-                                                        {{-- <th>Savings Product</th>  --}}
-                                                        <th>Amount Withdrawn</th>
+                                                        <th>Depositor</th>
+                                                        <th>Savings Product</th> 
+                                                        <th>Amount Deposited</th>
                                                           
                                                         <th>Transaction Date</th>                                                   
 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($transaction as $transactions)
+                                                    {{-- @foreach ($transaction as $transactions) --}}
                                                         <tr>
-                                                            <td> {{ $transactions->id }}</td>
+                                                            {{-- <td> {{ $transactions->id }}</td>
                                                             <td> {{ $transactions->account_name }} </td>
                                                             <td>{{ $transactions->account_number }}</td>
                                                             <td>{{ $transactions->transaction_type }}</td>
                                                             <td>{{ $transactions->transaction_id }}</td>
-                                                            <td>{{ $transactions->withdrawn_by }}</td>
-                                                            {{-- <td>{{ $transactions->savings_product }}</td> --}}
-                                                            <td>{{ $transactions->amount_received }}</td>
+                                                            <td>{{ $transactions->depositor_name }}</td>
+                                                            <td>{{ $transactions->savings_product }}</td>
+                                                            <td>{{ $transactions->amount_paid }}</td> --}}
                                                             
+                                                            <td> asa</td>
+                                                            <td> assaa </td>
+                                                            <td> asass </td>
+                                                            <td> asadsdasd </td>
+                                                            <td> adnsdsas </td>
+                                                            <td> asasdasd </td>
+                                                            <td> dkdksjs </td>
+                                                            <td> dcccx</td>
+
                                                             <td>
-                                                                {{ $transactions->created_at }}
+                                                                nbnb
+                                                                {{-- {{ $transactions->created_at }} --}}
                                                                 {{-- <li>
                                                                     <div class='drodown'>
                                                                         <a href='' class='dropdown-toggle btn btn-icon btn-trigger' data-bs-toggle='dropdown'><em class='icon ni ni-more-h'></em></a>
@@ -90,7 +100,7 @@
                                                             </td>
                                                         </tr>
                                                         
-                                                    @endforeach
+                                                    {{-- @endforeach --}}
                                                    
                                                 </tbody>
                                             </table>

@@ -82,6 +82,8 @@
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
 
+                
+
                 <li class="nk-menu-item has-sub">
                     <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
                         <span class="nk-menu-icon"><em class="icon ni ni-user-fill"></em></span>
@@ -131,14 +133,17 @@
                             <a href="{{ route('savings.product') }}" class="nk-menu-link"><span class="nk-menu-text">Add Savings Product</span></a>
                         </li>
                         <li class="nk-menu-item">
+                            @php
+                                // dd(route('customer.for.transaction'));
+                            @endphp
                             <a href="{{ route('customer.for.transaction') }}" class="nk-menu-link"><span class="nk-menu-text">Add Savings</span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="manage_savings" class="nk-menu-link"><span class="nk-menu-text">Manage All Savings</span></a>
+                            <a href="{{ route('manage_deposit') }}" class="nk-menu-link"><span class="nk-menu-text">Manage All Savings</span></a>
                         </li>
-                        <li class="nk-menu-item">
+                        {{-- <li class="nk-menu-item">
                             <a href="{{ route('center.index') }}" class="nk-menu-link"><span class="nk-menu-text">Upload Bulk Savings</span></a>
-                        </li>
+                        </li> --}}
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
 
@@ -155,7 +160,7 @@
                             <a href="add_withdrawal" class="nk-menu-link"><span class="nk-menu-text">Add Withdrawal</span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="manage_withdrawal" class="nk-menu-link"><span class="nk-menu-text">View Withdrawal</span></a>
+                            <a href="{{ route('manage_withdrawal') }}" class="nk-menu-link"><span class="nk-menu-text">View Withdrawal</span></a>
                         </li>
                         
                     </ul><!-- .nk-menu-sub -->
@@ -341,36 +346,7 @@
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
 
-                <li class="nk-menu-item has-sub">
-                    <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
-                        <span class="nk-menu-icon"><em class="icon ni ni-file-docs"></em></span>
-                        <span class="nk-menu-text"> Accounting</span>
-                    </a>
-                    <ul class="nk-menu-sub" style="background-color: aliceblue;">
-                        <!-- <li class="nk-menu-item">
-                            <a href="chart_of_account" class="nk-menu-link"><span class="nk-menu-text">Chart of Account</span></a>
-                        </li>
-                        <li class="nk-menu-item">
-                            <a href="income_and_expenditure" class="nk-menu-link"><span class="nk-menu-text">Inome and Expenditure</span></a>
-                        </li> -->
-                        <li class="nk-menu-item">
-                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">NAIC Account</span></a>
-                        </li>
-                        <li class="nk-menu-item">
-                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">Closure Account</span></a>
-                        </li>
-                        <li class="nk-menu-item">
-                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">Processing Account</span></a>
-                        </li>
-                        <li class="nk-menu-item">
-                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">Cards Account</span></a>
-                        </li>
-                        <li class="nk-menu-item">
-                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">Miscellaneous Account</span></a>
-                        </li>
-
-                    </ul><!-- .nk-menu-sub -->
-                </li><!-- .nk-menu-item -->
+                
                 <li class="nk-menu-item has-sub">
                     <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
                         <span class="nk-menu-icon"><em class="icon ni ni-file-docs"></em></span>

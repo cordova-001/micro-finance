@@ -31,7 +31,7 @@ class Transaction extends Model
         'customer_id',
         'transaction_type',
         'business_id',
-        'transction_date',
+        'transaction_date',
         'staff',
     ];
 

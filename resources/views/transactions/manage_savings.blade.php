@@ -7,7 +7,7 @@
                                 <div class="nk-block-head nk-block-head-sm">
                                     <div class="nk-block-between">
                                         <div class="nk-block-head-content">
-                                            <h3 class="nk-block-title page-title"> Manage Savings</h3>
+                                            <h3 class="nk-block-title page-title"> Savings Management</h3>
                                         </div>
                                         <div class="nk-block-head-content">
                                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -22,7 +22,7 @@
                                                         </li>
                                                         <li class="nk-block-tools-opt">
                                                             <a href="#" class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
-                                                            <a class="btn btn-primary d-none d-md-inline-flex"  href="add_deposit"><em class="icon ni ni-plus"></em><span>Add Savings</span></a>
+                                                            <a class="btn btn-primary d-none d-md-inline-flex"  href="{{ route('customer.for.transaction') }}"><em class="icon ni ni-plus"></em><span>Add Savings</span></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -30,76 +30,48 @@
                                         </div><!-- .nk-block-head-content -->
                                     </div><!-- .nk-block-between -->
                                 </div><!-- .nk-block-head -->
-                                <div class="nk-block">
-                                    <div class="card">
-                                        <div class="card-inner-group">
-                                            <div class="card-inner p-0">
-                                                <div class="nk-tb-list nk-tb-ulist">
-                                                    <div class="nk-tb-item nk-tb-head">
-                                                        <div class="nk-tb-col nk-tb-col-check">
-                                                            <div class="custom-control custom-control-sm custom-checkbox notext">
-                                                                <input type="checkbox" class="custom-control-input" id="uid">
-                                                                <label class="custom-control-label" for="uid"></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="nk-tb-col"><span class="sub-text">Account Name</span></div>
-                                                        <div class="nk-tb-col"><span class="sub-text"> Account Number</span></div>
-                                                        <div class="nk-tb-col tb-col-md"><span class="sub-text">Amount Deposited</span></div>
-                                                        <div class="nk-tb-col tb-col-lg"><span class="sub-text">Depositor</span></div>
-                                                        <div class="nk-tb-col tb-col-lg"><span class="sub-text">Date</span></div>
+                                
 
-                                                        <div class="nk-tb-col nk-tb-col-tools">
-                                                            <ul class="nk-tb-actions gx-1 my-n1">
-                                                                <li>
-                                                                    <div class="drodown">
-                                                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                                        <div class="dropdown-menu dropdown-menu-end">
 
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div><!-- .nk-tb-item -->
-                                                    {{-- @foreach ($branch as $branch) --}}
-                                                      
-                                                   
-                                                   <div class='nk-tb-item'>
-                                                        <div class='nk-tb-col nk-tb-col-check'>
-                                                            <div class='custom-control custom-control-sm custom-checkbox notext'>
-                                                                <input type='checkbox' class='custom-control-input' id='uid1'>
-                                                                <label class='custom-control-label' for='uid1'></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class='nk-tb-col'>
-                                                            <a href='#'>
-                                                                <div class='user-card'>
 
-                                                                    <div class='user-info'>
-                                                                        <span class='tb-lead'> branch  <span class='dot dot-success d-md-none ms-1'></span></span>
 
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                        <div class='nk-tb-col tb-col-md'>
-                                                            <span> branch </span>
-                                                        </div>
-                                                        <div class='nk-tb-col tb-col-lg'>
-                                                            <span> branch </span>
-                                                        </div>
-                                                        <div class='nk-tb-col tb-col-lg'>
-                                                            <span> branch </span>
-                                                        </div>
-                                                        <div class='nk-tb-col tb-col-md'>
-                                                            <span class='tb-status text-success'> branch </span>
-                                                        </div>
+                                <div class="nk-block nk-block-lg">
+                                    <div class="nk-block-head">
+                                        
+                                    </div>
+                                    <div class="card card-bordered card-preview">
+                                        <div class="card-inner">
+                                            <table class="datatable-init-export nowrap table" data-export-title="Export">
+                                                <thead>
+                                                    <tr>
+                                                        <th>SN</th>
+                                                        <th>Account Name</th>
+                                                        <th>Account Number</th>
+                                                        <th>Transaction Type</th>
+                                                        <th>Transaction ID</th>
+                                                        <th>Depositor</th>
+                                                        <th>Savings Product</th> 
+                                                        <th>Amount Deposited</th>
+                                                          
+                                                        <th>Transaction Date</th>                                                   
 
-                                                       
-                                                        <div class='nk-tb-col nk-tb-col-tools'>
-                                                            <ul class='nk-tb-actions gx-1'>
-
-                                                                <li>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($transaction as $transactions)
+                                                        <tr>
+                                                            <td> {{ $transactions->id }}</td>
+                                                            <td> {{ $transactions->account_name }} </td>
+                                                            <td>{{ $transactions->account_number }}</td>
+                                                            <td>{{ $transactions->transaction_type }}</td>
+                                                            <td>{{ $transactions->transaction_id }}</td>
+                                                            <td>{{ $transactions->depositor_name }}</td>
+                                                            <td>{{ $transactions->savings_product }}</td>
+                                                            <td>{{ $transactions->amount_paid }}</td>
+                                                            
+                                                            <td>
+                                                                {{ $transactions->created_at }}
+                                                                {{-- <li>
                                                                     <div class='drodown'>
                                                                         <a href='' class='dropdown-toggle btn btn-icon btn-trigger' data-bs-toggle='dropdown'><em class='icon ni ni-more-h'></em></a>
                                                                         <div class='dropdown-menu dropdown-menu-end'>
@@ -114,31 +86,22 @@
                                                                             </form>
                                                                         </div>
                                                                     </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div><!-- .nk-tb-item -->
-                                                    {{-- @endforeach --}}
-                                                    
-
-
-
-
-                                                </div><!-- .nk-tb-list -->
-                                            </div>
-                                            <div class="card-inner">
-                                                <div class="nk-block-between-md g-3">
-
-                                                    <div class="g">
-
-                                                    </div><!-- .pagination-goto -->
-                                                </div><!-- .nk-block-between -->
-                                            </div>
-                                            <!--card inner-->
+                                                                </li> --}}
+                                                            </td>
+                                                        </tr>
+                                                        
+                                                    @endforeach
+                                                   
+                                                </tbody>
+                                            </table>
                                         </div>
-                                    </div>
-                                    <!--card-->
-                                </div><!-- .nk-block -->
+                                    </div><!-- .card-preview -->
+                                </div> <!-- nk-block -->
+
+
+
+
+
                             </div>
                         </div>
                     </div>
