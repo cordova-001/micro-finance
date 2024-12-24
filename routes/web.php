@@ -99,7 +99,54 @@ Route::middleware(['auth'])->group(function () {
     Route::get('customer_details', function(){
         return view('customer.details');
     });
+
+    Route::get('add_investment_product', function(){
+        return view('transactions.add_investment_product');
+    });
+
+    Route::get('add_expenses', function(){
+        return view('transactions.add_expenses');
+    });
+
+    Route::get('add_income', function(){
+        return view('transactions.add_income');
+    });
     
+    Route::get('all_income', function(){
+        return view('transactions.all_income');
+    });
+
+    Route::get('all_expenses', function(){
+        return view('transactions.all_expenses');
+    });
+
+    // Reports
+
+    Route::get('disbursement_report', function(){
+        return view('reports.disbursement');
+    });
+
+    Route::get('ledger_report', function(){
+        return view('reports.ledger');
+    });
+    Route::get('savings_report', function(){
+        return view('reports.savings');
+    });
+    Route::get('savings_product_report', function(){
+        return view('reports.savings_product');
+    });
+    Route::get('savings_report', function(){
+        return view('reports.savings');
+    });
+    Route::get('withdrawal_report', function(){
+        return view('reports.withdrawal');
+    });
+    Route::get('loan_product_report', function(){
+        return view('reports.loan_product');
+    });
+    Route::get('transactions_report', function(){
+        return view('reports.transactions');
+    });
     
 });
 

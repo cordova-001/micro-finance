@@ -7,7 +7,8 @@
                                 <div class="nk-block-head nk-block-head-sm">
                                     <div class="nk-block-between">
                                         <div class="nk-block-head-content">
-                                            <h3 class="nk-block-title page-title"> Manage Savings</h3>
+                                            <h3 class="nk-block-title page-title"> All Income</h3>
+                                            
                                         </div>
                                         <div class="nk-block-head-content">
                                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -22,7 +23,7 @@
                                                         </li>
                                                         <li class="nk-block-tools-opt">
                                                             <a href="#" class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
-                                                            <a class="btn btn-primary d-none d-md-inline-flex"  href="add_deposit"><em class="icon ni ni-plus"></em><span>Add Savings</span></a>
+                                                            <a class="btn btn-primary d-none d-md-inline-flex"  href="add_expenses"><em class="icon ni ni-plus"></em><span>Add Expenses</span></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -42,12 +43,11 @@
                                                                 <label class="custom-control-label" for="uid"></label>
                                                             </div>
                                                         </div>
-                                                        <div class="nk-tb-col"><span class="sub-text">Product Name</span></div>
-                                                        <div class="nk-tb-col"><span class="sub-text"> Product Code</span></div>
-                                                        <div class="nk-tb-col tb-col-md"><span class="sub-text">Interest Rate</span></div>
-                                                        <div class="nk-tb-col tb-col-lg"><span class="sub-text">Opening Fee</span></div>
-                                                        <div class="nk-tb-col tb-col-lg"><span class="sub-text">Minimum Deposit</span></div>
-                                                        <div class="nk-tb-col tb-col-lg"><span class="sub-text">Maximum Deposit</span></div>
+                                                        <div class="nk-tb-col"><span class="sub-text">Branch Name</span></div>
+                                                        <div class="nk-tb-col"><span class="sub-text">Branch ID</span></div>
+                                                        <div class="nk-tb-col tb-col-md"><span class="sub-text">Phone</span></div>
+                                                        <div class="nk-tb-col tb-col-lg"><span class="sub-text">Email</span></div>
+                                                        <div class="nk-tb-col tb-col-lg"><span class="sub-text">Address</span></div>
 
                                                         <div class="nk-tb-col nk-tb-col-tools">
                                                             <ul class="nk-tb-actions gx-1 my-n1">
@@ -62,7 +62,7 @@
                                                             </ul>
                                                         </div>
                                                     </div><!-- .nk-tb-item -->
-                                                    @foreach ($savingsproduct as $savingsproducts)
+                                                    {{-- @foreach ($branch as $branch) --}}
                                                       
                                                    
                                                    <div class='nk-tb-item'>
@@ -77,26 +77,23 @@
                                                                 <div class='user-card'>
 
                                                                     <div class='user-info'>
-                                                                        <span class='tb-lead'> {{ $savingsproducts->product_name }}  <span class='dot dot-success d-md-none ms-1'></span></span>
+                                                                        {{-- <span class='tb-lead'>{{ $branch->branch_name }} <span class='dot dot-success d-md-none ms-1'></span></span> --}}
 
                                                                     </div>
                                                                 </div>
                                                             </a>
                                                         </div>
                                                         <div class='nk-tb-col tb-col-md'>
-                                                            <span> {{ $savingsproducts->product_code }} </span>
+                                                            {{-- <span>{{ $branch->branch_id }}</span> --}}
                                                         </div>
                                                         <div class='nk-tb-col tb-col-lg'>
-                                                            <span> {{ $savingsproducts->interest_rate }} </span>
+                                                            {{-- <span>{{ $branch->phone }}</span> --}}
                                                         </div>
                                                         <div class='nk-tb-col tb-col-lg'>
-                                                            <span> {{ $savingsproducts->opening_fee }} </span>
+                                                            {{-- <span>{{ $branch->email }}</span> --}}
                                                         </div>
                                                         <div class='nk-tb-col tb-col-md'>
-                                                            <span class='tb-status text-success'> {{ $savingsproducts->min_deposit }} </span>
-                                                        </div>
-                                                        <div class='nk-tb-col tb-col-md'>
-                                                            <span class='tb-status text-success'> {{ $savingsproducts->max_deposit }} </span>
+                                                            {{-- <span class='tb-status text-success'>{{ $branch->address }}</span> --}}
                                                         </div>
 
                                                        
@@ -122,7 +119,7 @@
                                                             </ul>
                                                         </div>
                                                     </div><!-- .nk-tb-item -->
-                                                    @endforeach
+                                                    {{-- @endforeach --}}
                                                     
 
 

@@ -7,7 +7,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                   <div class="nk-block-between">
                     <div class="nk-block-head-content">
-                      <h3 class="nk-block-title page-title">Create Savings Product</h3>
+                      <h3 class="nk-block-title page-title">Create Investment Product</h3>
                     </div><!-- .nk-block-head-content -->
                   </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
@@ -16,84 +16,85 @@
                     <div class="card-inner">
                       <div class="tab-content">
                         <div class="tab-pane active" id="tabItem5">
-                          <h5 class="title">Create Savings Product </h5>
+                          {{-- <h5 class="title">Create Investment Product </h5>
+                          <hr> --}}
                           
                           <form action="{{ route('savings.add.product') }}" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name">Product Name</label>
-                                  <input type="text" name="product_name" class="form-control" id="product-name" placeholder="Product name">
+                                  <label class="form-label" for="first-name">Investment Name</label>
+                                  <input type="text" name="product_name" class="form-control" id="investment-name" placeholder="Investment name">
                                 </div>
                               </div>
                              
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="first-name">Product Code</label>
-                                  <input type="text" name="product_code" class="form-control" id="product-name" placeholder="Product Code">
+                                  <input type="text" name="product_code" class="form-control" id="" placeholder="Product Code">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name">Minimum Deposit</label>
-                                  <input type="number" step="0.1" name="min_deposit" class="form-control" id="product-name" placeholder="Minimum Deposit">
+                                  <label class="form-label" for="first-name">Minimum Investment Amount</label>
+                                  <input type="text" name="min_investment_amount" class="form-control" id="" placeholder="Minimum Investment Amount">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name">Maximum Deposit</label>
-                                  <input type="number" step="0.1"  name="max_deposit" class="form-control" id="product-name" placeholder="Maximum Deposit">
+                                  <label class="form-label" for="first-name">Maximum Investment Amount</label>
+                                  <input type="text" name="max_investment_amount" class="form-control" id="" placeholder="Maximum Investment Amount">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="first-name">Interest Rate </label>
-                                  <input type="text" name="interest_rate" class="form-control" id="product-name" placeholder="Interest rate">
+                                  <input type="text" name="interest_rate" class="form-control" id="" placeholder="Interest rate">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name">Duration</label>
-                                  <input type="text" name="duration" class="form-control" id="product-name" placeholder="Duration">
+                                  <label class="form-label" for="first-name">Investment Period</label>
+                                  <input type="text" name="investment_period" class="form-control" id="" placeholder="Investment Period">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name"> Opening Fee </label>
-                                  <input type="text" name="opening_fee" class="form-control" id="product-name" placeholder="Opening Fees">
+                                  <label class="form-label" for="first-name"> Payout Frequency </label>
+                                  <input type="text" name="payout_frequency" class="form-control" id="" placeholder="Payout Frequency  ; Monthly, Quarterly, Yearly">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="first-name"> Target Amount </label>
-                                  <input type="text" name="target_amount" class="form-control" id="product-name" placeholder="Target Amount">
+                                  <input type="text" name="target_amount" class="form-control" id="" placeholder="Target Amount">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name"> Account Maintenance Fee </label>
-                                  <input type="text" name="maintenance_fee" class="form-control" id="product-name" placeholder="Account Maintenance Fee">
+                                  <label class="form-label" for="first-name"> Investment Start Date </label>
+                                  <input type="date" name="start_date" class="form-control" id="" placeholder=" Investment Start Date">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name"> Maximum Withdrawal Amount </label>
-                                  <input type="text" name="maximum_withdrawal_amount" class="form-control" id="product-name" placeholder="Maximum Withdrawal Amount">
+                                  <label class="form-label" for="first-name"> Investment Closing Date </label>
+                                  <input type="date" name="closing_date" class="form-control" id="" placeholder=" Investment Closing Date">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name">Description</label>
+                                  <label class="form-label" for="first-name"> Investment Description</label>
                                   {{-- <input type="text" name="product_name"  id="product-name" placeholder="Product name"> --}}
                                   <textarea name="description" id="description" class="form-control" cols="30" rows="10"></textarea>
                                 </div>

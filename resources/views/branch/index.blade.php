@@ -84,7 +84,7 @@
                                                             </a>
                                                         </div>
                                                         <div class='nk-tb-col tb-col-md'>
-                                                            <span>{{ $branch->branch_id }}</span>
+                                                            <span>{{ $branch->branch_no }}</span>
                                                         </div>
                                                         <div class='nk-tb-col tb-col-lg'>
                                                             <span>{{ $branch->phone }}</span>

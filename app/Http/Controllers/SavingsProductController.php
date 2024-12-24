@@ -17,7 +17,7 @@ class SavingsProductController extends Controller
     public function index()
     {
         $business_id = Auth::user()->business_id;
-        $savingsproduct = SavingsProduct::where('business_id', $business_id)->first();
+        $savingsproduct = SavingsProduct::where('business_id', $business_id)->get();
         return view ('transactions.all_savings_product', compact('savingsproduct', 'business_id'));
     }
 
@@ -45,6 +45,16 @@ class SavingsProductController extends Controller
         try{
             $request->validate([
                 'product_name' => ['required', 'string', 'max:255'],
+                'product_code' => ['required'],
+                'description' => ['nullable'],
+                'min_deposit' => ['nullable'], 
+                'max_deposit' => ['nullable'], 
+                'interest_rate' => ['nullable'],
+                'duration' => ['nullable'],
+                'target_amount' => ['nullable'],
+                'maximum_withdrawal_amount' => ['nullable'],
+                'opening_fee' => ['nullable'],
+                'maintenance_fee' => ['nullable'],    
             ]);
         }catch (\Illuminate\Validation\ValidationException $e) {
             // Log validation errors
@@ -67,6 +77,16 @@ class SavingsProductController extends Controller
             $sproduct = SavingsProduct::create([
                 'product_name' => $request->product_name,
                 'business_id' => $business_id,
+                'product_code' => $request->product_code,
+                'description' => $request->description,
+                'min_deposit' => $request->min_deposit, 
+                'max_deposit' => $request->max_deposit, 
+                'interest_rate' => $request->interest_rate,       
+                'duration' => $request->duration,
+                'target_amount' => $request->target_amount,
+                'maximum_withdrawal_amount' => $request->maximum_withdrawal_amount,
+                'opening_fee' => $request->opening_fee,
+                'maintenance_fee' => $request->maintenance_fee,    
             ]);
             // Log::info($sproduct);
         Log::info('Savings Product created: ', ['product_name' => $request->product_name, 'business_id' => $business_id]);

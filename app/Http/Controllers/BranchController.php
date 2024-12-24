@@ -15,7 +15,9 @@ class BranchController extends Controller
      */
     public function index()
     {
-        $branch = Branch::all();
+        // $branch = Branch::all();
+        $business_id = Auth::user()->business_id;
+        $branch = Branch::where('business_id', $business_id)->get();
         return view('branch.index', compact('branch'));
         
     }

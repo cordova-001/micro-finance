@@ -11,6 +11,17 @@ class SavingsProduct extends Model
 
     protected $fillable = [
         'product_name',
-        'business_id'
+        'business_id',
+        'product_code',
+        'description',
+        'min_deposit', 
+        'max_deposit', 
+        'interest_rate',       
+        'duration',
+        'target_amount',
+        'maximum_withdrawal_amount',
+        'opening_fee',
+        'maintenance_fee',         
+        'status',
     ];
 }

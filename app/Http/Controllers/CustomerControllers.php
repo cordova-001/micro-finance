@@ -18,8 +18,8 @@ class CustomerControllers extends Controller
     public function index()
     {
         $business_id = Auth::user()->business_id;
-        // $customer = Customers::where('business_id', $business_id)->get();
-        $customer = Customers::all();
+        $customer = Customers::where('business_id', $business_id)->get();
+        // $customer = Customers::all();
         return view ('customer.index', compact('customer'));
     }
 
@@ -30,7 +30,8 @@ class CustomerControllers extends Controller
      */
     public function create()
     {
-        $branch = Branch::all();
+        $business_id = Auth::user()->business_id;
+        $branch = Branch::where('business_id', $business_id)->get();
         return view('customer.create', compact('branch'));
     }
 
@@ -48,6 +49,8 @@ class CustomerControllers extends Controller
     public function addCustomer(Request $request)
     {
         $business_id = Auth::user()->business_id;
+        $customer_id = $request->input('customer_id');
+        $customer_id2 = $business_id.$customer_id;
     // Validate the form data
     $request->validate([
         'first_name' => 'required',
@@ -72,7 +75,7 @@ class CustomerControllers extends Controller
         $customer->date_of_birth = $request->input('date_of_birth');
         $customer->local_govt = $request->input('local_govt');
         $customer->choices = $request->input('gender');
-        $customer->customer_id = $request->input('customer_id');
+        $customer->customer_id = $customer_id2;
         $customer->branch_id = $request->input('branch_id');
         $customer->state_of_origin = $request->input('state_of_origin');
         $customer->next_of_kin = $request->input('next_of_kin');

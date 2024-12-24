@@ -126,11 +126,12 @@
                         <li class="nk-menu-item">
                             <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
                         </li>
-                        <li class="nk-menu-item">
-                            <a href="{{ route('all.savings.product') }}" class="nk-menu-link"><span class="nk-menu-text">Savings Product</span></a>
-                        </li>
+                        
                         <li class="nk-menu-item">
                             <a href="{{ route('savings.product') }}" class="nk-menu-link"><span class="nk-menu-text">Add Savings Product</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('all.savings.product') }}" class="nk-menu-link"><span class="nk-menu-text"> Manage Savings Product</span></a>
                         </li>
                         <li class="nk-menu-item">
                             @php
@@ -196,7 +197,10 @@
                             <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
                         </li>
                         <li class="nk-menu-item">
-                            <a href="{{ route('center.create') }}" class="nk-menu-link"><span class="nk-menu-text">Add Investment Product</span></a>
+                            <a href="add_investment_product" class="nk-menu-link"><span class="nk-menu-text">Add Investment Product</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Investment Product</span></a>
                         </li>
                         
                         <li class="nk-menu-item">
@@ -291,7 +295,7 @@
                             <a href="add_expenses" class="nk-menu-link"><span class="nk-menu-text">Add Expenses</span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="view_expenses" class="nk-menu-link"><span class="nk-menu-text">View Expenses </span></a>
+                            <a href="all_expenses" class="nk-menu-link"><span class="nk-menu-text">View Expenses </span></a>
                         </li>
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
@@ -306,7 +310,7 @@
                             <a href="add_income" class="nk-menu-link"><span class="nk-menu-text">Add Income</span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="view_income" class="nk-menu-link"><span class="nk-menu-text">View Income </span></a>
+                            <a href="all_income" class="nk-menu-link"><span class="nk-menu-text">View Income </span></a>
                         </li>
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->

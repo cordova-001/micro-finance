@@ -70,7 +70,7 @@
                                     <div class="form-group">
                                         <label class="form-label" for="email">Business ID</label>
                                         <div class="form-control-wrap">
-                                            <input type="text"  class="form-control form-control-lg" id="business_id" name="business_id" placeholder="Business ID">
+                                            <input type="text"  class="form-control form-control-lg" id="business_id" name="business_id" readonly placeholder="Business ID" value="{{ rand(1000, 9990) }}">
                                         </div>
                                     </div>
                                     <div class="form-group">
