@@ -63,12 +63,12 @@
                                 </div>
                               </div>
 
-                              <div class="col-md-6">
+                              {{-- <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="first-name"> Opening Fee </label>
                                   <input type="text" name="opening_fee" class="form-control" id="product-name" placeholder="Opening Fees">
                                 </div>
-                              </div>
+                              </div> --}}
 
                               <div class="col-md-6">
                                 <div class="form-group">

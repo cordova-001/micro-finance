@@ -34,12 +34,15 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/branch', BranchController::class);
     Route::get('/create-branch', [BranchController::class, 'create'])->name('branch.create');
     Route::get('/all-branch', [BranchController::class, 'index'])->name('branch.index');
+    Route::get('/branch/{id}/edit', [BranchController::class, 'edit'])->name('branch.edit');
+    Route::put('/branch/{id}', [BranchController::class, 'update'])->name('branch.update');
 
 
     //Loan product uri later
     Route::resource('/loan_product', LoanProductController::class);
     Route::get('/loan-product', [LoanProductController::class, 'index'])->name('loan.product');
     Route::get('/create-loan-product', [LoanProductController::class, 'create'])->name('loan.create_product');
+    Route::get('/loan_request', [LoanProductController::class, 'newNewLoan'])->name('loan.loan_request');
 
     //center uri
     Route::resource('/center', CenterController::class);
@@ -92,9 +95,9 @@ Route::middleware(['auth'])->group(function () {
         return view('loan.loan_management');
     });
 
-    Route::get('loan_request', function () {
-        return view('loan.request_loan');
-    });
+    // Route::get('', function () {
+    //     return view('loan.request_loan');
+    // });
 
     Route::get('customer_details', function(){
         return view('customer.details');

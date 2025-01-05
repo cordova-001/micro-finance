@@ -29,6 +29,12 @@
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
+                                  <label class="form-label" for="address-line2">Product Code</label>
+                                  <input type="text" class="form-control" name="product_id" id="address-line2" placeholder="Product Code">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
                                   <label class="form-label" for="last-name">Minimum Amount</label>
                                   <input type="text" name="minimum_amount" class="form-control" id="minimum_amount" placeholder="Minimum Amount">
                                 </div>
@@ -41,12 +47,7 @@
                                 </div>
                               </div>
                               
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="address-line2">Product ID</label>
-                                  <input type="text" class="form-control" name="product_id" id="address-line2" value="">
-                                </div>
-                              </div>
+                              
                              
                               <div class="col-md-6">
                                 <div class="form-group">

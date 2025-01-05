@@ -26,7 +26,7 @@
                                 <div class="card card-bordered card-preview">
                                     <div class="card-inner">
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="card card-bordered">
                                                     <img src="{{ asset('images/' . $checkAccountNo->paasport) }}" class="card-img-top" alt="">
                                                     <div class="card-inner">
@@ -48,7 +48,7 @@
                                               </div>
                                           </div> --}}
 
-                                          <div class="col-lg-9">
+                                          <div class="col-lg-10">
                                             <div class="card card-bordered">
                                                 {{-- <img src="./images/slides/slide-a.jpg" class="card-img-top" alt=""> --}}
                                                 <div class="card-inner">

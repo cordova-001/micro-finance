@@ -22,9 +22,7 @@ class TransactionController extends Controller
         $user = Auth::user();
         $branches = Branch::where('business_id', $user->business_id)->get();
         $customers = Customers::where('business_id', $user->business_id)->get();
-        $sproducts = SavingsProduct::where('business_id', $user->business_id)->get();
-        // dd($branches->branch_name);
-        // dd($customers);
+        $sproducts = SavingsProduct::where('business_id', $user->business_id)->get();        
         return view('transactions.add_savings', compact('customers', 'user', 'sproducts', 'branches'));
     }
 
@@ -48,19 +46,38 @@ class TransactionController extends Controller
         $amount_paid = $request->input('deposit_amount');
         $totalAmountPaid = Transaction::sum('amount_paid');
         $customer = Customers::where('customer_id', $acctNo)->first(); // Fetch the customer record
-    if (!$customer) {
-        return back()->withErrors(['error' => 'Account number not found!']);
-    }
-        $balance = $totalAmountPaid - $totalAmountReceived + $amount_paid;
-        $transaction_id = substr(Str::uuid()->toString(), 0, 15);
-        // dd($totalAmountPaid);
-        // $naration = 
+        if (!$customer) {
+            return back()->withErrors(['error' => 'Account number not found!']);
+        }
+        
+        
         $transaction_type = 'Credit';
         $branch = $request->input('branch');
 
         $d_date = $request->input('deposit_date');
 
-        // dd($d_date);
+        $savings_product = $request->input('savings_product');
+        $getSavingsProductDetails = SavingsProduct::where('product_name', $savings_product)->where('business_id', $business_id);
+
+        // search from Transactions table to check if there is account maintenance fee to be deducted from this account
+        if($getSavingsProductDetails->maintenance_fee > 0)
+        {
+            // check from the transaction table if there has been any prior deduction for this savings product from this account owner. If no, deduct it from the first payment
+            $check_maintenance_fee = Transaction::where('account_number', $acctNo)->where('transaction_type', 'maintenance_fee')->where('business_id', $business_id);
+            if(count($check_maintenance_fee) < 1 )
+            {
+                $maintenance_fee = $getSavingsProductDetails->maintenance_fee;
+                $amount_to_record = $amount_paid - $maintenance_fee;
+                $balance = $totalAmountPaid - $totalAmountReceived + $maintenance_fee; //  current balance when we sum the total amount paid minus total amount recieved plus maintenance fee
+                $narration = 'Maintenance fee';
+                $transaction_type = 'Debit';
+            }
+        }
+
+        $balance = $totalAmountPaid - $totalAmountReceived + $amount_paid;
+        $transaction_id = substr(Str::uuid()->toString(), 0, 15);
+
+        dd($getSavingsProductDetails);
         
         try{
             

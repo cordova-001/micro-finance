@@ -76,8 +76,11 @@ class BranchController extends Controller
      */
     public function edit($id)
     {
-         $branch = Branch::find($id);
-        return view('branch.edit', compact('branch'));
+        $business_id = Auth::user()->business_id;
+        $branch = Branch::where('id', $id)->where('business_id', $business_id)->firstOrFail();
+
+        //  dd($branch);
+        return view('branch.edit', compact('branch', 'business_id'));
     }
 
     /** 
@@ -89,20 +92,28 @@ class BranchController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $branch = Branch::where('id', $id)
-            ->update([
-                'first_name' => $request->input('first_name'),
-                'last_name' => $request->input('last_name'),
-                'email' => $request->input('email'),
-                'phone' => $request->input('phone'),
-                'address' => $request->input('address'),
-                'gender' => $request->input('gender'),
-                'date_of_birth' => $request->input('date_of_birth'),
-                'state_of_origin' => $request->input('state_of_origin'),
-                'customer_id' => $request->input('customer_id'),
+        // dd($id);
+
+        try{
+        $business_id = Auth::user()->business_id;
+         $branch = Branch::findOrFail('id', $id);
+
+        $validated = $request->validate([
+            'branch_name' => 'required|string|max:255',
+            'branch_no' => 'required|string|max:50',
+            'phone' => 'required|string|max:15',
+            'email' => 'required|email|max:255',
+            'address' => 'nullable|string|max:255',
         ]);
 
-        return redirect('/customer');
+        $branch->update($validated);
+
+        return redirect()->route('branch.edit')->with('success', 'Branch updated successfully.');
+    } catch (\Exception $e){
+        return redirect()->route('branch.edit')->with('error', 'Failed to update the branch.');
+    }
+
+        
     }
 
     /**

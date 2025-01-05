@@ -13,8 +13,10 @@
     <!-- Page Title  -->
     <title>:: Primax | Microfinance Automation Software</title>
     <!-- StyleSheets  -->
-    <link rel="stylesheet" href="./assets/css/dashlite.css?ver=3.0.3">
-    <link id="skin-default" rel="stylesheet" href="./assets/css/theme.css?ver=3.0.3">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/dashlite.css') }}?ver=3.0.3">
+    <link id="skin-default" rel="stylesheet" href="{{ asset('assets/css/theme.css') }}?ver=3.0.3">
+
 </head>
 
 <body class="nk-body bg-lighter npc-general has-sidebar ">
@@ -230,7 +232,7 @@
                             <a href="{{ route('loan.create_product') }}" class="nk-menu-link"><span class="nk-menu-text">Create Loan Product</span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="loan_request" class="nk-menu-link"><span class="nk-menu-text">Loan Request</span></a>
+                            <a href="{{ route('loan.loan_request') }}" class="nk-menu-link"><span class="nk-menu-text">Loan Request</span></a>
                         </li>
 
                         
@@ -260,6 +262,24 @@
                         </li>
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
+                
+                {{-- <li class="nk-menu-item has-sub">
+                    <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
+                        <span class="nk-menu-icon"><em class="icon ni ni-property-add"></em></span>
+                        <span class="nk-menu-text">Approval Management </span>
+                    </a>
+                    <ul class="nk-menu-sub" style="background-color: aliceblue;">
+                        <li class="nk-menu-item">
+                            <a href="view_repayment" class="nk-menu-link"><span class="nk-menu-text"> Withdrawal Approval </span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="bulkRepayment" class="nk-menu-link"><span class="nk-menu-text"> Loan Approval  </span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="approve_repayment" class="nk-menu-link"><span class="nk-menu-text"> Investment Withdrawal Approval </span></a>
+                        </li>
+                    </ul>
+                </li> --}}
                 
 
                 <li class="nk-menu-item has-sub">
@@ -415,11 +435,15 @@
                                 {{-- <input type="text" class="form-control border-transparent form-focus-none" placeholder="Search anything"> --}}
                                 
                             </div><!-- .nk-header-news -->
+
+                            
+
+                            <div class="nk-header-search ms-3 ms-xl-0" >                                                                
+                                <div class="user-name">Capital : {{ Auth::user()->name }}</div>                                                                
+                            </div>
+
                             <div class="nk-header-tools">
                                 <ul class="nk-quick-nav">
-
-
-
                                     <li class="dropdown user-dropdown">
                                         <a href="#" class="dropdown-toggle me-n1" data-bs-toggle="dropdown">
                                             <div class="user-toggle">
@@ -497,12 +521,13 @@
     <!-- Add instructor-->
 
     <!-- JavaScript -->
-    <script src="./assets/js/bundle.js?ver=3.0.3"></script>
-    <script src="./assets/js/scripts.js?ver=3.0.3"></script>
+    <script src="{{ asset('assets/js/bundle.js') }}?ver=3.0.3"></script>
+    <script src="{{ asset('assets/js/scripts.js') }}?ver=3.0.3"></script>
+
     <script src="https://code.highcharts.com/highcharts.js"></script>
     {{-- <script src="./assets/js/bundle.js?ver=3.2.3"></script>
     <script src="./assets/js/scripts.js?ver=3.2.3"></script> --}}
-    <script src="./assets/js/libs/datatable-btns.js?ver=3.2.3"></script>
+    <script src="{{ asset('assets/js/libs/datatable-btns.js') }}?ver=3.2.3"></script>
 </body>
 
 </html>

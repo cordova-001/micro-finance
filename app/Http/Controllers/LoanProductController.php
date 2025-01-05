@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\LoanProduct;
+use App\Models\Branch;
+use App\Models\Customers;
 
 class LoanProductController extends Controller
 {
@@ -62,6 +64,16 @@ class LoanProductController extends Controller
 
         return redirect('/loan_product');
     }
+
+    public function newNewLoan()
+    {
+        $user = Auth::user();
+        $branches = Branch::where('business_id', $user->business_id)->get();
+        $customers = Customers::where('business_id', $user->business_id)->get();
+        $lproduct = LoanProduct::where('business_id', $user->business_id)->get();        
+        return view('loan.request_loan', compact('customers', 'user', 'lproduct', 'branches'));
+    }
+
 
     /**
      * Display the specified resource.

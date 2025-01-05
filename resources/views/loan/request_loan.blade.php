@@ -21,32 +21,43 @@
                           <form action="" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
-                              <div class="col-md-9">
+                              <div class="col-md-12">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name">Account Number Name</label>
-                                  <input type="text" name="branch_name" class="form-control" id="branch-name" placeholder="Acount Number">
+                                  <div class="form-group">
+                                    <label class="form-label">Account Number</label>
+                                    <div class="form-control-wrap">                                                                      
+                                        <select class="form-select js-select2" data-search="on" name="account_number">
+                                          @foreach ($customers as $customer) 
+                                          <option value="">Enter Account Number</option>
+                                            <option value="{{ $customer->customer_id }} ">  
+                                              {{ $customer->customer_id }} - {{ $customer->first_name }} {{ $customer->last_name }}
+                                            </option>
+                                           
+                                          @endforeach      
+                                        </select>
+                                      
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-3">
-                                <div class="form-group">
-                                  <label class="form-label" for="last-name">.</label>
-                                  <input type="submit" name="email" class="form-control btn btn-primary" id="email" value="Confirm Account Number">
-                                </div>
-                              </div>
-                              <hr>
-
-                              <div class="nk-block nk-block-lg">
-                                
-                                
-                                
-                                
-                            </div>
                              
+                              {{-- <hr> --}}
+                                                       
 
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="phone-no">Account Name</label>
-                                  <input type="text" name="account_name" class="form-control" id="account_name"  placeholder="Account Name">
+                                  <label class="form-label" for="phone-no">Loan Product </label>
+                                  {{-- <input type="text" name="loan_product"  id="account_name"  placeholder="Account Name"> --}}
+                                  <select name="loan_product" id="" class="form-control">
+                                    <option value="">Select a Loan Product</option>
+                                    @foreach ($lproduct as $lproducts) 
+                                    
+                                      <option value="{{ $lproducts->loan_product }} ">  
+                                        {{ $lproducts->loan_product }} 
+                                      </option>
+                                     
+                                    @endforeach  
+                                  </select>
                                 </div>
                               </div>
                               
@@ -74,7 +85,16 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st"> Branch </label>
-                                  <input type="text" name="branch" class="form-control" id="branch" >
+                                  <select name="branch" id="" class="form-control">
+                                    <option value="">Select a Branch</option>
+                                    @foreach ($branches as $branch) 
+                                    
+                                      <option value="{{ $branch->branch_name }} ">  
+                                        {{ $branch->branch_name }} 
+                                      </option>
+                                     
+                                    @endforeach  
+                                  </select>
                                 </div>
                               </div>
 

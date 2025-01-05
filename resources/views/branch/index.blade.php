@@ -62,7 +62,7 @@
                                                             </ul>
                                                         </div>
                                                     </div><!-- .nk-tb-item -->
-                                                    @foreach ($branch as $branch)
+                                                    @foreach ($branch as $branches)
                                                       
                                                    
                                                    <div class='nk-tb-item'>
@@ -77,23 +77,23 @@
                                                                 <div class='user-card'>
 
                                                                     <div class='user-info'>
-                                                                        <span class='tb-lead'>{{ $branch->branch_name }} <span class='dot dot-success d-md-none ms-1'></span></span>
+                                                                        <span class='tb-lead'>{{ $branches->branch_name }} <span class='dot dot-success d-md-none ms-1'></span></span>
 
                                                                     </div>
                                                                 </div>
                                                             </a>
                                                         </div>
                                                         <div class='nk-tb-col tb-col-md'>
-                                                            <span>{{ $branch->branch_no }}</span>
+                                                            <span>{{ $branches->branch_no }}</span>
                                                         </div>
                                                         <div class='nk-tb-col tb-col-lg'>
-                                                            <span>{{ $branch->phone }}</span>
+                                                            <span>{{ $branches->phone }}</span>
                                                         </div>
                                                         <div class='nk-tb-col tb-col-lg'>
-                                                            <span>{{ $branch->email }}</span>
+                                                            <span>{{ $branches->email }}</span>
                                                         </div>
                                                         <div class='nk-tb-col tb-col-md'>
-                                                            <span class='tb-status text-success'>{{ $branch->address }}</span>
+                                                            <span class='tb-status text-success'>{{ $branches->address }}</span>
                                                         </div>
 
                                                        
@@ -104,15 +104,15 @@
                                                                     <div class='drodown'>
                                                                         <a href='' class='dropdown-toggle btn btn-icon btn-trigger' data-bs-toggle='dropdown'><em class='icon ni ni-more-h'></em></a>
                                                                         <div class='dropdown-menu dropdown-menu-end'>
-                                                                        <form method='get'>
+                                                                        
                                                                             <ul class='link-list-opt no-bdr'>
-                                                                              <li><span><em class='icon ni ni-eye'></em><input name='branch_details' formaction='branch_details' type='submit' style='border: 0px; background-color: white; float: center;' value='View Details' class='icon ni ni-eye' /></span></li>
-                                                                              <br>
-                                                                              <input type='text' name='bid' value='$bid' hidden />
-                                                                              <li><em class='icon ni ni-activity-round'></em><input name='edit_branch' type='submit' formaction='edit_branch' style='border: 0px; background-color: white; float: center;' value='Edit Branch' class='icon ni ni-eye' /></li>
+                                                                              
+                                                                              <a href="{{ route('branch.edit', $branches->id) }}" class="dropdown-item">Edit Branch {{ $branches->id }}</a>
+                                                                              <hr>
+                                                                              {{-- <a href="{{ route('branch.edit', $branch->id) }}" class="dropdown-item">View Details</a> --}}
                                                                                 
                                                                             </ul>
-                                                                            </form>
+                                                                            
                                                                         </div>
                                                                     </div>
                                                                 </li>
