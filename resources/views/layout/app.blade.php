@@ -84,6 +84,25 @@
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
 
+                <li class="nk-menu-item has-sub">
+                    <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
+                        <span class="nk-menu-icon"><em class="icon ni ni-user-fill"></em></span>
+                        <span class="nk-menu-text"> Account Officer </span>
+                    </a>
+                    <ul class="nk-menu-sub" style="background-color: aliceblue;">
+                        <li class="nk-menu-item">
+                            <a href="{{ route('customer.create') }}" class="nk-menu-link"><span class="nk-menu-text"> Add Account Officer </span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('customer.index') }}" class="nk-menu-link"><span class="nk-menu-text"> Manage Account Officer </span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('customer.index') }}" class="nk-menu-link"><span class="nk-menu-text">  Account Officer Roles </span></a>
+                        </li>
+
+
+                    </ul><!-- .nk-menu-sub -->
+                </li><!-- .nk-menu-item -->
                 
 
                 <li class="nk-menu-item has-sub">
@@ -103,20 +122,6 @@
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
                 
-                {{-- <li class="nk-menu-item has-sub">
-                    <a href="#" class="nk-menu-link nk-menu-toggle">
-                        <span class="nk-menu-icon"><em class="icon ni ni-book-fill"></em></span>
-                        <span class="nk-menu-text">Staff Management</span>
-                    </a>
-                    <ul class="nk-menu-sub">
-                        <li class="nk-menu-item">
-                            <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
-                        </li>
-                        <li class="nk-menu-item">
-                            <a href="manage_staff" class="nk-menu-link"><span class="nk-menu-text">Manage Staff</span></a>
-                        </li>
-                    </ul><!-- .nk-menu-sub -->
-                </li><!-- .nk-menu-item --> --}}
                 
 
                 <li class="nk-menu-item has-sub">

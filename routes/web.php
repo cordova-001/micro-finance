@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\LoanProductController;
+use App\Http\Controllers\LoanManagementController;
 use App\Http\Controllers\CenterController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ChartController;
@@ -42,7 +43,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/loan_product', LoanProductController::class);
     Route::get('/loan-product', [LoanProductController::class, 'index'])->name('loan.product');
     Route::get('/create-loan-product', [LoanProductController::class, 'create'])->name('loan.create_product');
-    Route::get('/loan_request', [LoanProductController::class, 'newNewLoan'])->name('loan.loan_request');
+    Route::get('/loan_request', [LoanManagementController::class, 'newNewLoan'])->name('loan.loan_request');
+    Route::post('/loan_request', [LoanManagementController::class, 'processLoan'])->name('loan.loan_process');
 
     //center uri
     Route::resource('/center', CenterController::class);

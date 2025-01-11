@@ -19,7 +19,8 @@ class LoanProductController extends Controller
      */
     public function index()
     {
-        $loan_product = LoanProduct::all();
+        $business_id = Auth::user()->business_id;
+        $loan_product = LoanProduct::where('business_id', $business_id)->get();
         return view('loan.product', compact('loan_product'));
     }
 
@@ -65,14 +66,7 @@ class LoanProductController extends Controller
         return redirect('/loan_product');
     }
 
-    public function newNewLoan()
-    {
-        $user = Auth::user();
-        $branches = Branch::where('business_id', $user->business_id)->get();
-        $customers = Customers::where('business_id', $user->business_id)->get();
-        $lproduct = LoanProduct::where('business_id', $user->business_id)->get();        
-        return view('loan.request_loan', compact('customers', 'user', 'lproduct', 'branches'));
-    }
+    
 
 
     /**

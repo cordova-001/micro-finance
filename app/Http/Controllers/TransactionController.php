@@ -57,7 +57,7 @@ class TransactionController extends Controller
         $d_date = $request->input('deposit_date');
 
         $savings_product = $request->input('savings_product');
-        $getSavingsProductDetails = SavingsProduct::where('product_name', $savings_product)->where('business_id', $business_id);
+        $getSavingsProductDetails = SavingsProduct::where('product_name', $savings_product)->where('business_id', $business_id)->first();
 
         // search from Transactions table to check if there is account maintenance fee to be deducted from this account
         if($getSavingsProductDetails->maintenance_fee > 0)
@@ -107,6 +107,7 @@ class TransactionController extends Controller
             ]);
 
             return redirect('add_savings')->with('success', 'The Deposit has been created successfully');
+            
 
                 
         }catch (\Illuminate\Validation\ValidationException $e) {

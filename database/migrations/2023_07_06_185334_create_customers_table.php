@@ -30,15 +30,9 @@ class CreateCustomersTable extends Migration
             $table->string('status');
             $table->integer('customer_id');
             $table->unsignedInteger('branch_id');
-            $table->foreign('branch_id')
-                ->references('id')
-                ->on('branches')
-                ->onDelete('cascade');
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->unsignedInteger('center_id');
-            $table->foreign('center_id')
-                ->references('id')
-                ->on('center')
-                ->onDelete('cascade');
+            $table->foreign('center_id')->references('id')->on('center')->onDelete('cascade');
             $table->string('utility');
             $table->string('id_card');
             $table->string('paasport');
