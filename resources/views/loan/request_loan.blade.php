@@ -145,11 +145,11 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st"> Branch </label>
-                                  <select name="branch" required id="" class="form-control">
+                                  <select name="branch_id" required id="" class="form-control">
                                     <option value="">Select a Branch</option>
                                     @foreach ($branches as $branch) 
                                     
-                                      <option value="{{ $branch->branch_name }} ">  
+                                      <option value="{{ $branch->id }} ">  
                                         {{ $branch->branch_name }} 
                                       </option>
                                      

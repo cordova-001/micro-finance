@@ -15,7 +15,7 @@ class CreateColumnForTransactions extends Migration
     {
         Schema::table('transactions', function (Blueprint $table) {
             $table->string('total_balance')->nullable();
-            $table->string('trasnfer_amount')->nullable();
+            $table->string('transfer_amount')->nullable();
             $table->string('transfer_source_account')->nullable();
             $table->string('transfer_destination_account')->nullable();
             $table->string('transfer_date')->nullable();

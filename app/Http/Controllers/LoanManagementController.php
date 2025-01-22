@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\LoanProduct;
 use App\Models\Branch;
 use App\Models\Customers;
+use App\Models\Loans;
 use Illuminate\Http\Request;
 
 class LoanManagementController extends Controller
@@ -27,7 +28,7 @@ class LoanManagementController extends Controller
                 'loan_product' => 'required',
                 'loan_amount' => 'required',
                 'frequency' => 'required',
-                'branch' => 'required',
+                'branch_id' => 'required',
                 'application_date' => 'required',
                 'repayment_period' => 'required',
             ]);
@@ -37,7 +38,7 @@ class LoanManagementController extends Controller
             $loan_product = $request->loan_product;
             $loan_amount = $request->loan_amount;
             $frequency = $request->frequency;
-            $branch = $request->branch;
+            $branch_id = $request->branch_id;
             $application_date = $request->application_date;
             $duration = $request->duration;
             $staff = $request->staff;
@@ -91,8 +92,22 @@ class LoanManagementController extends Controller
                 // Calculate each repayment amount by dividing the total repayment amount by the duration
                 $each_repayment_amount = $repayment_amount / $repayment_period;
 
-                // Display the details for confirmation in the next page before the form is submitted for processing
-                return view('loan.confirm_loan', compact('account_number', 'account_details', 'user', 'interest_amount', 'loan_product', 'loan_amount', 'frequency', 'branch', 'application_date', 'staff', 'repayment_amount', 'repayment_period', 'total_repayment_amount', 'getLoanProduct', 'each_repayment_amount'));
+                Loans::create([
+                    'loan_product' => $loan_product,
+                    'loan_amount' => $loan_amount,
+                    'total_repayment_amount' => $total_repayment_amount,
+                    'each_repayment_amount' => $each_repayment_amount,
+                    'interest_rate' => $interest_rate,
+                    'repayment_period' => $frequency,
+                    'frequency' => $repayment_period,
+                    'application_date' => $application_date,
+                    'staff' => $staff,
+                    'business_id' => $business_id,
+                    'branch_id' => $branch_id,
+                    'customer_id' => $account_number,
+                ]);
+
+                return redirect()->back()->with('success', 'The application for loan has been submitted for review');
 
                                                 
             }
@@ -101,6 +116,24 @@ class LoanManagementController extends Controller
             return redirect()->back()->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
             \Log::error('Error processing loan: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while processing the loan. Please try again.');
+        }
+    }
+
+    public function getLoan(Request $request)
+    {
+        try{
+        
+            $user = Auth::user();
+            $allLoans = Loans::where('business_id', $user->business_id)->get();
+            // dd($allLoans);
+            $get_account_name = Customers::where('customer_id', $allLoans->customer_id)->first();
+            return view('loan.loan_management', compact('user', 'allLoans', 'get_account_name'));
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::error('Validation error fetching loan: ', $e->errors());
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            \Log::error('Error fetching loan: ' . $e->getMessage());
             return redirect()->back()->with('error', 'An error occurred while processing the loan. Please try again.');
         }
     }

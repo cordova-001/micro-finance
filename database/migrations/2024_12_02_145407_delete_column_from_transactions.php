@@ -14,8 +14,8 @@ class DeleteColumnFromTransactions extends Migration
     public function up()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->dropColumn('total_balance');
-            $table->dropColumn('trasnfer_amount');
+            // $table->dropColumn('total_balance');
+            $table->dropColumn('transfer_amount');
             $table->dropColumn('transfer_source_account');
             $table->dropColumn('transfer_destination_acconut');
             $table->dropColumn('transfer_date');

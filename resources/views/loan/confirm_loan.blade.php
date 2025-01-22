@@ -17,8 +17,32 @@
                       <div class="tab-content">
                         <div class="tab-pane active" id="tabItem5">
                           <h5 class="title">Loan Confirmation </h5>
+                          <p>Confirm the loan details below before processing the loan</p>
+                          @if (session('success'))
+                              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                  {{ session('success') }}
+                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              </div>
+                          @endif
+
+                          @if (session('error'))
+                              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                  {{ session('error') }}
+                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              </div>
+                          @endif
+
+                          @if ($errors->any())
+                              <div class="alert alert-danger">
+                                  <ul>
+                                      @foreach ($errors->all() as $error)
+                                          <li>{{ $error }}</li>
+                                      @endforeach
+                                  </ul>
+                              </div>
+                          @endif
                           
-                          <form action="{{ route('loan.loan_process') }}" class="pt-2" method="POST" enctype="multipart/form-data">
+                          <form action="{{ route('loan.create.loan_request') }}" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
                               <div class="col-md-6">
@@ -26,7 +50,7 @@
                                   <div class="form-group">
                                     <label class="form-label">Customer Name</label>
                                     <div class="form-control-wrap">                                                                      
-                                        <input type="text" readonly class="form-control" name="account_number" value="{{ $account_details->first_name }} {{ $account_details->last_name }} " id="amount" >
+                                        <input type="text" readonly class="form-control" name="account_name" value="{{ $account_details->first_name }} {{ $account_details->last_name }} " id="amount" >
                                       
                                     </div>
                                   </div>
@@ -50,7 +74,7 @@
                                   <div class="form-group">
                                     <label class="form-label">Customer Email</label>
                                     <div class="form-control-wrap">                                                                      
-                                        <input type="text" readonly class="form-control" name="account_number" value="{{ $account_details->email }} " id="amount" >
+                                        <input type="text" readonly class="form-control" name="email" value="{{ $account_details->email }} " id="amount" >
                                       
                                     </div>
                                   </div>
@@ -62,7 +86,7 @@
                                   <div class="form-group">
                                     <label class="form-label"> Customer Phone Number</label>
                                     <div class="form-control-wrap">                                                                      
-                                        <input type="text" readonly class="form-control" name="account_number" value="{{ $account_details->phone }}" id="amount" >
+                                        <input type="text" readonly class="form-control" name="phone_number" value="{{ $account_details->phone }}" id="amount" >
                                       
                                     </div>
                                   </div>
@@ -75,7 +99,7 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="phone-no">Loan Product </label>
-                                  <input type="text" readonly name="loan_product"  id="account_name"  value="{{ $loan_product }}" class="form-control" required>
+                                  <input type="text" readonly name="loan_product"  id="loan_product"  value="{{ $loan_product }}" class="form-control" required>
                                  
                                 </div>
                               </div>
@@ -83,41 +107,41 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-line2">Loan Amount (Principal) </label>
-                                  <input type="number" readonly step="0.1" class="form-control" value="{{ $loan_amount }}" id="amount" >
+                                  <input type="number" readonly step="0.1" class="form-control" value="{{ $loan_amount }}" loan_amount="amount" >
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st"> Interest  </label>
-                                  <input type="number" readonly step="0.1" name="interest" class="form-control" value="{{ $interest_amount }}" id="amount" >
+                                  <input type="number" readonly step="0.1" name="interest_rate" class="form-control" value="{{ $interest_amount }}" id="amount" >
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st"> Total Repayment Amount </label>
-                                 <input type="text" class="form-control" readonly value="{{ $repayment_amount }}" name="repayment_duration">
+                                 <input type="text" class="form-control" readonly value="{{ $repayment_amount }}" name="total_repayment_amount">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st"> Each Repayment Amount  </label>
-                                  <input type="number" readonly step="0.1" name="interest" class="form-control" value="{{ $each_repayment_amount }}" id="amount" >
+                                  <input type="number" readonly step="0.1" name="each_repayment_amount" class="form-control" value="{{ $each_repayment_amount }}" id="amount" >
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st"> Repayment Period </label>
-                                 <input type="text" class="form-control" readonly value="{{ $repayment_period }}" name="repayment_duration">
+                                 <input type="text" class="form-control" readonly value="{{ $repayment_period }}" name="repayment_period">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st"> Repayment Frequency </label>
-                                 <input type="text" class="form-control" readonly value="{{ $frequency }}" name="repayment_duration">
+                                 <input type="text" class="form-control" readonly value="{{ $frequency }}" name="frequency">
                                 </div>
                               </div>
 
@@ -139,14 +163,14 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-line2">Account Officer</label>
-                                  <input type="text" required  class="form-control" name="staff" value="{{ $user->name }}" >
+                                  <input type="text" readonly  class="form-control" name="staff" value="{{ $user->name }}" >
                                 </div>
                               </div>
                              
                               <div class="col-md-12">
                                 <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                                   <li>
-                                    <button name="create_branch" class="btn btn-primary">Process Loan</button>
+                                    <button name="create_loan" class="btn btn-primary">Create Loan</button>
                                   </li>
 
                                 </ul>

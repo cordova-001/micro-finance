@@ -44,7 +44,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/loan-product', [LoanProductController::class, 'index'])->name('loan.product');
     Route::get('/create-loan-product', [LoanProductController::class, 'create'])->name('loan.create_product');
     Route::get('/loan_request', [LoanManagementController::class, 'newNewLoan'])->name('loan.loan_request');
-    Route::post('/loan_request', [LoanManagementController::class, 'processLoan'])->name('loan.loan_process');
+    Route::post('/loan_process', [LoanManagementController::class, 'processLoan'])->name('loan.loan_process');
+    Route::post('/create_loan_request', [LoanManagementController::class, 'createLoanRequest'])->name('loan.create.loan_request');
+    Route::post('/get_loans', [LoanManagementController::class, 'getLoan'])->name('loan.loan_mgt');
 
     //center uri
     Route::resource('/center', CenterController::class);
