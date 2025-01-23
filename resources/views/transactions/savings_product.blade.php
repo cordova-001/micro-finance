@@ -18,6 +18,30 @@
                         <div class="tab-pane active" id="tabItem5">
                           <h5 class="title">Create Savings Product </h5>
                           
+                            @if (session('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('success') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+
+                            @if (session('error'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ session('error') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            @endif
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                          
                           <form action="{{ route('savings.add.product') }}" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
@@ -39,6 +63,7 @@
                                 <div class="form-group">
                                   <label class="form-label" for="first-name">Minimum Deposit</label>
                                   <input type="number" step="0.1" name="min_deposit" class="form-control" id="product-name" placeholder="Minimum Deposit">
+                                  <small>You can specify minimum deposit for this savings product. You can leave it empty.</small>
                                 </div>
                               </div>
 
@@ -46,6 +71,7 @@
                                 <div class="form-group">
                                   <label class="form-label" for="first-name">Maximum Deposit</label>
                                   <input type="number" step="0.1"  name="max_deposit" class="form-control" id="product-name" placeholder="Maximum Deposit">
+                                  <small>You can specify maximum deposit for this savings product. You can leave it empty.</small>
                                 </div>
                               </div>
 
@@ -53,6 +79,7 @@
                                 <div class="form-group">
                                   <label class="form-label" for="first-name">Interest Rate </label>
                                   <input type="text" name="interest_rate" class="form-control" id="product-name" placeholder="Interest rate">
+                                  <small>You can specify the interest rate for this savings product. You can leave it empty.</small>
                                 </div>
                               </div>
 
@@ -63,17 +90,19 @@
                                 </div>
                               </div>
 
-                              {{-- <div class="col-md-6">
+                              <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="first-name"> Opening Fee </label>
                                   <input type="text" name="opening_fee" class="form-control" id="product-name" placeholder="Opening Fees">
+                                  <small style="color: brown">You can specify the opening fee for this savings product. This will be deducted from the first deposit into the customer's account.</small>
                                 </div>
-                              </div> --}}
+                              </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="first-name"> Target Amount </label>
                                   <input type="text" name="target_amount" class="form-control" id="product-name" placeholder="Target Amount">
+                                  <small>You can specify the target amount for this savings product. You can leave it empty.</small>
                                 </div>
                               </div>
 
@@ -81,6 +110,7 @@
                                 <div class="form-group">
                                   <label class="form-label" for="first-name"> Account Maintenance Fee </label>
                                   <input type="text" name="maintenance_fee" class="form-control" id="product-name" placeholder="Account Maintenance Fee">
+                                  <small>You can specify the account maintenance fee for this savings product. You can leave it empty.</small>
                                 </div>
                               </div>
 
@@ -88,6 +118,7 @@
                                 <div class="form-group">
                                   <label class="form-label" for="first-name"> Maximum Withdrawal Amount </label>
                                   <input type="text" name="maximum_withdrawal_amount" class="form-control" id="product-name" placeholder="Maximum Withdrawal Amount">
+                                  <small>You can specify the maximum withdrawal amount for this savings product. You can leave it empty.</small>
                                 </div>
                               </div>
 

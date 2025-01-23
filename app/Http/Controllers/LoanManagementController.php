@@ -108,7 +108,6 @@ class LoanManagementController extends Controller
                 ]);
 
                 return redirect()->back()->with('success', 'The application for loan has been submitted for review');
-
                                                 
             }
         } catch (\Illuminate\Validation\ValidationException $e) {

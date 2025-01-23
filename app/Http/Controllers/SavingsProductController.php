@@ -88,7 +88,9 @@ class SavingsProductController extends Controller
                 'opening_fee' => $request->opening_fee,
                 'maintenance_fee' => $request->maintenance_fee,    
             ]);
-            // Log::info($sproduct);
+
+            return redirect()->back()->with('success', 'Savings Product created');
+            
         Log::info('Savings Product created: ', ['product_name' => $request->product_name, 'business_id' => $business_id]);
         } catch (\Exception $e) {
             Log::error('Error creating savings product: ' . $e->getMessage());
