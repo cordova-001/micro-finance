@@ -124,10 +124,15 @@ class LoanManagementController extends Controller
         try{
         
             $user = Auth::user();
-            $allLoans = Loans::where('business_id', $user->business_id)->get();
-            // dd($allLoans);
-            $get_account_name = Customers::where('customer_id', $allLoans->customer_id)->first();
-            return view('loan.loan_management', compact('user', 'allLoans', 'get_account_name'));
+            $allLoans = DB::table('loans')
+            ->join('customers', 'loans.customer_id', '=', 'customers.customer_id')
+            ->where('loans.business_id', $user->business_id)
+            ->select('loans.*', 'customers.first_name', 'customers.last_name')
+            ->get();
+
+            dd('allLoans');
+
+            return view('loan.loan_management', compact('user', 'allLoans'));
         } catch (\Illuminate\Validation\ValidationException $e) {
             \Log::error('Validation error fetching loan: ', $e->errors());
             return redirect()->back()->withErrors($e->errors())->withInput();
