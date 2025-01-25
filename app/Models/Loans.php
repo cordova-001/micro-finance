@@ -45,4 +45,6 @@ public function loanProduct()
 {
     return $this->belongsTo(LoanProduct::class, 'loan_product');
 }
+
+
 }

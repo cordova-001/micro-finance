@@ -34,6 +34,55 @@ class Customers extends Model
     {
         return $this->belongsTo(Branch::class);
     }
+
+    public function loans()
+    {
+        return $this->hasMany(Loans::class);
+    }
+
+    public function investments()
+    {
+        return $this->hasMany(Investment::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function savings()
+    {
+        return $this->hasMany(Savings::class);
+    }
+
+    public function chart()
+    {
+        return $this->hasMany(Chart::class);
+    }
+
+    public function center()
+    {
+        return $this->hasMany(Center::class);
+    }
+
+    public function loanProduct()
+    {
+        return $this->hasMany(LoanProduct::class);
+    }
+
+    public function savingsProduct()
+    {
+        return $this->hasMany(SavingsProduct::class);
+    }
+    
+
+
+
 }
 
 // 1004263561

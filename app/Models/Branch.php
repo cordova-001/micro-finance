@@ -23,4 +23,55 @@ class Branch extends Model
     {
         return $this->hasMany(Customer::class);
     }
+
+    public function loans()
+    {
+        return $this->hasMany(Loan::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function savings()
+    {
+        return $this->hasMany(Savings::class);
+    }
+
+    public function chart()
+    {
+        return $this->hasMany(Chart::class);
+    }
+
+    public function center()
+    {
+        return $this->hasMany(Center::class);
+    }
+
+    public function loanProduct()
+    {
+        return $this->hasMany(LoanProduct::class);
+    }
+
+    public function savingsProduct()
+    {
+        return $this->hasMany(SavingsProduct::class);
+    }
+
+    public function investment()
+    {
+        return $this->hasMany(Investment::class);
+    }
+
+    public function loan()
+    {
+        return $this->hasMany(Loan::class);
+    }
+    
 }

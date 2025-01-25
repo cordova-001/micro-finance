@@ -24,4 +24,24 @@ class SavingsProduct extends Model
         'maintenance_fee',         
         'status',
     ];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function savings()
+    {
+        return $this->hasMany(Savings::class);
+    }
+
+    public function branches()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
 }
