@@ -61,20 +61,31 @@ class TransactionController extends Controller
             $savings_product = $request->input('savings_product');
             $getSavingsProductDetails = SavingsProduct::where('product_name', $savings_product)->where('business_id', $business_id)->first();
             // dd($getSavingsProductDetails);
-            // search from Transactions table to check if there is account opening fee to be deducted from this account
+            // search from Transactions table to check if there is account opening fee to be deducted from this account 
+            // $opening_fee_transaction = Transaction::where('account_number', $acctNo)
+            //     ->where('transaction_type', 'Debit')
+            //     ->where('narration', 'Maintenance fee')
+            //     ->first();
+
+
             if($getSavingsProductDetails->opening_fee > 0)
             {
                 // check from the transaction table if there has been any prior deduction for this savings product from this account owner. If no, deduct it from the first payment
-                $check_maintenance_fee = Transaction::where('account_number', $acctNo)->where('opening_fee', $getSavingsProductDetails->opening_fee)->where('business_id', $business_id)->first();
+                $check_maintenance_fee = Transaction::where('account_number', $acctNo)
+                                        ->where('savings_product', $getSavingsProductDetails->product_name)
+                                        ->where('opening_fee', $getSavingsProductDetails->opening_fee)
+                                        ->where('business_id', $business_id)->count();
+
+                // I want to get the number of count of this check_maintenance_fee 
                 // dd($check_maintenance_fee);
-                if(count($check_maintenance_fee) < 1 )
+                if($check_maintenance_fee < 1 )
                 {
                     $opening_fee = $getSavingsProductDetails->opening_fee;
                     $amount_to_record = $amount_paid - $opening_fee;
                     $balance = $totalAmountPaid - $totalAmountReceived + $opening_fee; //  current balance when we sum the total amount paid minus total amount recieved plus maintenance fee
                     $balance_amount_to_record = $totalAmountPaid - $totalAmountReceived + $amount_to_record; // current balance when we sum the total amount paid minus total amount recieved plus the amount to record
-                    $narration = 'Maintenance fee';
-                    $transaction_type = 'Debit';
+                    $narration = 'Opening fee';
+                    $transaction_type = 'Credit';
                     $transaction_id = substr(Str::uuid()->toString(), 0, 15);
                     $add_deposit = Transaction::create([
                         'account_number' => $request->input('account_number'),
@@ -82,6 +93,7 @@ class TransactionController extends Controller
                         'amount_paid' => $opening_fee,
                         'depositor_phone' => $request->input('depositor_phone'),
                         'depositor_name' => $request->input('depositor_name'),
+                        // 'deposit_date' => $request->input('deposit_date'),
                         'branch_id' => $request->input('branch'),
                         'transaction_date' => $request->input('deposit_date'),
                         'savings_product' => $request->input('savings_product'),
@@ -115,6 +127,27 @@ class TransactionController extends Controller
 
                     return redirect()->back()->with('success', 'The Deposit has been created successfully after deducting the opening fee');
                 }
+
+                $transaction_id = substr(Str::uuid()->toString(), 0, 15);
+                $add_deposit = Transaction::create([
+                    'account_number' => $request->input('account_number'),
+                    'account_name' => $customer->first_name . ' ' . $customer->last_name, 
+                    'amount_paid' => $request->input('deposit_amount'),
+                    'depositor_phone' => $request->input('depositor_phone'),
+                    'depositor_name' => $request->input('depositor_name'),
+                    'branch_id' => $request->input('branch'),
+                    'transaction_date' => $request->input('deposit_date'),
+                    'savings_product' => $request->input('savings_product'),
+                    'business_id' => $business_id,
+                    'total_balance' => $balance,
+                    'transaction_id' => $transaction_id,
+                    'transaction_type' => $transaction_type,
+                    'narration' => $request->input('narration'),
+                    'staff' => $user->name,
+                    
+                ]);
+
+                return redirect()->back()->with('success', 'The Deposit has been created successfully');
             
             }
 
@@ -146,11 +179,11 @@ class TransactionController extends Controller
                     'transaction_id' => $transaction_id,
                     'transaction_type' => $transaction_type,
                     'narration' => $request->input('narration'),
-                    'staff' => 'Ahmad Akorede',
+                    'staff' => $user->name,
                     
                 ]);
 
-                return redirect('add_savings')->with('success', 'The Deposit has been created successfully');
+                return redirect()->back()->with('success', 'TThe deposit has been credited successfully');
                 
 
                     
@@ -224,9 +257,9 @@ class TransactionController extends Controller
         $staff = $request->input('staff');
         $transaction_type = 'Debit';
 
-        // if($balance < $withdraw_amount){
-        //     return "Insufficient Fund";
-        // }
+        if($balance < $withdraw_amount){
+            return redirect()->back()->with('error', 'Insufficient fund')->withInput();            
+        }
         
         $request->validate([
             'account_number' => 'required',
