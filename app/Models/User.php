@@ -44,4 +44,47 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function branches()
+    {
+        return $this->hasMany(Branch::class);
+    }
+
+    // One business profile has many loans
+    public function loans()
+    {
+        return $this->hasMany(Loan::class);
+    }
+
+    // One business profile has many investments
+    public function investments()
+    {
+        return $this->hasMany(Investment::class);
+    }
+
+    // One business profile has many transactions
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
+
+    public function loanProducts()
+    {
+        return $this->hasMany(LoanProduct::class);
+    }
+
+    public function savingsProducts()
+    {
+        return $this->hasMany(SavingsProduct::class);
+    }
+
+    public function charts()
+    {
+        return $this->hasMany(Chart::class);
+    }
 }

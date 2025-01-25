@@ -29,4 +29,20 @@ class Loans extends Model
         'repayment_date',
         'repayment_status',
     ];
+
+    // I want to create necessary relationships here for the loans table and other tables that are related to it such as the branch, customers, and loan products table
+public function branch()
+{
+    return $this->belongsTo(Branch::class);
+}
+
+public function customer()
+{
+    return $this->belongsTo(Customer::class);
+}
+
+public function loanProduct()
+{
+    return $this->belongsTo(LoanProduct::class, 'loan_product');
+}
 }
