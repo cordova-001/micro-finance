@@ -6,6 +6,7 @@ use App\Models\LoanProduct;
 use App\Models\Branch;
 use App\Models\Customers;
 use App\Models\Loans;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class LoanManagementController extends Controller
@@ -123,14 +124,14 @@ class LoanManagementController extends Controller
     {
         try{
         
-            $user = Auth::user();
+            $user = Auth::user();            
             $allLoans = DB::table('loans')
             ->join('customers', 'loans.customer_id', '=', 'customers.customer_id')
             ->where('loans.business_id', $user->business_id)
             ->select('loans.*', 'customers.first_name', 'customers.last_name')
             ->get();
 
-            dd('allLoans');
+            // dd('allLoans');
 
             return view('loan.loan_management', compact('user', 'allLoans'));
         } catch (\Illuminate\Validation\ValidationException $e) {

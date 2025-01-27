@@ -28,27 +28,20 @@
                                         <div class="row">
                                             <div class="col-lg-2">
                                                 <div class="card card-bordered">
-                                                    <img src="{{ asset('images/' . $checkAccountNo->paasport) }}" class="card-img-top" alt="">
-                                                    <div class="card-inner">
-                                                        <h5 class="card-title">Passport Photo</h5>
-                                                       
-                                                        {{-- <a href="#" class="btn btn-primary">Download</a> --}}
-                                                    </div>
+                                                    <img src="{{ asset('images/' . $checkAccountNo->passport) }}" class="card-img-top" alt="">
+                                                    
                                                 </div>
                                             </div>
-
-                                            {{-- <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                               <div class="card card-bordered">
-                                                  <img src="{{ asset('images/' . $checkAccountNo->paasport) }}" class="card-img-top" alt="">
-                                                  <div class="card-inner">
-                                                      <h5 class="card-title">Signature</h5>
-                                                     
-                                                      <a href="#" class="btn btn-primary">Download</a>
-                                                  </div>
+                                                  <img src="{{ asset('images/' . $checkAccountNo->signature) }}" class="card-img-top" alt="">
+                                                  
                                               </div>
-                                          </div> --}}
+                                          </div>
 
-                                          <div class="col-lg-10">
+                                        
+
+                                          <div class="col-lg-8">
                                             <div class="card card-bordered">
                                                 {{-- <img src="./images/slides/slide-a.jpg" class="card-img-top" alt=""> --}}
                                                 <div class="card-inner">

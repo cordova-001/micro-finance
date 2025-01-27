@@ -25,9 +25,9 @@ class Customers extends Model
          'status', 
          'customer_id', 
          'branch_id', 
-         'utility', 
+         'signature', 
          'id_card', 
-         'paasport'
+         'passport'
     ];
 
     public function Branch()

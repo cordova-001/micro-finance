@@ -81,7 +81,7 @@
                                                 <tbody>
                                                     @foreach ($customer as $customers)
                                                         <tr>
-                                                            <td> <img src="{{ asset('images/' . $customers->paasport) }}" alt="" class="thumb" style="width: 30px; height: 30px;"> {{ $customers->first_name }} {{ $customers->last_name }} </td>
+                                                            <td> <img src="{{ asset('images/' . $customers->passport) }}" alt="" class="thumb" style="width: 30px; height: 30px;"> {{ $customers->first_name }} {{ $customers->last_name }} </td>
                                                             <td>{{ $customers->customer_id }}</td>
                                                             <td>{{ $customers->phone }}</td>
                                                             <td>{{ $customers->email }}</td>

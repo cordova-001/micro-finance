@@ -21,6 +21,42 @@
                           <form action="{{ route('branch.store') }}" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
+                              
+                              
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label" for="last-name">Account Officer Name</label>
+                                  <input type="text" name="account_officer_name" class="form-control" id="email" placeholder="Account Officer Name">
+                                </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label" for="last-name">Account Officer Number</label>
+                                  <input type="text" name="account_officer_name" class="form-control" id="email" placeholder="Account Officer Name">
+                                </div>
+                              </div>
+                              
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label" for="last-name">Email Address</label>
+                                  <input type="text" name="email" class="form-control" id="email" placeholder="Email">
+                                </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label" for="phone-no">Phone Number</label>
+                                  <input type="text" name="phone" class="form-control" id="phone-no" maxlength="11" placeholder="Phone Number">
+                                </div>
+                              </div>
+                              
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label" for="address-line2">Address</label>
+                                  <input type="text" class="form-control" name="address" id="address-line2" value="">
+                                </div>
+                              </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="first-name">Account Role </label>
@@ -47,33 +83,6 @@
                                     <option value="Manager">Manager</option>
                                     <option value="Super Admin">Super Admin</option>
                                   </select>
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="last-name">Account Officer Name</label>
-                                  <input type="text" name="account_officer_name" class="form-control" id="email" placeholder="Account Officer Name">
-                                </div>
-                              </div>
-                              
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="last-name">Email Address</label>
-                                  <input type="text" name="email" class="form-control" id="email" placeholder="Email">
-                                </div>
-                              </div>
-
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="phone-no">Phone Number</label>
-                                  <input type="text" name="phone" class="form-control" id="phone-no" maxlength="11" placeholder="Phone Number">
-                                </div>
-                              </div>
-                              
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="address-line2">Address</label>
-                                  <input type="text" class="form-control" name="address" id="address-line2" value="">
                                 </div>
                               </div>
                              

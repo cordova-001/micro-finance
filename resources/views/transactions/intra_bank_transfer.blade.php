@@ -24,47 +24,40 @@
                               <div class="nk-block nk-block-lg">
                                 
                                 <div class="card card-bordered card-preview">
-                                    <div class="card-inner">
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div class="card card-bordered">
-                                                    <img src="./images/slides/slide-a.jpg" class="card-img-top" alt="">
-                                                    <div class="card-inner">
-                                                        <h5 class="card-title">Passport Photo</h5>
-                                                       
-                                                        {{-- <a href="#" class="btn btn-primary">Download</a> --}}
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-3">
-                                              <div class="card card-bordered">
-                                                  <img src="./images/slides/slide-a.jpg" class="card-img-top" alt="">
-                                                  <div class="card-inner">
-                                                      <h5 class="card-title">Signature</h5>
-                                                     
-                                                      {{-- <a href="#" class="btn btn-primary">Download</a> --}}
-                                                  </div>
-                                              </div>
-                                          </div>
-
-                                          <div class="col-lg-6">
+                                  <div class="card-inner">
+                                    <div class="row">
+                                        <div class="col-lg-2">
                                             <div class="card card-bordered">
-                                                {{-- <img src="./images/slides/slide-a.jpg" class="card-img-top" alt=""> --}}
-                                                <div class="card-inner">
-                                                    <h5 class="card-title">Account Summary</h5>
-                                                    <p><b>Account Name:  </b> {{ $checkAccountNo->first_name }} {{ $checkAccountNo->last_name }} <br>
-                                                    <b>Account Number:</b>  {{ $checkAccountNo->customer_id }} <br>
-                                                    <b>Total Savings:</b> {{ $totalSavings }} <br>
-                                                    <b>Total Withdrawal:</b> {{ $totalWithdrawal }} <br>
-                                                    <b>Total Balance:</b> {{ $totalBalance }}</p>
-                                                                                                       
-                                                </div>
+                                                <img src="{{ asset('images/' . $checkAccountNo->passport) }}" class="card-img-top" alt="">
+                                                
                                             </div>
                                         </div>
+                                        <div class="col-lg-2">
+                                          <div class="card card-bordered">
+                                              <img src="{{ asset('images/' . $checkAccountNo->signature) }}" class="card-img-top" alt="">
+                                              
+                                          </div>
+                                      </div>
 
+                                    
+
+                                      <div class="col-lg-8">
+                                        <div class="card card-bordered">
+                                            {{-- <img src="./images/slides/slide-a.jpg" class="card-img-top" alt=""> --}}
+                                            <div class="card-inner">
+                                                <h5 class="card-title">Account Summary</h5>
+                                                <p><b>Account Name:  </b> {{ $checkAccountNo->first_name }} {{ $checkAccountNo->last_name }} <br>
+                                                <b>Account Number:</b>  {{ $checkAccountNo->customer_id }} <br>
+                                                <b>Total Savings:</b> {{ $totalSavings }} <br>
+                                                <b>Total Withdrawal:</b> {{ $totalWithdrawal }} <br>
+                                                <b>Total Balance:</b> {{ $totalBalance }}</p>
+                                                                                                   
+                                            </div>
                                         </div>
                                     </div>
+
+                                    </div>
+                                </div>
                                 </div><!-- .card-preview -->
                                                                 
                             </div>

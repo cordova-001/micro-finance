@@ -78,9 +78,9 @@
                         <li class="nk-menu-item">
                             <a href="{{ route('branch.index') }}" class="nk-menu-link"><span class="nk-menu-text">Manage Branch</span></a>
                         </li>
-                        <li class="nk-menu-item">
+                        {{-- <li class="nk-menu-item">
                             <a href="{{ route('branch.index') }}" class="nk-menu-link"><span class="nk-menu-text">Generate Branch Report</span></a>
-                        </li>
+                        </li> --}}
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
 
@@ -243,10 +243,10 @@
                         
 
                         <li class="nk-menu-item">
-                            <a href="loan_management" class="nk-menu-link"><span class="nk-menu-text">Loan Management</span></a>
+                            <a href="{{ route('loan.loan_mgt') }}" class="nk-menu-link"><span class="nk-menu-text">Loan Management</span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="approve_loan" class="nk-menu-link"><span class="nk-menu-text">Approve Loan</span></a>
+                            <a href="approve_loan" class="nk-menu-link"><span class="nk-menu-text">Disburse Loan</span></a>
                         </li>
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->

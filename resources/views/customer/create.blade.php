@@ -173,8 +173,8 @@
 
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="address-st">Customer ID</label>
-                                  <input type="text" name="customer_id" class="form-control" id="address-st" value="{{ rand(10000, 999999) }}">
+                                  <label class="form-label" for="address-st">Customer ID / Account Number</label>
+                                  <input type="text" name="customer_id" maxlength="6" class="form-control" id="address-st" value="{{ rand(10000, 999999) }}">
                                 </div>
                               </div>
 
@@ -193,12 +193,7 @@
 
                              
 
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="address-st">Utility Bill</label>
-                                  <input type="file" name="utility" class="form-control" id="address-st" placeholder="Utility Bill">
-                                </div>
-                              </div>
+                              
 
                               <div class="col-md-6">
                                 <div class="form-group">
@@ -211,6 +206,13 @@
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Passport</label>
                                   <input type="file" name="passport" class="form-control" id="address-st" placeholder="Passport">
+                                </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label" for="address-st">Signature</label>
+                                  <input type="file" name="signature" class="form-control" id="address-st" placeholder=" Signature ">
                                 </div>
                               </div>
 

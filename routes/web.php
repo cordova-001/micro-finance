@@ -46,7 +46,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/loan_request', [LoanManagementController::class, 'newNewLoan'])->name('loan.loan_request');
     Route::post('/loan_process', [LoanManagementController::class, 'processLoan'])->name('loan.loan_process');
     Route::post('/create_loan_request', [LoanManagementController::class, 'createLoanRequest'])->name('loan.create.loan_request');
-    Route::post('/get_loans', [LoanManagementController::class, 'getLoan'])->name('loan.loan_mgt');
+    Route::get('/get_loans', [LoanManagementController::class, 'getLoan'])->name('loan.loan_mgt');
 
     //center uri
     Route::resource('/center', CenterController::class);
@@ -155,6 +155,15 @@ Route::middleware(['auth'])->group(function () {
         return view('reports.transactions');
     });
     
+
+    // Account Officer
+    Route::get('add_account_officer', function(){
+        return view ('account_officer.create');
+    });
+
+    Route::get('all_user', function(){
+        return view ('account_officer.index');
+    });
 });
 
 

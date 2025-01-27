@@ -81,22 +81,20 @@ class CustomerControllers extends Controller
         $customer->next_of_kin = $request->input('next_of_kin');
         $customer->address_of_next_of_kin = $request->input('address_of_next_of_kin');
         $customer->business_id = $business_id;
-        //  'utility', 
-        //  'id_card', 
-        //  'paasport'
+        
 
     if ($request->hasFile('passport')) {
         $passport = $request->file('passport');
         $imageName1 = time() . '_passport.' . $passport->getClientOriginalExtension();
         $passport->move(public_path('images'), $imageName1);
-        $customer->paasport = $imageName1;
+        $customer->passport = $imageName1;
     }
 
-    if ($request->hasFile('utility')) {
-        $utility = $request->file('utility');
-        $imageName2 = time() . 'utility.' . $utility->getClientOriginalExtension();
-        $utility->move(public_path('images'), $imageName2);
-        $customer->utility = $imageName2;
+    if ($request->hasFile('signature')) {
+        $signature = $request->file('signature');
+        $imageName2 = time() . 'signature.' . $signature->getClientOriginalExtension();
+        $signature->move(public_path('images'), $imageName2);
+        $customer->signature = $imageName2;
     }
 
     if ($request->hasFile('id_card')) {
