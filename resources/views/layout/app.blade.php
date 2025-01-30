@@ -240,6 +240,29 @@
                             <a href="{{ route('loan.loan_request') }}" class="nk-menu-link"><span class="nk-menu-text">Loan Request</span></a>
                         </li>
 
+                        {{--  --}}
+
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> Due Loans </span></a>
+                        </li>
+
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> Missed Repayment</span></a>
+                        </li>
+
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> Past Maturity Date</span></a>
+                        </li>
+
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> One Month Late Loans </span></a>
+                        </li>
+
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">Three Months Late Loans </span></a>
+                        </li>
+
+                        {{--  --}}
                         
 
                         <li class="nk-menu-item">
