@@ -50,6 +50,7 @@
                                   <input type="text" name="branch_name" class="form-control" id="branch-name" placeholder="Branch name">
                                 </div>
                               </div>
+                              
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="last-name">Email Address</label>

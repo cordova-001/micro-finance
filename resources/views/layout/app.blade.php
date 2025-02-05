@@ -261,6 +261,9 @@
                         <li class="nk-menu-item">
                             <a href="#" class="nk-menu-link"><span class="nk-menu-text">Three Months Late Loans </span></a>
                         </li>
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> Guarantors  </span></a>
+                        </li>
 
                         {{--  --}}
                         
