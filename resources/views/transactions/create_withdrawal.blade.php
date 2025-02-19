@@ -28,7 +28,7 @@
                                         <div class="row">
                                             <div class="col-lg-2">
                                                 <div class="card card-bordered">
-                                                    <img src="{{ asset('images/' . $checkAccountNo->passport) }}" class="card-img-top" alt="">
+                                                    <img src="{{ asset('images/' . $checkAccountNo->passport) }}"  class="card-img-top" alt="">
                                                     
                                                 </div>
                                             </div>

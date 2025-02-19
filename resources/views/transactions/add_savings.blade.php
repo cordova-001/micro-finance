@@ -104,6 +104,28 @@
 
                               <div class="col-md-6">
                                 {{-- {{-- <div class="form-group"> --}}
+                                  <label class="form-label" for="address-st">Deposit Means </label>                                  
+                                <select class="form-select"  name="transaction_means">
+                                  <option value="">Select Deposit Means</option>
+                                  
+                                  
+                                    <option value="Bank">Bank </option>
+                                    <option value="Transfer"> Transfer</option>
+                                    <option value="Cash">Cash </option>
+                                   
+                                  
+                                </select>
+                              </div>
+
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label" for="address-st"> Upload Evidence of Payment </label>
+                                  <input type="file" name="file" class="form-control" id="file" >
+                                </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                {{-- {{-- <div class="form-group"> --}}
                                   <label class="form-label" for="address-st"> Branch </label>
                                   {{-- <input type="text" name="branch" readonly value="{{ $branch->branch_name }}" class="form-control" id="branch" > --}}
                                 {{-- </div>  --}}

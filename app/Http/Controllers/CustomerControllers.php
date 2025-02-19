@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Customers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Branch;
+use App\Models\Transaction;
 use App\Models\Center;
+use Illuminate\Support\Facades\DB;
 class CustomerControllers extends Controller
 {
     /**
@@ -19,7 +21,6 @@ class CustomerControllers extends Controller
     {
         $business_id = Auth::user()->business_id;
         $customer = Customers::where('business_id', $business_id)->get();
-        // $customer = Customers::all();
         return view ('customer.index', compact('customer'));
     }
 
@@ -121,9 +122,48 @@ class CustomerControllers extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function getCustomerDetails($customer_id)
     {
-        //
+        try{
+            $business_id = Auth::user()->business_id;
+            $customer = Customers::where('customer_id', $customer_id)
+                        ->where('business_id', $business_id)
+                        ->firstOrFail();
+
+
+                        // dd($customer); 
+
+                        // Fetch Loans for this branch
+            $loans = DB::table('loans')
+                        ->where('customer_id', $customer_id)
+                        ->where('business_id', $business_id)
+                        ->get();
+        
+
+            $savings = DB::table('transactions')
+                        ->where('account_number', $customer_id)
+                        ->where('business_id', $business_id)
+                        ->where('transaction_type', 'credit') 
+                        ->get();
+
+                        // dd($savings);
+
+            $withdrawal = DB::table('transactions')
+                        ->where('account_number', $customer_id)
+                        ->where('business_id', $business_id)
+                        ->where('transaction_type', 'debit') 
+                        ->get();
+
+            $totalSavings = Transaction::where('account_number', $customer_id)->sum('amount_paid');
+            $totalWithdrawal = Transaction::where('account_number', $customer_id)->sum('amount_received');
+            $totalBalance = $totalSavings - $totalWithdrawal;
+            
+            return view('customer.details', compact('customer', 'loans', 'savings', 'withdrawal', 'totalSavings', 'totalWithdrawal', 'totalBalance'));
+        
+        } catch (\Exception $e) {
+            \Log::error('Error fetching branch data: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while retrieving branch details.');
+        }
     }
 
     /**

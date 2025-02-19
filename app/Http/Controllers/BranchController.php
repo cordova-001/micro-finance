@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Branch;
+use Illuminate\Support\Facades\DB;
 
 class BranchController extends Controller
 {
@@ -65,7 +66,36 @@ class BranchController extends Controller
      */
     public function show($id)
     {
-        //
+        try{
+            $business_id = Auth::user()->business_id;
+            $branch = Branch::where('id', $id)
+                        ->where('business_id', $business_id)
+                        ->firstOrFail();
+
+                        // Fetch Loans for this branch
+            $loans = DB::table('loans')
+                        ->where('branch_id', $id)
+                        ->where('business_id', $business_id)
+                        ->get();
+
+        // Fetch Investments for this branch
+            // $investments = DB::table('investments')
+            //             ->where('branch_id', $id)
+            //             ->where('business_id', $business_id)
+            //             ->get();
+
+            $transactions = DB::table('transactions')
+                        ->where('branch_id', $id)
+                        ->where('business_id', $business_id)
+                        // ->where('transaction_type', 'savings') 
+                        ->get();
+            
+            return view('branch.show', compact('branch', 'loans', 'transactions'));
+        
+        } catch (\Exception $e) {
+            \Log::error('Error fetching branch data: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while retrieving branch details.');
+        }
     }
 
     /**
@@ -109,9 +139,9 @@ class BranchController extends Controller
         $branch->update($validated);
 
         return redirect()->route('branch.edit')->with('success', 'Branch updated successfully.');
-    } catch (\Exception $e){
-        return redirect()->route('branch.edit')->with('error', 'Failed to update the branch.');
-    }
+        } catch (\Exception $e){
+            return redirect()->route('branch.edit')->with('error', 'Failed to update the branch.');
+        }
 
         
     }

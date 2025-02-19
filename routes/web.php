@@ -37,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/all-branch', [BranchController::class, 'index'])->name('branch.index');
     Route::get('/branch/{id}/edit', [BranchController::class, 'edit'])->name('branch.edit');
     Route::put('/branch/{id}', [BranchController::class, 'update'])->name('branch.update');
+    Route::get('/branch/{id}/details', [BranchController::class, 'show'])->name('branch.show');
 
 
     //Loan product uri later
@@ -47,6 +48,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/loan_process', [LoanManagementController::class, 'processLoan'])->name('loan.loan_process');
     Route::post('/create_loan_request', [LoanManagementController::class, 'createLoanRequest'])->name('loan.create.loan_request');
     Route::get('/get_loans', [LoanManagementController::class, 'getLoan'])->name('loan.loan_mgt');
+    Route::get('/manage_loan/{id}', [LoanManagementController::class, 'manageLoan'])->name('loan.manage');
+    Route::get('/guarantor', [LoanManagementController::class, 'newGuarantor'])->name('loan.guarantor');
 
     //center uri
     Route::resource('/center', CenterController::class);
@@ -62,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/create_customer', [CustomerControllers::class, 'create'])->name('customer.create');
     Route::get('/customer', [CustomerControllers::class, 'index'])->name('customer.index');
     Route::post('/new_customer', [CustomerControllers::class, 'addCustomer'])->name('customer.add');
+    Route::get('/customer/{customer_id}/details', [CustomerControllers::class, 'getCustomerDetails'])->name('customer.details');
 
     Route::get('/chart', [HighchartController::class, 'handleChart']);
 
@@ -99,16 +103,20 @@ Route::middleware(['auth'])->group(function () {
         return view('loan.loan_management');
     });
 
-    // Route::get('', function () {
-    //     return view('loan.request_loan');
-    // });
-
-    Route::get('customer_details', function(){
-        return view('customer.details');
+    Route::get('bulk_repayment', function () {
+        return view('loan.bulk_repayment');
     });
 
+    // Route::get('customer_details', function(){
+    //     return view('customer.details');
+    // });
+
     Route::get('add_investment_product', function(){
-        return view('transactions.add_investment_product');
+        return view('investments.add_investment_product');
+    });
+
+    Route::get('all_investment', function(){
+        return view('investment.investments');
     });
 
     Route::get('add_expenses', function(){
@@ -163,6 +171,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('all_user', function(){
         return view ('account_officer.index');
+    });
+
+    Route::get('branch_detail', function(){
+        return view ('branch.show');
     });
 });
 

@@ -130,9 +130,9 @@
                                                                         
                                                                             <ul class='link-list-opt no-bdr'>
                                                                               
-                                                                              <a href="{{ route('branch.edit', $branches->id) }}" class="dropdown-item">Edit Branch {{ $branches->id }}</a>
+                                                                              <a href="{{ route('branch.edit', $branches->id) }}" class="dropdown-item"><em class='icon ni ni-eye'></em>Edit Branch </a>
                                                                               <hr>
-                                                                              {{-- <a href="{{ route('branch.edit', $branch->id) }}" class="dropdown-item">View Details</a> --}}
+                                                                              <a href="{{ route('branch.show', $branches->id) }}" class="dropdown-item"> <em class='icon ni ni-activity-round'></em> View Details</a>
                                                                                 
                                                                             </ul>
                                                                             

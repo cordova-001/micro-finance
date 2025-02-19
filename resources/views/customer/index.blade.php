@@ -85,7 +85,7 @@
                                                             <td>{{ $customers->customer_id }}</td>
                                                             <td>{{ $customers->phone }}</td>
                                                             <td>{{ $customers->email }}</td>
-                                                            <td>{{ $customers->address }}</td>
+                                                            <td>{{ $customers->address }}</td> 
                                                             <td>{{ $customers->status }}</td>
                                                             <td>
                                                                 <li>
@@ -94,11 +94,12 @@
                                                                         <div class='dropdown-menu dropdown-menu-end'>
                                                                         <form method='get'>
                                                                             <ul class='link-list-opt no-bdr'>
-                                                                              <li class="form-control"><span><em class='icon ni ni-eye'></em><input name='branch_details' formaction='branch_details' type='submit' style='border: 0px; background-color: white; float: center;' value='View Details' class='icon ni ni-eye' /></span></li>
-                                                                              <br>
-                                                                              <input type='text' name='bid' value='$bid' hidden />
-                                                                              <li class="form-control"><em class='icon ni ni-activity-round'></em><input name='edit_branch'  type='submit' formaction='edit_branch' style='border: 0px; background-color: white; float: center;' value='Edit Customer' class='icon ni ni-eye' /></li>
-                                                                                
+                                                                                {{-- <li class="form-control"><span><a href="{{ route('customer.details', $customers->customer_id) }}"><em class='icon ni ni-eye'></em> Customer Profile</a> </span></li> --}}
+                                                                                <li class="form-control"><span><a href="{{ route('customer.details', $customers->customer_id) }}"><em class='icon ni ni-eye'></em> Edit Customer</a> </span></li>
+                                                                                <li class="form-control"><span><a href="{{ route('customer.details', $customers->customer_id) }}"><em class='icon ni ni-eye'></em>  Transaction History</a> </span></li>
+                                                                                {{-- <li class="form-control"><span><a href="{{ route('customer.details', $customers->customer_id) }}"><em class='icon ni ni-eye'></em>  Send Email </a> </span></li> --}}
+                                                                              
+                                                                              
                                                                             </ul>
                                                                             </form>
                                                                         </div>

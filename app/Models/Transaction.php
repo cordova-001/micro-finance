@@ -33,6 +33,8 @@ class Transaction extends Model
         'business_id',
         'transaction_date',
         'staff',
+        'transaction_means',
+        'file,'
     ];
 
     public function customers()

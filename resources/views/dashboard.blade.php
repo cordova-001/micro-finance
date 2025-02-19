@@ -87,7 +87,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">123</div>
+                                                        <div class="amount fw-normal">0</div>
                                                         <div class="info text-end">
                                                             <h6>  </h6>
                                                              <h5> </h5> 
@@ -110,7 +110,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">123</div>
+                                                        <div class="amount fw-normal">0</div>
                                                         <div class="info text-end">
                                                             <!-- <h5> 232323 Customers</h5> -->
                                                         </div>
@@ -132,7 +132,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">123</div>
+                                                        <div class="amount fw-normal">0</div>
                                                         {{-- <h5> 12345 Customers</h5> --}}
                                                     </div>
                                                 </div>
@@ -153,7 +153,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">2234</div>
+                                                        <div class="amount fw-normal">0</div>
                                                         {{-- <h5> 2345 Customers</h5> --}}
                                                     </div>
                                                 </div>
@@ -174,7 +174,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">#21</div>
+                                                        <div class="amount fw-normal">#0</div>
 
                                                     </div>
                                                 </div>
@@ -194,7 +194,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal" style="color: white;">#21</div>
+                                                        <div class="amount fw-normal" style="color: white;">#0</div>
 
                                                     </div>
                                                 </div>
@@ -214,7 +214,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal" style="color: white;">#21</div>
+                                                        <div class="amount fw-normal" style="color: white;">#0</div>
 
                                                     </div>
                                                 </div>
@@ -234,7 +234,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal" style="color: white;">#281</div>
+                                                        <div class="amount fw-normal" style="color: white;">#0</div>
 
                                                     </div>
                                                 </div>
@@ -255,7 +255,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">#281</div>
+                                                        <div class="amount fw-normal">#0</div>
 
                                                     </div>
                                                 </div>
@@ -276,7 +276,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">#281</div>
+                                                        <div class="amount fw-normal">#0</div>
 
                                                     </div>
                                                 </div>
@@ -297,7 +297,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">#281</div>
+                                                        <div class="amount fw-normal">#0</div>
 
                                                     </div>
                                                 </div>
@@ -318,7 +318,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">#281</div>
+                                                        <div class="amount fw-normal">#0</div>
 
                                                     </div>
                                                 </div>

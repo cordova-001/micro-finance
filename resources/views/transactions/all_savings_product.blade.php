@@ -111,9 +111,9 @@
                                                                             <ul class='link-list-opt no-bdr'>
                                                                               <li><span><em class='icon ni ni-eye'></em><input name='branch_details' formaction='branch_details' type='submit' style='border: 0px; background-color: white; float: center;' value='View Details' class='icon ni ni-eye' /></span></li>
                                                                               <br>
-                                                                              <input type='text' name='bid' value='$bid' hidden />
+                                                                              {{-- <input type='text' name='bid' value='$bid' hidden />
                                                                               <li><em class='icon ni ni-activity-round'></em><input name='edit_branch' type='submit' formaction='edit_branch' style='border: 0px; background-color: white; float: center;' value='Edit Branch' class='icon ni ni-eye' /></li>
-                                                                                
+                                                                                 --}}
                                                                             </ul>
                                                                             </form>
                                                                         </div>

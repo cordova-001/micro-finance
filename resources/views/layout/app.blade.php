@@ -47,7 +47,7 @@
 
 
 </div><!-- .nk-sidebar-element --> --}}
-<div class="nk-sidebar-element" style="background-color: rgb(13, 13, 124); color:aliceblue;">
+<div class="nk-sidebar-element" style="background-color: rgb(31, 10, 107); color:aliceblue;">
     <div class="nk-sidebar-content">
         <div class="nk-sidebar-menu" data-simplebar>
             <ul class="nk-menu">
@@ -84,7 +84,7 @@
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
 
-                <li class="nk-menu-item has-sub">
+                {{-- <li class="nk-menu-item has-sub">
                     <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
                         <span class="nk-menu-icon"><em class="icon ni ni-user-fill"></em></span>
                         <span class="nk-menu-text"> Account Officer </span>
@@ -102,7 +102,7 @@
 
 
                     </ul><!-- .nk-menu-sub -->
-                </li><!-- .nk-menu-item -->
+                </li><!-- .nk-menu-item --> --}}
                 
 
                 <li class="nk-menu-item has-sub">
@@ -239,6 +239,9 @@
                         <li class="nk-menu-item">
                             <a href="{{ route('loan.loan_request') }}" class="nk-menu-link"><span class="nk-menu-text">Loan Request</span></a>
                         </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('loan.loan_mgt') }}" class="nk-menu-link"><span class="nk-menu-text">Loan Management</span></a>
+                        </li>
 
                         {{--  --}}
 
@@ -262,15 +265,13 @@
                             <a href="#" class="nk-menu-link"><span class="nk-menu-text">Three Months Late Loans </span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> Guarantors  </span></a>
+                            <a href="{{ route('loan.guarantor') }}" class="nk-menu-link"><span class="nk-menu-text"> Guarantors  </span></a>
                         </li>
 
                         {{--  --}}
                         
 
-                        <li class="nk-menu-item">
-                            <a href="{{ route('loan.loan_mgt') }}" class="nk-menu-link"><span class="nk-menu-text">Loan Management</span></a>
-                        </li>
+                        
                         <li class="nk-menu-item">
                             <a href="approve_loan" class="nk-menu-link"><span class="nk-menu-text">Disburse Loan</span></a>
                         </li>
@@ -503,9 +504,12 @@
                                                     <li><a href="html/lms/admin-profile-setting.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a>
                                                     </li>
 
+                                                    <form action="{{ route('logout') }}" method="POST">
+                                                        @csrf
+                                                        <input type="submit" class="icon ni ni-signout form-control " name="logout" value="Logout">
+                                                    </form>
 
-                                                    <li><a href="{{ route('logout') }}"><em class="icon ni ni-signout"></em><span>Sign out</span></a>
-                                                    </li>
+
                                                 </ul>
                                             </div>
 

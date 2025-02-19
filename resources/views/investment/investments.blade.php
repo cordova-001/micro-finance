@@ -7,7 +7,7 @@
                                 <div class="nk-block-head nk-block-head-sm">
                                     <div class="nk-block-between">
                                         <div class="nk-block-head-content">
-                                            <h3 class="nk-block-title page-title"> Loan Management</h3>
+                                            <h3 class="nk-block-title page-title"> Investment Management</h3>
                                         </div>
                                         <div class="nk-block-head-content">
                                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -79,10 +79,22 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($allLoans as $allLoan)
+                                                    {{-- @foreach ($allLoans as $allLoan) --}}
                                                         <tr>
+
+                                                            <td>asASASAS</td>
+                                                            <TD>ASASASA</TD>
+                                                            <TD>ASASASAS</TD>
+                                                            <TD>SDSDSDSD</TD>
+                                                            <TD>SDSDSDSDS</TD>
+                                                            <TD>SSDSDSDS</TD>
+                                                            <TD>SDSDSDSDS</TD>
+                                                            <TD>SDSDSDS</TD>
+                                                            <TD>DSDSDSDSDS</TD>
+                                                            <TD>SSDSDSDS</TD>
+                                                            <TD>VVXCVXVXCV</TD>
                                                             
-                                                            <td>{{ $allLoan->first_name }} {{ $allLoan->last_name }}</td>
+                                                            {{-- <td>{{ $allLoan->first_name }} {{ $allLoan->last_name }}</td>
                                                             <td>{{ $allLoan->customer_id }}</td>
                                                             <td>{{ $allLoan->loan_product }}</td>
                                                             <td>{{ $allLoan->loan_amount }}</td>
@@ -91,7 +103,7 @@
                                                             <td>{{ $allLoan->each_repayment_amount }}</td>
                                                             <td>{{ $allLoan->repayment_period }}</td>
                                                             <td>{{ $allLoan->application_date }}</td>
-                                                            <td>{{ $allLoan->status }}</td>
+                                                            <td>{{ $allLoan->status }}</td> --}}
                                                             <td>
                                                                 <li>
                                                                     <div class='drodown'>
@@ -101,7 +113,7 @@
                                                                               
                                                                                 {{-- <a href="{{ route('branch.edit', $branches->id) }}" class="dropdown-item"><em class='icon ni ni-eye'></em>  Edit Loan  </a> --}}
                                                                                 <hr>
-                                                                                <a href="{{ route('loan.manage', $allLoan->id) }}" class="dropdown-item"> <em class='icon ni ni-activity-round'></em> Manage Loan</a>
+                                                                                {{-- <a href="{{ route('loan.manage', $allLoan->id) }}" class="dropdown-item"> <em class='icon ni ni-activity-round'></em> Manage Loan</a> --}}
                                                                                   
                                                                               </ul>
                                                                         </div>
@@ -109,7 +121,7 @@
                                                                 </li>
                                                             </td>
                                                         </tr>
-                                                    @endforeach
+                                                    {{-- @endforeach --}}
                                                    
                                                 </tbody>
                                             </table>

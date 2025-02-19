@@ -165,6 +165,13 @@ class TransactionController extends Controller
                     'savings_product' => 'required',
                 ]);
 
+                // if ($request->hasFile('file')) {
+                //     $file = $request->file('file');
+                //     $imageName1 = time() . '_file.' . $file->getClientOriginalExtension();
+                //     $file->move(public_path('images'), $imageName1);
+                //     $transaction->file = $imageName1;
+                // }
+
                 $add_deposit = Transaction::create([
                     'account_number' => $request->input('account_number'),
                     'account_name' => $customer->first_name . ' ' . $customer->last_name, 
@@ -177,10 +184,12 @@ class TransactionController extends Controller
                     'business_id' => $business_id,
                     'total_balance' => $balance,
                     'transaction_id' => $transaction_id,
+                    'transaction_means' => $request->input('transaction_means'),
+                    // 'file' => $imageName1,
                     'transaction_type' => $transaction_type,
                     'narration' => $request->input('narration'),
                     'staff' => $user->name,
-                    
+                   
                 ]);
 
                 return redirect()->back()->with('success', 'TThe deposit has been credited successfully');

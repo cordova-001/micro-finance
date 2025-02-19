@@ -16,7 +16,9 @@ class LoanManagementController extends Controller
         $user = Auth::user();
         $branches = Branch::where('business_id', $user->business_id)->get();
         $customers = Customers::where('business_id', $user->business_id)->get();
-        $lproduct = LoanProduct::where('business_id', $user->business_id)->get();        
+        $lproduct = LoanProduct::where('business_id', $user->business_id)->get();   
+        
+        // dd($customers);
         return view('loan.request_loan', compact('customers', 'user', 'lproduct', 'branches'));
     }
 
@@ -69,7 +71,7 @@ class LoanManagementController extends Controller
                 {
                     return redirect()->back()->with('error', 'Invalid loan product selected')->withInput();
                 }
-                // * check if amount requested is within t eh minimum an dmaximum amount stated for the loan product
+                // * check if amount requested is within the minimum and maximum amount stated for the loan product
                 if($loan_amount < $getLoanProduct->minimum_amount || $loan_amount > $getLoanProduct->maximum_amount)
                 {
                     return redirect()->back()->with('error', 'Loan amount must be between ' . $getLoanProduct->minimum_amount . ' and ' . $getLoanProduct->maximum_amount)->withInput();
@@ -141,5 +143,50 @@ class LoanManagementController extends Controller
             \Log::error('Error fetching loan: ' . $e->getMessage());
             return redirect()->back()->with('error', 'An error occurred while processing the loan. Please try again.');
         }
+    }
+
+    public function newGuarantor()
+    {
+        $user = Auth::user();
+        $branch = Branch::where('business_id', $user->business_id)->get();
+        return view ('loan.guarantor', compact('branch'));
+
+    }
+
+
+    public function manageLoan($id)
+    {
+        $user = Auth::user();
+        $business_id = Auth::user()->business_id;
+        $loan = Loans::where('id', $id)->where('business_id', $business_id)->firstOrFail();
+    
+        return view('loan.manage_loan', compact('loan', 'business_id', 'user'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        
+        try{
+        $business_id = Auth::user()->business_id;
+         $loan = Loans::findOrFail('id', $id);
+
+        $validated =  $request->validate([
+            'account_number' => 'required',
+            'loan_product' => 'required',
+            'loan_amount' => 'required',
+            'frequency' => 'required',
+            'branch_id' => 'required',
+            'application_date' => 'required',
+            'repayment_period' => 'required',
+        ]);
+
+        $loan->update($validated);
+
+        return redirect()->route('loan.edit')->with('success', 'The loan updated successfully.');
+        } catch (\Exception $e){
+            return redirect()->route('branch.edit')->with('error', 'Failed to update the loan.');
+        }
+
+        
     }
 }
