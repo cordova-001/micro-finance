@@ -12,23 +12,46 @@
                   </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
                 <div class="nk-block nk-block-lg">
+                  @if (session('success'))
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      {{ session('success') }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              @endif
+
+              @if (session('error'))
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      {{ session('error') }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              @endif
+
+              @if ($errors->any())
+                  <div class="alert alert-danger">
+                      <ul>
+                          @foreach ($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                          @endforeach
+                      </ul>
+                  </div>
+              @endif
                   <div class="card">
                     <div class="card-inner">
                       <div class="tab-content">
                         <div class="tab-pane active" id="tabItem5">
-                          <form action="{{ route('center.store') }}" class="pt-2" method="POST" enctype="multipart/form-data">
+                          <form action="{{ route('add_chart') }}" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="last-name">Chart Name</label>
-                                  <input type="text" name="chart_name" class="form-control" id="email" placeholder="Email">
+                                  <input type="text" name="chart_name" class="form-control" id="chart_name" placeholder="Chart Name">
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="last-name">GL Code</label>
-                                  <input type="number" name="gl-code" class="form-control" id="email" placeholder="Email">
+                                  <input type="text" name="gl_code" class="form-control" id="gl_code" placeholder="GL Code">
                                 </div>
                               </div>
                               <div class="col-md-6">

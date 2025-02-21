@@ -1,23 +1,24 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Chart;
 
-class ChartController extends Controller
+use App\Models\AccountSystem;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
+class AccountSystemController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function allExpenses()
     {
         $business_id = Auth::user()->business_id;
-        $chart = Chart::all();
-        return view('account.chart', compact('chart', 'business_id'));
+        $all_expenses = AccountSystem::where('business_id', $business_id)->where('account_type', "Expenses")->get();
+        return view('account.all_expenses', compact('business_id', 'all_expenses'));
     }
 
     /**
@@ -25,9 +26,9 @@ class ChartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createExpenses()
     {
-        return view('account.create');
+        return view('account.add_expenses');
     }
 
     /**
@@ -36,19 +37,9 @@ class ChartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function newExpenses(Request $request)
     {
-        $business_id = Auth::user()->business_id;
-
-        $chart = Chart::create([
-            'chart_name' => $request->input('chart_name'),
-            'gl_code' => $request->input('gl_code'),
-            'type' => $request->input('type'),
-            'notes' => $request->input('notes'),
-            'business_id' => $$business_id,
-        ]);
-
-        return redirect()->back()->with('success', 'The Chart to account has been added successfully');
+        //
     }
 
     /**

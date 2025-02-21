@@ -56,6 +56,11 @@ class User extends Authenticatable
         return $this->hasMany(Loan::class);
     }
 
+    public function account_system()
+    {
+        return $this->hasMany(AcountSystem::class);
+    }
+
     // One business profile has many investments
     public function investments()
     {

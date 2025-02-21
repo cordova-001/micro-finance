@@ -44,6 +44,11 @@ class Branch extends Model
         return $this->hasMany(Savings::class);
     }
 
+    public function account_system()
+    {
+        return $this->hasMany(AccountSystem::class);
+    }
+
     public function chart()
     {
         return $this->hasMany(Chart::class);

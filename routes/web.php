@@ -10,6 +10,7 @@ use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CustomerControllers;
 use App\Http\Controllers\HighChartController;
 use App\Http\Controllers\SavingsProductController;
+use App\Http\Controllers\InternetBankingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -59,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('chart', ChartController::class);
     Route::get('/create_chart_of_account', [ChartController::class, 'create'])->name('account.create');
     Route::get('/chart_of_account', [ChartController::class, 'index'])->name('account.chart');
+    Route::post('/add_chart', [ChartController::class, 'store'])->name('add_chart');
 
     //customer url details
     Route::resource('chart', CustomerControllers::class);
@@ -84,6 +86,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/manage_deposit', [TransactionController::class, 'manageDeposit'])->name('manage_deposit');
     Route::get('/manage_withdrawal', [TransactionController::class, 'manageWithdrawal'])->name('manage_withdrawal');
 
+
+
+    Route::get('internet_banking/get_savings_product', [InternetBankingController::class, 'getSavingsProducts'])->name('ibank.get_product');
+
     Route::get('savings_product', function () {
         return view('transactions.savings_product');
     });
@@ -93,12 +99,43 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('add_withdrawal', function () {
     //     return view('transactions.add_withdrawal');
     // });
+
+
     Route::get('intra_bank_transfer', function () {
         return view('transactions.intra_bank_transfer');
     });
-    Route::get('manage_savings', function () {
-        return view('transactions.manage_savings');
+
+
+    
+
+    Route::get('internet_banking/my_loans', function () {
+        return view('internet_banking.my_loans');
     });
+
+    
+    Route::get('internet_banking/all_product', function () {
+        return view('internet_banking.all_savings_products');
+    });
+
+    Route::get('internet_banking/my_savings', function () {
+        return view('internet_banking.my_savings');
+    });
+
+    Route::get('internet_banking/my_investments', function () {
+        return view('internet_banking.my_investments');
+    });
+
+    Route::get('internet_banking/all_investments', function () {
+        return view('internet_banking.all_investments');
+    });
+
+
+
+
+
+
+
+
     Route::get('loan_management', function () {
         return view('loan.loan_management');
     });
@@ -120,19 +157,19 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get('add_expenses', function(){
-        return view('transactions.add_expenses');
+        return view('account.add_expenses');
     });
 
     Route::get('add_income', function(){
-        return view('transactions.add_income');
+        return view('account.add_income');
     });
     
     Route::get('all_income', function(){
-        return view('transactions.all_income');
+        return view('account.all_income');
     });
 
     Route::get('all_expenses', function(){
-        return view('transactions.all_expenses');
+        return view('account.all_expenses');
     });
 
     // Reports

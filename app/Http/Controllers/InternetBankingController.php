@@ -1,23 +1,29 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Customers;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Chart;
+use App\Models\Branch;
+use App\Models\Transaction;
+use App\Models\SavingsProduct;
+use App\Models\Loans;
+use App\Models\InvestmentProducts;
+use Illuminate\Support\Facades\DB;
 
-class ChartController extends Controller
+use Illuminate\Http\Request;
+
+class InternetBankingController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getSavingsProducts()
     {
         $business_id = Auth::user()->business_id;
-        $chart = Chart::all();
-        return view('account.chart', compact('chart', 'business_id'));
+        $getProduct = SavingsProduct::all();
+        return view('internet_banking.all_savings_products', compact('business_id', 'getProduct'));
     }
 
     /**
@@ -27,7 +33,7 @@ class ChartController extends Controller
      */
     public function create()
     {
-        return view('account.create');
+        //
     }
 
     /**
@@ -38,17 +44,7 @@ class ChartController extends Controller
      */
     public function store(Request $request)
     {
-        $business_id = Auth::user()->business_id;
-
-        $chart = Chart::create([
-            'chart_name' => $request->input('chart_name'),
-            'gl_code' => $request->input('gl_code'),
-            'type' => $request->input('type'),
-            'notes' => $request->input('notes'),
-            'business_id' => $$business_id,
-        ]);
-
-        return redirect()->back()->with('success', 'The Chart to account has been added successfully');
+        //
     }
 
     /**
