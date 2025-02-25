@@ -33,11 +33,104 @@
                                 
 
 
+                                <div class="card">
+                                    <div class="card-inner">
+                                      <div class="tab-content">
+                                        <div class="tab-pane active" id="tabItem5">
+                                          <h5 class="title"> Select Date Range </h5>
+                                            @if (session('success'))
+                                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                    {{ session('success') }}
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            @endif
+                
+                                            @if (session('error'))
+                                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                    {{ session('error') }}
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                            @endif
+                
+                                            @if ($errors->any())
+                                                <div class="alert alert-danger">
+                                                    <ul>
+                                                        @foreach ($errors->all() as $error)
+                                                            <li>{{ $error }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
+                                          
+                                          <form action="{{ route('branch.store') }}" class="pt-2" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="row gy-4">
+                                              <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label class="form-label" for="first-name"> Start Date </label>
+                                                  <input type="date" name="branch_name" class="form-control" id="branch-name" placeholder="Branch name">
+                                                </div>
+                                              </div>
+                                              
+                                              <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label class="form-label" for="last-name"> End Date</label>
+                                                  <input type="date" name="email" class="form-control" id="email" placeholder="Email">
+                                                </div>
+                                              </div>
+                                              
+                                              <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label class="form-label" for="first-name"> Select a Customer </label>
+                                                  
+                                                  <select name="customer" id="customer" class="form-control">
+                                                    <option value="Select a Customer">Select a Customer</option>
+                                                    <option value="Select a Customer">Select a Customer</option>
+                                                    <option value="Select a Customer">Select a Customer</option>
+                                                    <option value="Select a Customer">Select a Customer</option>
+                                                    <option value="Select a Customer">Select a Customer</option>
+                                                  </select>
+                                                </div>
+                                              </div>
+                                              
+                                              <div class="col-md-6">
+                                                <div class="form-group">
+                                                  <label class="form-label" for="last-name"> Select Loan Product</label>
+                                                  {{-- <input type="date" name="email" class="form-control" id="email" placeholder="Email"> --}}
+                                                  <select name="Choose a Product" id="Choose A Product" class="form-control">
+                                                    <option value="Choose a Product"> Choose a Product</option>
+                                                    <option value="Choose a Product"> Choose a Product</option>
+                                                    <option value="Choose a Product"> Choose a Product</option>
+                                                    <option value="Choose a Product"> Choose a Product</option>
+                                                    <option value="Choose a Product"> Choose a Product</option>
+                                                  </select>
+                                                </div>
+                                              </div>
+                                              
 
+                                              <div class="col-md-12">
+                                                <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                                  <li>
+                                                    <button name="create_branch" class="btn btn-primary"> Search </button>
+                                                  </li>
+                
+                                                </ul>
+                                              </div>
+                                            </div>
+                                          </form>
+                                        </div>
+                                        <!--tab pan -->
+                
+                
+                                      </div>
+                                    </div>
+                                    <!--card inner-->
+                                  </div>
+                                  
 
                                 <div class="nk-block nk-block-lg">
                                     <div class="nk-block-head">
-                                        
+                                    
                                     </div>
                                     <div class="card card-bordered card-preview">
                                         <div class="card-inner">

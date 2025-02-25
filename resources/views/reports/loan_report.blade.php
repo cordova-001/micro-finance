@@ -7,7 +7,7 @@
                                 <div class="nk-block-head nk-block-head-sm">
                                     <div class="nk-block-between">
                                         <div class="nk-block-head-content">
-                                            <h3 class="nk-block-title page-title"> Disbursement Report </h3>
+                                            <h3 class="nk-block-title page-title"> Loan Report </h3>
                                         </div>
                                         <div class="nk-block-head-content">
                                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -31,6 +31,8 @@
                                     </div><!-- .nk-block-between -->
                                 </div><!-- .nk-block-head -->
                                 
+
+
                                 <div class="card">
                                     <div class="card-inner">
                                       <div class="tab-content">
@@ -93,7 +95,7 @@
                                               
                                               <div class="col-md-6">
                                                 <div class="form-group">
-                                                  <label class="form-label" for="last-name"> Select A Product</label>
+                                                  <label class="form-label" for="last-name"> Select Loan Product</label>
                                                   {{-- <input type="date" name="email" class="form-control" id="email" placeholder="Email"> --}}
                                                   <select name="Choose a Product" id="Choose A Product" class="form-control">
                                                     <option value="Choose a Product"> Choose a Product</option>
@@ -124,13 +126,11 @@
                                     </div>
                                     <!--card inner-->
                                   </div>
-
-
-
+                                  
 
                                 <div class="nk-block nk-block-lg">
                                     <div class="nk-block-head">
-                                        
+                                    
                                     </div>
                                     <div class="card card-bordered card-preview">
                                         <div class="card-inner">

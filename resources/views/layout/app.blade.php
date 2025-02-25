@@ -379,6 +379,12 @@
                             <a href="disbursement_report" class="nk-menu-link"><span class="nk-menu-text">Disbursement</span></a>
                         </li>
                         <li class="nk-menu-item">
+                            <a href="customer_report" class="nk-menu-link"><span class="nk-menu-text">Customer Report</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="loan_report" class="nk-menu-link"><span class="nk-menu-text">Loan Report</span></a>
+                        </li>
+                        <li class="nk-menu-item">
                             <a href="expected_loan_report" class="nk-menu-link"><span class="nk-menu-text">Expected Loan</span></a>
                         </li>
                         <li class="nk-menu-item">
@@ -409,6 +415,12 @@
                         <span class="nk-menu-text">Accounting Report</span>
                     </a>
                     <ul class="nk-menu-sub" style="background-color: aliceblue;">
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> Cash Flow Accumulated</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">Cash Flow Monthly</span></a>
+                        </li>
                         <li class="nk-menu-item">
                             <a href="#" class="nk-menu-link"><span class="nk-menu-text">General Ledger</span></a>
                         </li>

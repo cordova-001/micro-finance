@@ -51,7 +51,7 @@
                                         <div class="card-inner">
                                             <div class="card-title-group align-start mb-2">
                                                 <div class="card-title">
-                                                    <h6 class="title">Loan Performances</h6>
+                                                    <h6 class="title">Loan Performances </h6>
                                                     <p>In last 30 days</p>
                                                 </div>
                                                 <div class="card-tools">
@@ -87,7 +87,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">0</div>
+                                                        <div class="amount fw-normal">{{ $all_customers }}</div>
                                                         <div class="info text-end">
                                                             <h6>  </h6>
                                                              <h5> </h5> 
@@ -110,7 +110,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">0</div>
+                                                        <div class="amount fw-normal">{{ $totalSavings }}</div>
                                                         <div class="info text-end">
                                                             <!-- <h5> 232323 Customers</h5> -->
                                                         </div>
@@ -132,7 +132,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">0</div>
+                                                        <div class="amount fw-normal">{{ $totalWithdrawal }}</div>
                                                         {{-- <h5> 12345 Customers</h5> --}}
                                                     </div>
                                                 </div>
@@ -142,8 +142,8 @@
                                     </div><!-- .card -->
                                 </div><!-- .col -->
 
-                                <div class="col-md-3">
-                                    <div class="card">
+                                <div class="col-md-3" >
+                                    <div class="card" style="border: 1px solid;">
                                         <div class="nk-ecwg nk-ecwg3">
                                             <div class="card-inner pb-0">
                                                 <div class="card-title-group">
@@ -153,7 +153,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">0</div>
+                                                        <div class="amount fw-normal">{{ $totalBalance }}</div>
                                                         {{-- <h5> 2345 Customers</h5> --}}
                                                     </div>
                                                 </div>

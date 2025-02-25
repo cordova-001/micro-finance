@@ -11,6 +11,7 @@ use App\Http\Controllers\CustomerControllers;
 use App\Http\Controllers\HighChartController;
 use App\Http\Controllers\SavingsProductController;
 use App\Http\Controllers\InternetBankingController;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,9 +27,9 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware(['auth']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 
@@ -84,6 +85,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/start_transfer', [TransactionController::class, 'newTransfer'])->name('start_transfer');
     Route::post('/confirm_for_transfer', [TransactionController::class, 'ConfirmAccountForTransfer'])->name('confirm_for_transfer');
     Route::get('/manage_deposit', [TransactionController::class, 'manageDeposit'])->name('manage_deposit');
+    
+
+    Route::get('/dashboard', [DashboardController::class, 'getDashboardStats'])->name('dashboard');
+
+
     Route::get('/manage_withdrawal', [TransactionController::class, 'manageWithdrawal'])->name('manage_withdrawal');
 
 
@@ -174,6 +180,14 @@ Route::middleware(['auth'])->group(function () {
 
     // Reports
 
+    Route::get('loan_report', function(){
+        return view('reports.loan_report');
+    });
+
+    Route::get('customer_report', function(){
+        return view('reports.customers_report');
+    });
+
     Route::get('disbursement_report', function(){
         return view('reports.disbursement');
     });
@@ -194,8 +208,19 @@ Route::middleware(['auth'])->group(function () {
         return view('reports.withdrawal');
     });
     Route::get('loan_product_report', function(){
-        return view('reports.loan_product');
+        return view('reports.loan_product_report');
     });
+
+    Route::get('cash_flow_statement', function(){
+        return view('reports.cash_flow_cummulative');
+    });
+
+    /**
+     * 
+     *   Report (Customer reports, Loan Report, Disbursement Report, Loan Product Report, Daily Report, Monthly Report etc)
+     *   Accounting (Cash flow, Balance Sheet, Trial Balance, General Ledger, Chart of Account, Journal Entries etc)
+     */
+
     Route::get('transactions_report', function(){
         return view('reports.transactions');
     });

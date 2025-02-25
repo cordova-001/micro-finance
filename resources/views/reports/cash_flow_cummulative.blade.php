@@ -7,7 +7,7 @@
                                 <div class="nk-block-head nk-block-head-sm">
                                     <div class="nk-block-between">
                                         <div class="nk-block-head-content">
-                                            <h3 class="nk-block-title page-title"> Disbursement Report </h3>
+                                            <h3 class="nk-block-title page-title"> Cash Flow Statement  </h3>
                                         </div>
                                         <div class="nk-block-head-content">
                                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -132,59 +132,77 @@
                                     <div class="nk-block-head">
                                         
                                     </div>
-                                    <div class="card card-bordered card-preview">
-                                        <div class="card-inner">
-                                            <table class="datatable-init-export nowrap table" data-export-title="Export">
+                                    <div class="card card-bordered card-preview col-md-9">
+                                        <div class="card-inner" >
+                                            {{-- <table class="datatable-init-export nowrap table" data-export-title="Export">
                                                 <thead>
-                                                    <tr>
-                                                        <th>Name</th>
-                                                        <th>Account Number</th>
-                                                        <th>Phone Number</th>
-                                                        <th>Email</th>
-                                                        <th>Address date</th>
-                                                        <th>Status</th>    
-                                                        <th>Action</th>                                                   
-
+                                                    <tr style="background-color: rgb(163, 193, 228);">
+                                                        <th> <h6>RECEIPTS</h6></th>
+                                                        <th></th>                                                                                                   
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {{-- @foreach ($customer as $customers) --}}
+                                                    
                                                         <tr>
-                                                            <td> <img src="X" alt="" class="thumb" style="width: 30px; height: 30px;"> # </td>
-                                                            {{-- <td>{{ $customers->customer_id }}</td>
-                                                            <td>{{ $customers->phone }}</td>
-                                                            <td>{{ $customers->email }}</td>
-                                                            <td>{{ $customers->address }}</td>
-                                                            <td>{{ $customers->status }}</td> --}}
-                                                            <td>#</td>
-                                                            <td>#</td>
-                                                            <td>#</td>
-                                                            <td>#</td>
-                                                            <td>#</td>
-                                                            <td>
-                                                                <li>
-                                                                    <div class='drodown'>
-                                                                        <a href='' class='dropdown-toggle btn btn-icon btn-trigger' data-bs-toggle='dropdown'><em class='icon ni ni-more-h'></em></a>
-                                                                        <div class='dropdown-menu dropdown-menu-end'>
-                                                                        <form method='get'>
-                                                                            <ul class='link-list-opt no-bdr'>
-                                                                              <li class="form-control"><span><em class='icon ni ni-eye'></em><input name='branch_details' formaction='branch_details' type='submit' style='border: 0px; background-color: white; float: center;' value='View Details' class='icon ni ni-eye' /></span></li>
-                                                                              <br>
-                                                                              <input type='text' name='bid' value='$bid' hidden />
-                                                                              <li class="form-control"><em class='icon ni ni-activity-round'></em><input name='edit_branch'  type='submit' formaction='edit_branch' style='border: 0px; background-color: white; float: center;' value='Edit Customer' class='icon ni ni-eye' /></li>
-                                                                                
-                                                                            </ul>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </td>
+                                                            <td>Loan Principal repayment</td>
+                                                            <td>230000</td>
+                                                            
                                                         </tr>
-                                                        
-                                                    {{-- @endforeach --}}
-                                                   
+
+                                                        <tr>
+                                                          <td>Loan Principal repayment</td>
+                                                          <td>230000</td>
+                                                          
+                                                      </tr>
+                                                      <tr>
+                                                          <td>Loan Principal repayment</td>
+                                                          <td>230000</td>
+                                                          
+                                                      </tr>
+                                                      <tr style="background-color: rgb(163, 193, 228);">
+                                                          <td><h6>TOTAL RECEIPTS</h6></td>
+                                                          <td>as</td>
+
+                                                      </tr>
+                                                      <tr>
+                                                        <td>ass</td>
+                                                        <td>asas</td>
+                                                      </tr>
+                                                      <tr style="background-color: blanchedalmond;">
+                                                        <td><h6>as</h6></td>
+                                                        <td>jsd</td>
+                                                      </tr>
+                                                                                                                                                               
                                                 </tbody>
+                                            </table> --}}
+
+                                            <table class="table table-borderless">
+                                              <thead>
+                                                <tr>
+                                                  <th scope="col">#</th>
+                                                  <th scope="col">First</th>
+                                                  
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                <tr>
+                                                  <th scope="row">1</th>
+                                                  <td>Mark</td>
+                                                  
+                                                </tr>
+                                                <tr>
+                                                  <th scope="row">2</th>
+                                                  <td>Jacob</td>
+                                                  
+                                                </tr>
+                                                <tr>
+                                                  <th scope="row">3</th>
+                                                  <td>Larry</td>
+                                                  
+                                                </tr>
+                                              </tbody>
                                             </table>
+                                            
                                         </div>
                                     </div><!-- .card-preview -->
                                 </div> <!-- nk-block -->

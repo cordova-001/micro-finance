@@ -105,10 +105,8 @@
                               <div class="col-md-6">
                                 {{-- {{-- <div class="form-group"> --}}
                                   <label class="form-label" for="address-st">Deposit Means </label>                                  
-                                <select class="form-select"  name="transaction_means">
-                                  <option value="">Select Deposit Means</option>
-                                  
-                                  
+                                <select class="form-select"  name="transactions_means">
+                                  <option value="">Select Deposit Means</option>                                                                    
                                     <option value="Bank">Bank </option>
                                     <option value="Transfer"> Transfer</option>
                                     <option value="Cash">Cash </option>

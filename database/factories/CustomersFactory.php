@@ -27,7 +27,7 @@ class CustomersFactory extends Factory
             'date_of_birth' => $this->faker->date('Y-m-d', '2005-12-31'),
             'occupation' => $this->faker->jobTitle(),
             'status' => $this->faker->randomElement(['Active', 'Inactive']),
-            'customer_id' => $this->faker->unique()->numberBetween(1111111, 9999999),
+            'customer_id' => $this->faker->unique()->numberBetween(100000, 999999),
             'branch_id' => $this->faker->numberBetween(1, 10),
             'business_id' => $this->faker->numberBetween(100, 999),
             'utility' => $this->faker->randomElement(['Electricity Bill', 'Water Bill']),

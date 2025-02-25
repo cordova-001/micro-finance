@@ -42,19 +42,19 @@
                           <form action="{{ route('add_chart') }}" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
-                              <div class="col-md-6">
+                              <div class="col-md-12">
                                 <div class="form-group">
                                   <label class="form-label" for="last-name">Chart Name</label>
                                   <input type="text" name="chart_name" class="form-control" id="chart_name" placeholder="Chart Name">
                                 </div>
                               </div>
-                              <div class="col-md-6">
+                              <div class="col-md-12">
                                 <div class="form-group">
                                   <label class="form-label" for="last-name">GL Code</label>
                                   <input type="text" name="gl_code" class="form-control" id="gl_code" placeholder="GL Code">
                                 </div>
                               </div>
-                              <div class="col-md-6">
+                              <div class="col-md-12">
                                 <div class="form-group">
                                   <label class="form-label" for="phone-no">Type</label>
                                   <select class="form-control" name="type">
@@ -66,7 +66,7 @@
                                   </select>
                                 </div>
                               </div>
-                              <div class="col-md-6">
+                              <div class="col-md-12">
                                 <div class="form-group">
                                   <label class="form-label" for="address-line2">Notes</label>
                                   <textarea class="form-control" name="notes"></textarea>

@@ -52,6 +52,7 @@
                                                         <th>Depositor</th>
                                                         <th>Savings Product</th> 
                                                         <th>Amount Deposited</th>
+                                                        <th>Files</th>
                                                           
                                                         <th>Transaction Date</th>                                                   
 
@@ -68,6 +69,7 @@
                                                             <td>{{ $transactions->depositor_name }}</td>
                                                             <td>{{ $transactions->savings_product }}</td>
                                                             <td>{{ $transactions->amount_paid }}</td>
+                                                            <td> <a href="{{ asset('images/' . $transactions->file) }}"> Download </a> </td>
                                                             
                                                             <td>
                                                                 {{ $transactions->created_at }}
@@ -93,6 +95,9 @@
                                                     @endforeach
                                                    
                                                 </tbody>
+                                                <script>
+                                                    document.print();
+                                                </script>
                                             </table>
                                         </div>
                                     </div><!-- .card-preview -->
