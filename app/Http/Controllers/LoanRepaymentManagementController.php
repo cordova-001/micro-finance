@@ -208,7 +208,7 @@ class LoanRepaymentManagementController extends Controller
             'branch_id' => $loan->branch_id,
             'customer_id' => $loan->customer_id,
             
-        ]);
+        ]); 
 
         // Update schedule status
         $nextDue->update(['status' => 'Paid']);
