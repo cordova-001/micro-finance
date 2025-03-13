@@ -28,7 +28,7 @@
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title"> {{ $branch->branch_name }} - Details</h3>
                             <div class="nk-block-des text-soft">
-                                <!-- <p>Welcome to Learning Management Dashboard.</p> -->
+                                <!-- <p></p> -->
                             </div>
                         </div><!-- .nk-block-head-content -->
                         <div class="nk-block-head-content">
@@ -224,7 +224,7 @@
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title"> Loan Perfomance Transaction</h3>
                             <div class="nk-block-des text-soft">
-                                <p>Welcome to Learning Management Dashboard.</p>
+                                <p></p>
                             </div>
                         </div><!-- .nk-block-head-content -->
                         
@@ -298,7 +298,7 @@
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title"> Loan Repayment Perfomance Transaction</h3>
                             <div class="nk-block-des text-soft">
-                                <p>Welcome to Learning Management Dashboard.</p>
+                                <p></p>
                             </div>
                         </div><!-- .nk-block-head-content -->
                         
@@ -309,62 +309,59 @@
                             </div>
                             <div class="card card-bordered card-preview">
                                 <div class="card-inner">
-                                    <table class="datatable-init-export nowrap table" data-export-title="Export">
+                                    {{-- <table class="datatable-init-export nowrap table" data-export-title="Export">
                                         <thead>
                                             <tr>
-                                                <th> Account Name </th>
+                                                <th>Loan ID</th>
+                                                
                                                 <th> Account Number </th>
-                                                <th> Loan Product </th>
-                                                <th> Loan Principal Amount </th>
-                                                <th> Interest Rate </th>
-                                                <th> Total Repayment Amount </th>
-                                                <th> Each Repayment Amount </th>
-                                                <th> Repayment Period </th>
-                                                <th> Application Date </th>
-                                                <th> Status </th>    
-                                                <th> Action </th>                                                   
+                                                <th> Name </th>
+                                                <th> Repayment Amount </th>
+                                                
+                                                <th> Repayment Date  </th>
+                                                <th> Collected By </th>
+                                                <th> Payment Method </th>
+                                                                                               
 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($loans as $loan)
+                                            @foreach ($repayments as $repayment)
                                                 <tr>
+                                                    <td>{{ $repayment->loan_id }}</td>
+                                                    <td>{{ $repayment->first_name }} {{ $allLoan->last_name }}</td>
+                                                    <td>{{ $repayment->customer_id }}</td>
+                                                    <td>{{ $repayment->first_name }} {{ $allLoan->last_name }}</td>
+                                                    <td>{{ $repayment->paid_amount }}</td>
                                                     
-                                                    <td>{{ $loan->customer_id }}</td>
-                                                    <td>{{ $loan->customer_id }}</td>
-                                                    <td>{{ $loan->loan_product }}</td>
-                                                    <td>{{ $loan->loan_amount }}</td>
-                                                    <td>{{ $loan->interest_rate }}</td>
-                                                    <td>{{ $loan->total_repayment_amount }}</td>
-                                                    <td>{{ $loan->each_repayment_amount }}</td>
-                                                    <td>{{ $loan->repayment_period }}</td>
-                                                    <td>{{ $loan->application_date }}</td>
-                                                    <td>{{ $loan->status }}</td>
-                                                    <td>
+                                                    <td>{{ $repayment->paid_date }}</td>
+                                                    <td>{{ $repayment->collected_by }}</td>
+                                                    <td>{{ $repayment->payment_means }}</td>
+                                                    
+                                                    {{-- <td>
                                                         <li>
                                                             <div class='drodown'>
                                                                 <a href='' class='dropdown-toggle btn btn-icon btn-trigger' data-bs-toggle='dropdown'><em class='icon ni ni-more-h'></em></a>
                                                                 <div class='dropdown-menu dropdown-menu-end'>
-                                                                <form method='get'>
                                                                     <ul class='link-list-opt no-bdr'>
-                                                                      <li class="form-control"><span><em class='icon ni ni-eye'></em><input name='branch_details' style='border: 0px; background-color: white; float: center;' value='View Details' class='icon ni ni-eye' /></span></li>
-                                                                      <br>
-                                                                      <input type='text' name='bid' value='$bid' hidden />
-                                                                      <li class="form-control"><em class='icon ni ni-activity-round'></em><input name='edit_branch'  type='submit' formaction='edit_branch' style='border: 0px; background-color: white; float: center;' value='Manage Loan' class='icon ni ni-eye' /></li>
-                                                                        
-                                                                    </ul>
-                                                                    </form>
+                                                                      
+                                                                         <a href="{{ route('branch.edit', $branches->id) }}" class="dropdown-item"><em class='icon ni ni-eye'></em>  Edit Loan  </a> 
+                                                                        <hr>
+                                                                        <a href="{{ route('loan.manage', $allLoan->id) }}" class="dropdown-item"> <em class='icon ni ni-activity-round'></em> Manage Loan</a>
+                                                                        <a href="{{ route('loan.manage', $allLoan->id) }}" class="dropdown-item"> <em class='icon ni ni-activity-round'></em> Manage Loan</a>
+                                                                        <a href="{{ route('loan.manage', $allLoan->id) }}" class="dropdown-item"> <em class='icon ni ni-activity-round'></em> Manage Loan</a>
+                                                                          
+                                                                      </ul>
                                                                 </div>
                                                             </div>
                                                         </li>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
+                                                    </td> --}}
+                                                {{-- </tr> --}}
+                                            {{-- @endforeach --}}
                                            
-                                        </tbody>
-                                    </table>
+                                        {{-- </tbody> --}}
+                                    {{-- </table> --}} 
                                 </div>
-                            </div><!-- .card-preview -->
                             </div><!-- .card-preview -->
                         </div> <!-- nk-block -->
 
@@ -374,7 +371,7 @@
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title"> Savings and Withdrawal Perfomance Transaction</h3>
                             <div class="nk-block-des text-soft">
-                                <p>Welcome to Learning Management Dashboard.</p>
+                                <p></p>
                             </div>
                         </div><!-- .nk-block-head-content -->
                         
@@ -450,72 +447,12 @@
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title"> Investment Perfomance Transaction</h3>
                             <div class="nk-block-des text-soft">
-                                <p>Welcome to Learning Management Dashboard.</p>
+                                <p></p>
                             </div>
                         </div><!-- .nk-block-head-content -->
                         
 
-                        <div class="nk-block nk-block-lg">
-                            <div class="nk-block-head">
-                                
-                            </div>
-                            <div class="card card-bordered card-preview">
-                                <div class="card-inner">
-                                    <table class="datatable-init-export nowrap table" data-export-title="Export">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Account Number</th>
-                                                <th>Phone Number</th>
-                                                <th>Email</th>
-                                                <th>Address date</th>
-                                                <th>Status</th>    
-                                                <th>Action</th>                                                   
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {{-- @foreach ($customer as $customers) --}}
-                                                <tr>
-                                                    <td>a</td>
-                                                    <td>s</td>
-                                                    <td>as</td>
-                                                    <td>sd</td>
-                                                    <td>asd</td>
-                                                    <td>asd</td>
-                                                    {{-- <td> <img src="{{ asset('images/' . $customers->passport) }}" alt="" class="thumb" style="width: 30px; height: 30px;"> {{ $customers->first_name }} {{ $customers->last_name }} </td>
-                                                    <td>{{ $customers->customer_id }}</td>
-                                                    <td>{{ $customers->phone }}</td>
-                                                    <td>{{ $customers->email }}</td>
-                                                    <td>{{ $customers->address }}</td> 
-                                                    <td>{{ $customers->status }}</td> --}}
-                                                    <td>
-                                                        <li>
-                                                            <div class='drodown'>
-                                                                <a href='' class='dropdown-toggle btn btn-icon btn-trigger' data-bs-toggle='dropdown'><em class='icon ni ni-more-h'></em></a>
-                                                                <div class='dropdown-menu dropdown-menu-end'>
-                                                                <form method='get'>
-                                                                    <ul class='link-list-opt no-bdr'>
-                                                                      <li class="form-control"><span><em class='icon ni ni-eye'></em><input name='branch_details' formaction='customer_details' type='submit' style='border: 0px; background-color: white; float: center;' value='View Details' class='icon ni ni-eye' /></span></li>
-                                                                      <br>
-                                                                      <input type='text' name='bid' value='$bid' hidden />
-                                                                      <li class="form-control"><em class='icon ni ni-activity-round'></em><input name='edit_branch'  type='submit' formaction='edit_branch' style='border: 0px; background-color: white; float: center;' value='Edit Customer' class='icon ni ni-eye' /></li>
-                                                                        
-                                                                    </ul>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </td>
-                                                </tr>
-                                                
-                                            {{-- @endforeach --}}
-                                           
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div><!-- .card-preview -->
-                        </div> <!-- nk-block -->
+                        
                        
 
 

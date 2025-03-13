@@ -23,10 +23,13 @@ class Loans extends Model
         'frequency',
         'application_date',
         'start_date',
+        'interest_amount',
+        'interest_type',
         'staff',
         'status',
         'repayment_amount',
         'repayment_date',
+        'bank_name',
         'repayment_status',
     ];
 

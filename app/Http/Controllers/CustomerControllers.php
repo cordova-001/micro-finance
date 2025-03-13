@@ -36,6 +36,14 @@ class CustomerControllers extends Controller
         return view('customer.create', compact('branch'));
     }
 
+    public function getCustomerToDashboard()
+    {
+        $business_id = Auth::user()->business_id;
+        $customer = Customers::where('business_id', $business_id)->get();
+        
+        return view('dashboard', compact('customer'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -174,7 +182,12 @@ class CustomerControllers extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        $business_id = Auth::user()->business_id;
+        $customer = Customers::where('id', $id)->where('business_id', $business_id)->firstOrFail();
+
+        //  dd($branch);
+        return view('customer.edit', compact('customer', 'business_id'));
     }
 
     /**
@@ -186,7 +199,53 @@ class CustomerControllers extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $business_id = Auth::user()->business_id;
+             $customer = Customers::findOrFail('id', $id);
+                
+            $validated = $request->validate([
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'email' => 'required|unique:customers|email',
+                'phone' => 'required|unique:customers',
+                'customer_id' => 'required',
+                'passport' => 'image|mimes:jpeg,png,jpg,gif|max:5000',
+                'international_passport' => 'image|mimes:jpeg,png,jpg,gif|max:5000',
+                'national_id' => 'image|mimes:jpeg,png,jpg,gif|max:5000',
+                'address' => 'nullable',
+                'occupation' => 'nullable',
+                'state_of_origin' => 'nullable',
+                'status' => 'nullable',
+                'date_of_birth' => 'nullable',
+                'local_govt' => 'nullable',
+                'gender' => 'nullable',
+                'branch_id' => 'nullable',                
+                'next_of_kin' => 'nullable',
+                'address_of_next_of_kin' => 'nullable',
+                
+            ]);
+
+            if ($request->hasFile('passport')) {
+                $passportPath = $request->file('passport')->store('passports', 'public');
+                $validated['passport'] = $passportPath;
+            }
+            
+            if ($request->hasFile('international_passport')) {
+                $intPassportPath = $request->file('international_passport')->store('international_passports', 'public');
+                $validated['international_passport'] = $intPassportPath;
+            }
+            
+            if ($request->hasFile('national_id')) {
+                $nationalIdPath = $request->file('national_id')->store('national_ids', 'public');
+                $validated['national_id'] = $nationalIdPath;
+            }
+    
+            $customer->update($validated);
+    
+            return redirect()->route('customer.edit')->with('success', 'Customers details updated successfully.');
+            } catch (\Exception $e){
+                return redirect()->route('customer.edit')->with('error', 'Failed to update the customer details.');
+            }
     }
 
     /**

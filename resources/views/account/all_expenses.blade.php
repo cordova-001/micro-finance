@@ -62,7 +62,7 @@
                                                             </ul>
                                                         </div>
                                                     </div><!-- .nk-tb-item -->
-                                                    @foreach ($branch as $branch)
+                                                    @foreach ($all_expenses as $expenses)
                                                       
                                                    
                                                    <div class='nk-tb-item'>
@@ -87,7 +87,7 @@
                                                             <span>{{ $branch->branch_id }}</span>
                                                         </div>
                                                         <div class='nk-tb-col tb-col-lg'>
-                                                            <span>{{ $branch->phone }}</span>
+                                                             <span>{{ $branch->phone }}</span>
                                                         </div>
                                                         <div class='nk-tb-col tb-col-lg'>
                                                             <span>{{ $branch->email }}</span>

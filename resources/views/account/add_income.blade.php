@@ -7,7 +7,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                   <div class="nk-block-between">
                     <div class="nk-block-head-content">
-                      <h3 class="nk-block-title page-title">Add Income</h3>
+                      <h3 class="nk-block-title page-title">Create Income </h3>
                     </div><!-- .nk-block-head-content -->
                   </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
@@ -16,38 +16,44 @@
                     <div class="card-inner">
                       <div class="tab-content">
                         <div class="tab-pane active" id="tabItem5">
-                          <h5 class="title">Add Income </h5>
+                          <h5 class="title">Add  Income </h5>
                           
                           <form action="" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
-                              <div class="col-md-6">
+                              <div class="col-md-9">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name">Branch Name</label>
-                                  <input type="text" name="branch_name" class="form-control" id="branch-name" placeholder="Branch name">
+                                  <label class="form-label" for="first-name"> Purpose</label>
+                                  <input type="text" name="purpose" class="form-control" id="purpose" placeholder=" Purpose ">
                                 </div>
                               </div>
-                              <div class="col-md-6">
+                              <div class="col-md-9">
                                 <div class="form-group">
-                                  <label class="form-label" for="last-name">Email Address</label>
-                                  <input type="text" name="email" class="form-control" id="email" placeholder="Email">
-                                </div>
-                              </div>
-                              
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="phone-no">Phone Number</label>
-                                  <input type="text" name="phone" class="form-control" id="phone-no" maxlength="11" placeholder="Phone Number">
+                                  <label class="form-label" for="last-name">Type</label>
+                                  <input type="text" name="type" class="form-control" id="email" placeholder="Email">
                                 </div>
                               </div>
                               
-                              <div class="col-md-6">
+                              <div class="col-md-9">
                                 <div class="form-group">
-                                  <label class="form-label" for="address-line2">Address</label>
-                                  <input type="text" class="form-control" name="address" id="address-line2" value="">
+                                  <label class="form-label" for="phone-no">Amount</label>
+                                  <input type="text" name="amount" class="form-control" id="phone-no" maxlength="11" placeholder= " Amount ">
                                 </div>
                               </div>
-                           
+                              
+                              <div class="col-md-9">
+                                <div class="form-group">
+                                  <label class="form-label" for="address-line2">Description</label>                                  
+                                  <textarea name="description" class="form-control" id="" cols="30" rows="10"></textarea>
+                                </div>
+                              </div>     
+                              
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label" for="address-line2">Invoice / Receipt </label>
+                                  <input type="file" class="form-control" multiple name="invoice" id="address-line2" >
+                                </div>
+                              </div>     
 
                               <div class="col-md-12">
                                 <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">

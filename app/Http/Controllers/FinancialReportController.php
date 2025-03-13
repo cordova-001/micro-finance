@@ -4,12 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\GeneralLedger;
-use App\Models\ChartOfAccounts;
+use App\Models\Chart;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class ReportController extends Controller
+class FinancialReportController extends Controller
 {
+    /**
+     * Display Income form
+     */
+
+     public function incomeForm()
+     {
+        $user = Auth::user();
+        $business_id = $user->business_id;
+         return view('account.add_income');
+     }
+
+     public function expensesForm()
+     {
+         return view('account.add_expenses');
+     }
+ 
+
+
     /**
      * Generate General Ledger Report
      */
@@ -19,7 +37,7 @@ class ReportController extends Controller
         $endDate = Carbon::parse($request->end_date);
 
         $ledgerEntries = GeneralLedger::whereBetween('date', [$startDate, $endDate])
-            ->orderBy('date', 'asc')
+            ->orderBy('id', 'asc')
             ->get();
 
         return view('reports.general_ledger', compact('ledgerEntries', 'startDate', 'endDate'));

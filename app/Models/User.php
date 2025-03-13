@@ -92,4 +92,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Chart::class);
     }
+
+    public function generalLedger()
+    {
+        return $this->hasMany(GeneralLedgerAccount::class);
+    }
+    public function bankAccounts()
+    {
+        return $this->hasMany(BankAccount::class);
+    }
 }

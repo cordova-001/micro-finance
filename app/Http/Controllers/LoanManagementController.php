@@ -5,6 +5,12 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\LoanProduct;
 use App\Models\Branch;
 use App\Models\Customers;
+use carbon\Carbon;
+use Illuminate\Support\Str;
+use App\Models\LoanRepaymentSchedule; 
+use App\Models\JournalEntry;
+use App\Models\GeneralLedger;
+use App\Models\BankAccount;
 use App\Models\Loans;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -16,10 +22,11 @@ class LoanManagementController extends Controller
         $user = Auth::user();
         $branches = Branch::where('business_id', $user->business_id)->get();
         $customers = Customers::where('business_id', $user->business_id)->get();
-        $lproduct = LoanProduct::where('business_id', $user->business_id)->get();   
+        $lproduct = LoanProduct::where('business_id', $user->business_id)->get();  
+        $bank_accounts = BankAccount::where('business_id', $user->business_id)->get(); 
         
         // dd($customers);
-        return view('loan.request_loan', compact('customers', 'user', 'lproduct', 'branches'));
+        return view('loan.request_loan', compact('customers', 'user', 'lproduct', 'branches', 'bank_accounts'));
     }
 
     public function processLoan(Request $request)
@@ -39,6 +46,7 @@ class LoanManagementController extends Controller
             $business_id = $user->business_id;
             $account_number = $request->account_number;
             $loan_product = $request->loan_product;
+            $bank_account = $request->bank_account;
             $loan_amount = $request->loan_amount;
             $frequency = $request->frequency;
             $branch_id = $request->branch_id;
@@ -77,7 +85,7 @@ class LoanManagementController extends Controller
                     return redirect()->back()->with('error', 'Loan amount must be between ' . $getLoanProduct->minimum_amount . ' and ' . $getLoanProduct->maximum_amount)->withInput();
                 }
                 // Calculate the repayment amount with interest
-                
+                 
                 $interest_rate = $getLoanProduct->interest_rate;
                 $interest_amount = $loan_amount * $interest_rate / 100;
                 $repayment_amount = $loan_amount + ($loan_amount * $interest_rate / 100);
@@ -90,7 +98,7 @@ class LoanManagementController extends Controller
                 }
 
                 // Calculate the total repayment amount based on the repayment period
-                $total_repayment_amount = $repayment_amount * $repayment_period;
+                // $total_repayment_amount = $repayment_amount * $repayment_period;
 
                 // Calculate each repayment amount by dividing the total repayment amount by the duration
                 $each_repayment_amount = $repayment_amount / $repayment_period;
@@ -98,12 +106,14 @@ class LoanManagementController extends Controller
                 Loans::create([
                     'loan_product' => $loan_product,
                     'loan_amount' => $loan_amount,
-                    'total_repayment_amount' => $total_repayment_amount,
+                    'total_repayment_amount' => $repayment_amount,
                     'each_repayment_amount' => $each_repayment_amount,
                     'interest_rate' => $interest_rate,
+                    'interest_amount' => $interest_amount,
                     'repayment_period' => $frequency,
                     'frequency' => $repayment_period,
                     'application_date' => $application_date,
+                    'bank_account' => $bank_account,
                     'staff' => $staff,
                     'business_id' => $business_id,
                     'branch_id' => $branch_id,
@@ -130,6 +140,7 @@ class LoanManagementController extends Controller
             $allLoans = DB::table('loans')
             ->join('customers', 'loans.customer_id', '=', 'customers.customer_id')
             ->where('loans.business_id', $user->business_id)
+            ->where('loans.status', 'Pending')
             ->select('loans.*', 'customers.first_name', 'customers.last_name')
             ->get();
 
@@ -145,6 +156,81 @@ class LoanManagementController extends Controller
         }
     }
 
+    
+
+    public function getApprovedLoan(Request $request)
+    {
+        try{
+        
+            $user = Auth::user();            
+            $allLoans = DB::table('loans')
+            ->join('customers', 'loans.customer_id', '=', 'customers.customer_id')
+            ->where('loans.business_id', $user->business_id)
+            ->where('loans.status', 'Approved')
+            ->select('loans.*', 'customers.first_name', 'customers.last_name')
+            ->get();
+
+            // dd('allLoans');
+
+            return view('loan.approved_loan', compact('user', 'allLoans'));
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::error('Validation error fetching loan: ', $e->errors());
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            \Log::error('Error fetching loan: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while processing the loan. Please try again.');
+        }
+    }
+
+    public function getDisbursedLoan(Request $request)
+    {
+        try{
+        
+            $user = Auth::user();            
+            $allLoans = DB::table('loans')
+            ->join('customers', 'loans.customer_id', '=', 'customers.customer_id')
+            ->where('loans.business_id', $user->business_id)
+            ->where('loans.status', 'Disbursed')
+            ->select('loans.*', 'customers.first_name', 'customers.last_name')
+            ->get();
+
+            // dd('allLoans');
+
+            return view('loan.disbursed_loan', compact('user', 'allLoans'));
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::error('Validation error fetching loan: ', $e->errors());
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            \Log::error('Error fetching loan: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while processing the loan. Please try again.');
+        }
+    }
+
+    public function getRejectedLoan(Request $request)
+    {
+        try{
+        
+            $user = Auth::user();            
+            $allLoans = DB::table('loans')
+            ->join('customers', 'loans.customer_id', '=', 'customers.customer_id')
+            ->where('loans.business_id', $user->business_id)
+            ->where('loans.status', 'Rejected')
+            ->select('loans.*', 'customers.first_name', 'customers.last_name')
+            ->get();
+
+            // dd('allLoans');
+
+            return view('loan.rejected_loan', compact('user', 'allLoans'));
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::error('Validation error fetching loan: ', $e->errors());
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            \Log::error('Error fetching loan: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while processing the loan. Please try again.');
+        }
+    }
+
+
     public function newGuarantor()
     {
         $user = Auth::user();
@@ -158,12 +244,453 @@ class LoanManagementController extends Controller
     {
         $user = Auth::user();
         $business_id = Auth::user()->business_id;
-        $loan = Loans::where('id', $id)->where('business_id', $business_id)->firstOrFail();
+        $loan = Loans::where('id', $id)->where('business_id', $business_id)->firstOrFail();        
+        $fetchedloan = LoanRepaymentSchedule::where('loan_id', $loan->id)->where('business_id', $business_id)->get();
+        // dd($fetchedloan);
     
-        return view('loan.manage_loan', compact('loan', 'business_id', 'user'));
+        return view('loan.manage_loan', compact('loan', 'fetchedloan', 'business_id', 'user'));
     }
 
-    public function update(Request $request, $id)
+    public function manageDisbursedLoan($id)
+    {
+        $user = Auth::user();
+        $business_id = Auth::user()->business_id;
+        $loan = Loans::where('id', $id)->where('business_id', $business_id)->firstOrFail();        
+        $fetchedloan = LoanRepaymentSchedule::where('loan_id', $loan->id)->where('business_id', $business_id)->get();
+        // dd($fetchedloan);
+    
+        return view('loan.manage_disbursed_loan', compact('loan', 'fetchedloan', 'business_id', 'user'));
+    }
+
+    public function approveLoanStatus(Request $request, $id)
+    {
+        
+        try{
+        $business_id = Auth::user()->business_id;
+        
+        $loan = Loans::findOrFail($id);
+
+        $loan->update(['status' => 'Approved']);
+        
+
+        return redirect()->back()->with('success', 'The loan has been approved successfully.');
+        } catch (\Exception $e){
+            return redirect()->back()->with('error', 'Failed to update the loan.');
+        }
+        
+    }
+
+    // public function disburseLoanStatus(Request $request, $id)
+    // {
+        
+    //     try{
+    //     $business_id = Auth::user()->business_id;
+        
+    //     $loan = Loans::findOrFail($id);
+
+    //     $loan->update(['status' => 'Disbursed']);
+        
+
+    //     return redirect()->back()->with('success', 'The loan has been approved successfully.');
+    //     } catch (\Exception $e){
+    //         return redirect()->back()->with('error', 'Failed to update the loan.');
+    //     }
+        
+    // }
+
+    public function generateRepaymentScheduleType($id)
+    {
+        $business_id = Auth::user()->business_id;
+        $loan = Loans::where('id', $id)->where('business_id', $business_id)->first();
+        $account_number = $loan->customer_id;
+
+        $amount = $loan->loan_amount;
+        $interestRate = $loan->interest_rate / 100; // Convert percentage to decimal
+        $frequency = strtolower($loan->repayment_period); // daily, weekly, monthly
+        // dd($frequency);
+        $duration = $loan->frequency; // Number of days, weeks or months
+        $startDate = Carbon::parse($loan->first_due_date);
+
+        // Determine number of payments & interval
+        if ($frequency === 'daily') {
+            $installments = $duration;
+            $interval = 'addDays';
+        } elseif ($frequency === 'weekly') {
+            $installments = $duration;
+            $interval = 'addWeeks';
+        } elseif ($frequency === 'monthly') {
+            $installments = $duration;
+            $interval = 'addMonths';
+        } else {
+            return redirect()->back()->with('error', 'Invalid Frequency');
+        }
+
+        if ($loan->interest_type === 'flat') {
+            // Flat Interest Calculation
+            $totalInterest = $amount * $interestRate * $installments;
+            $totalRepayable = $amount + $totalInterest;
+            $installmentAmount = $totalRepayable / $installments;
+            $interestPerInstallment = $totalInterest / $installments;
+            $principalPerInstallment = $amount / $installments;
+
+            for ($i = 0; $i < $installments; $i++) {
+                LoanRepaymentSchedule::create([
+                    'loan_id' => $loan->id,
+                    'principal_amount' => $principalPerInstallment,
+                    'interest_amount' => $interestPerInstallment,
+                    'total_amount_due' => $installmentAmount,
+                    'due_date' => $startDate->copy()->$interval($i),
+                    'status' => 'Pending',                    
+                    'business_id' => $business_id,
+                    'branch_id' => $loan->branch_id,
+                    'customer_id' => $account_number,
+                ]);
+            }
+        } else {
+            // Reducing Balance Interest Calculation
+            $remainingBalance = $amount;
+
+            for ($i = 0; $i < $installments; $i++) {
+                $interestAmount = $remainingBalance * $interestRate;
+                $installmentAmount = ($amount / $installments) + $interestAmount;
+                $principalAmount = $installmentAmount - $interestAmount;
+
+                // Reduce balance for next calculation
+                $remainingBalance -= $principalAmount;
+
+                LoanRepaymentSchedule::create([
+                    'loan_id' => $loan->id,
+                    'principal_amount' => $principalAmount,
+                    'interest_amount' => $interestAmount,
+                    'total_amount_due' => $installmentAmount,
+                    'due_date' => $startDate->copy()->$interval($i),
+                    'status' => 'Pending',
+                    'business_id' => $business_id,
+                    'branch_id' => $loan->branch_id,
+                    'customer_id' => $account_number,
+                ]);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Repayment schedule generated successfully');
+    }
+
+    public function getBankAccount()
+    {
+        try{
+        $business_id = Auth::user()->business_id;        
+        $bank_accounts = BankAccount::where('business_id', $business_id)->get();
+        return view('loan.request_loan', compact('bank_accounts'));
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to get bank account: ' . $e->getMessage());
+        }
+    }
+
+    public function disburseAndGenerateSchedule1(Request $request, $id)
+    {
+        try {
+            $user = Auth::user();
+            $business_id = Auth::user()->business_id;
+            $loan = Loans::findOrFail($id);
+
+            // Check if a repayment schedule already exists for the loan
+            $scheduleExists = LoanRepaymentSchedule::where('loan_id', $loan->id)->exists();
+
+            if ($scheduleExists) {
+                // If schedule exists, just update loan status if not already "Disbursed"
+                if ($loan->status !== 'Disbursed') {
+                    $loan->update(['status' => 'Disbursed']);
+                }
+                return redirect()->back()->with('success', 'Loan status updated to Disbursed.');
+            }
+
+            // Update loan status to "Disbursed"
+            $loan->update(['status' => 'Disbursed']);
+
+            // Loan details
+            $account_number = $loan->customer_id;
+            $amount = $loan->loan_amount;
+            $amount = (float) $amount;
+            $interestRate = $loan->interest_rate / 100; // Convert percentage to decimal
+            $frequency = strtolower($loan->repayment_period); // daily, weekly, monthly
+            $duration = $loan->frequency; // Number of days, weeks, or months
+            $startDate = Carbon::parse($loan->first_due_date);
+
+            // Determine number of payments & interval
+            if ($frequency === 'daily') {
+                $installments = $duration;
+                $interval = 'addDays';
+            } elseif ($frequency === 'weekly') {
+                $installments = $duration;
+                $interval = 'addWeeks';
+            } elseif ($frequency === 'monthly') {
+                $installments = $duration;
+                $interval = 'addMonths';
+            } else {
+                return redirect()->back()->with('error', 'Invalid Frequency');
+            }
+
+            if ($loan->interest_type === 'flat') {
+                // Flat Interest Calculation
+                $totalInterest = $amount * $interestRate * $installments;
+                $totalRepayable = $amount + $totalInterest;
+                $installmentAmount = $totalRepayable / $installments;
+                $interestPerInstallment = $totalInterest / $installments;
+                $principalPerInstallment = $amount / $installments;
+
+                for ($i = 0; $i < $installments; $i++) {
+                    LoanRepaymentSchedule::create([
+                        'loan_id' => $loan->id,
+                        'principal_amount' => $principalPerInstallment,
+                        'interest_amount' => $interestPerInstallment,
+                        'total_amount_due' => $installmentAmount,
+                        'due_date' => $startDate->copy()->$interval($i),
+                        'status' => 'Pending',
+                        'business_id' => $business_id,
+                        'branch_id' => $loan->branch_id,
+                        'customer_id' => $account_number,
+                    ]);
+                }
+            } else {
+                // Reducing Balance Interest Calculation
+                $remainingBalance = $amount;
+
+                for ($i = 0; $i < $installments; $i++) {
+                    $interestAmount = $remainingBalance * $interestRate;
+                    $installmentAmount = ($amount / $installments) + $interestAmount;
+                    $principalAmount = $installmentAmount - $interestAmount;
+
+                    // Reduce balance for next calculation
+                    $remainingBalance -= $principalAmount;
+
+                    LoanRepaymentSchedule::create([
+                        'loan_id' => $loan->id,
+                        'principal_amount' => $principalAmount,
+                        'interest_amount' => $interestAmount,
+                        'total_amount_due' => $installmentAmount,
+                        'due_date' => $startDate->copy()->$interval($i),
+                        'status' => 'Pending',
+                        'business_id' => $business_id,
+                        'branch_id' => $loan->branch_id,
+                        'customer_id' => $account_number,
+                    ]);
+                }
+            }
+
+             // Generate unique transaction ID for ledger entries
+                $transaction_id = substr(Str::uuid()->toString(), 0, 15);
+
+
+                $cashPreviousBalance = GeneralLedger::where('account_number', '100')->sum('debit') - GeneralLedger::where('account_number', '100')->sum('credit');
+
+                // Rule of thumb: Debit what comes in, credit what goes out ie debit receiver and credit giver
+
+                // ✅ 1. Credit Loan Account (Asset)
+                GeneralLedger::create([
+                    'business_id' => $business_id,
+                    'branch_id' => $loan->branch_id,
+                    'transaction_id' => $transaction_id,
+                    'transaction_type' => 'Loan Disbursement',
+                    'account_name' => 'Cash' . ' ' . $loan->bank_account,
+                    'account_number' => '100', // Assume this is the loan disbursement account
+                    'debit' => 0,
+                    'credit' => $amount,
+                    'balance' => $cashPreviousBalance - $amount,
+                    'transaction_date' => now(),
+                    'description' => 'Loan disbursed to customer', // 	Aina Eniola - Loan# 1000002 - Principal Disbursed  $account_number, $amount
+                    'created_by' => $user->name,
+                ]);
+
+                $customerPreviousBalance = GeneralLedger::where('account_number', $account_number)->sum('debit') - GeneralLedger::where('account_number', $account_number)->sum('credit');
+
+                // ✅ 2. Debit Customer Loan Account (Receivable)
+                GeneralLedger::create([
+                    'business_id' => $business_id,
+                    'branch_id' => $loan->branch_id,
+                    'transaction_id' => $transaction_id,
+                    'transaction_type' => 'Loan Receivable',
+                    'account_name' => 'Customer Loan Account',
+                    'account_number' => $account_number, // Customer’s account number
+                    'debit' => $amount,
+                    'credit' => 0,
+                    'balance' => $customerPreviousBalance + $amount,
+                    'transaction_date' => now(),
+                    'description' => 'Loan received by customer',
+                    'created_by' => $user->name,
+                ]);
+
+                // $balance_two = GeneralLedger::where('account_number', $account_number)->sum('debit') - GeneralLedger::where('account_number', $account_number)->sum('credit') + $amount,
+
+                // dd($balance_two, $amount, $balance_two - $amount);
+
+            return redirect()->back()->with('success', 'Loan disbursed and repayment schedule generated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to process the loan: ' . $e->getMessage());
+        }
+    }
+
+    public function disburseAndGenerateSchedule(Request $request, $id)
+{
+    DB::beginTransaction();
+    
+    try {
+        $user = Auth::user();
+        $business_id = $user->business_id;
+        $loan = Loans::findOrFail($id);
+
+
+        $scheduleExists = LoanRepaymentSchedule::where('loan_id', $loan->id)->exists();
+
+        if ($scheduleExists) {
+            if ($loan->status !== 'Disbursed') {
+                $loan->update(['status' => 'Disbursed']);
+            }
+            return redirect()->back()->with('success', 'Loan status updated to Disbursed.');
+        }
+
+        $loan->update(['status' => 'Disbursed']);
+
+        $account_number = $loan->customer_id;
+        $amount = (float) $loan->loan_amount;
+        $interestRate = $loan->interest_rate / 100;
+        $frequency = strtolower($loan->repayment_period);
+        $duration = $loan->frequency;
+        $startDate = Carbon::parse($loan->first_due_date);
+
+        $interval = match ($frequency) {
+            'daily' => 'addDays',
+            'weekly' => 'addWeeks',
+            'monthly' => 'addMonths',
+            default => throw new \Exception('Invalid Frequency'),
+        };
+
+        $installments = $duration;
+
+        if ($loan->interest_type === 'flat') {
+            $totalInterest = $amount * $interestRate * $installments;
+            $totalRepayable = $amount + $totalInterest;
+            $installmentAmount = $totalRepayable / $installments;
+            $interestPerInstallment = $totalInterest / $installments;
+            $principalPerInstallment = $amount / $installments;
+
+            for ($i = 0; $i < $installments; $i++) {
+                LoanRepaymentSchedule::create([
+                    'loan_id' => $loan->id,
+                    'principal_amount' => $principalPerInstallment,
+                    'interest_amount' => $interestPerInstallment,
+                    'total_amount_due' => $installmentAmount,
+                    'due_date' => $startDate->copy()->$interval($i),
+                    'status' => 'Pending',
+                    'business_id' => $business_id,
+                    'branch_id' => $loan->branch_id,
+                    'customer_id' => $account_number,
+                ]);
+            }
+        }
+
+        $transaction_id = substr(Str::uuid()->toString(), 0, 15);
+
+        $cashPreviousBalance = GeneralLedger::where('account_number', '100')->sum('debit') 
+            - GeneralLedger::where('account_number', '100')->sum('credit');
+
+        $customerPreviousBalance = GeneralLedger::where('account_number', $account_number)->sum('debit') 
+            - GeneralLedger::where('account_number', $account_number)->sum('credit');
+
+        // ✅ General Ledger Entries
+        GeneralLedger::create([
+            'business_id' => $business_id,
+            'branch_id' => $loan->branch_id,
+            'transaction_id' => $transaction_id,
+            'transaction_type' => 'Loan Disbursement',
+            'account_name' => 'Cash ' . $loan->bank_account,
+            'account_number' => '100',
+            'debit' => 0,
+            'credit' => $amount,
+            'balance' => $cashPreviousBalance - $amount,
+            'transaction_date' => now(),
+            'description' => 'Loan disbursed to customer',
+            'created_by' => $user->name,
+        ]);
+
+        GeneralLedger::create([
+            'business_id' => $business_id,
+            'branch_id' => $loan->branch_id,
+            'transaction_id' => $transaction_id,
+            'transaction_type' => 'Loan Receivable',
+            'account_name' => 'Loan Receivable',
+            'account_number' => 201,
+            'debit' => $amount,
+            'credit' => 0,
+            'balance' => $customerPreviousBalance + $amount,
+            'transaction_date' => now(),
+            'description' => 'Loan received by customer',
+            'created_by' => $user->name,
+        ]);
+
+        // ✅ Journal Entry - Credit Cash Account
+        JournalEntry::create([
+            'business_id' => $business_id,
+            'branch_id' => $loan->branch_id,
+            'transaction_id' => $transaction_id,
+            'transaction_type' => 'Loan Receivable',
+            'account_name' => 'Cash ' . $loan->bank_account,
+            'account_number' => '100',
+            'balance' => $cashPreviousBalance - $amount,
+            'debit' => 0,
+            'credit' => $amount,
+            'transaction_date' => now(),
+            'description' => 'Credit Cash Account for loan disbursement',
+            'created_by' => $user->name,
+        ]);
+
+        // ✅ Journal Entry - Debit Customer Loan Account
+        JournalEntry::create([
+            'business_id' => $business_id,
+            'branch_id' => $loan->branch_id,
+            'transaction_id' => $transaction_id,
+            'transaction_type' => 'Loan Receivable',
+            'account_name' => 'Loan Receivable',
+            'account_number' => 201,
+            'debit' => $amount,
+            'credit' => 0,
+            'balance' => $customerPreviousBalance + $amount,
+            'transaction_date' => now(),
+            'description' => 'Debit Customer Loan Account for loan disbursement',
+            'created_by' => $user->name,
+        ]);
+
+        DB::commit();
+
+        return redirect()->back()->with('success', 'Loan disbursed and repayment schedule generated successfully.');
+        
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return redirect()->back()->with('error', 'Failed to process the loan: ' . $e->getMessage());
+    }
+}
+
+
+
+
+    public function rejectLoanStatus(Request $request, $id)
+    {
+        
+        try{
+        $business_id = Auth::user()->business_id;
+
+        $loan = Loans::findOrFail($id);
+
+        $loan->update(['status' => 'Rejected']);        
+
+        return redirect()->back()->with('success', 'The loan has been rejected.');
+        } catch (\Exception $e){
+            return redirect()->back()->with('error', 'Failed to update the loan.');
+        }
+        
+    }
+
+    public function updateLoan(Request $request, $id)
     {
         
         try{
@@ -179,6 +706,8 @@ class LoanManagementController extends Controller
             'application_date' => 'required',
             'repayment_period' => 'required',
         ]);
+
+        $loan->update(['status' => 'Approved']);
 
         $loan->update($validated);
 

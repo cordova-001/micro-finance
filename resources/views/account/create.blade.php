@@ -44,14 +44,14 @@
                             <div class="row gy-4">
                               <div class="col-md-12">
                                 <div class="form-group">
-                                  <label class="form-label" for="last-name">Chart Name</label>
-                                  <input type="text" name="chart_name" class="form-control" id="chart_name" placeholder="Chart Name">
+                                  <label class="form-label" for="last-name">Account Name</label>
+                                  <input type="text" name="account_name" class="form-control" id="chart_name" placeholder="Account Name">
                                 </div>
                               </div>
                               <div class="col-md-12">
                                 <div class="form-group">
-                                  <label class="form-label" for="last-name">GL Code</label>
-                                  <input type="text" name="gl_code" class="form-control" id="gl_code" placeholder="GL Code">
+                                  <label class="form-label" for="last-name">Account Code</label>
+                                  <input type="text" name="account_code" class="form-control" id="gl_code" placeholder="Account Code">
                                 </div>
                               </div>
                               <div class="col-md-12">

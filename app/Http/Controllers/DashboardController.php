@@ -29,9 +29,14 @@ class DashboardController extends Controller
         $totalSavings = Transaction::where('business_id', $business_id)->sum('amount_paid');
         // dd($totalSavings);
         $totalWithdrawal = Transaction::where('business_id', $business_id)->sum('amount_received');
+
         $totalBalance = $totalSavings - $totalWithdrawal;
 
-        return view('dashboard', compact('all_customers', 'totalSavings', 'totalWithdrawal', 'totalBalance'));
+        $totalPrincipalLoan = Loans::where('business_id', $business_id)->where('status', 'disbursed')->sum('loan_amount');
+        $totalPendingLoan = Loans::where('business_id', $business_id)->where('status', 'pending')->sum('loan_amount');
+
+
+        return view('dashboard', compact('all_customers', 'totalSavings', 'totalWithdrawal', 'totalBalance', 'totalPendingLoan', 'totalPrincipalLoan'));
     }
 
     /**

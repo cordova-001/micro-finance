@@ -16,7 +16,7 @@ class CreateGeneralLedgerTable extends Migration
         Schema::create('general_ledger', function (Blueprint $table) {
             $table->id();
             $table->string('transaction_id')->unique(); // Unique transaction reference
-            $table->foreignId('account_id')->constrained('chart_of_accounts')->onDelete('cascade'); // Links to Chart of Accounts
+            $table->foreignId('account_id')->constrained('chart')->onDelete('cascade'); // Links to Chart of Accounts
             $table->string('transaction_type')->comment('e.g. Loan Disbursement, Repayment, Interest, Expense');
             $table->decimal('debit', 15, 2)->default(0.00); // Debit entry
             $table->decimal('credit', 15, 2)->default(0.00); // Credit entry

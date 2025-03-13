@@ -10,9 +10,10 @@ class Chart extends Model
     use HasFactory;
 
     protected $fillable = [
-        'chart_name',
-        'gl_code',
+        'account_name',
+        'account_number',
         'type',
         'notes',
+        'business_id'
     ];
 }

@@ -16,7 +16,7 @@
                     <div class="card-inner">
                       <div class="tab-content">
                         <div class="tab-pane active" id="tabItem5">
-                          <h5 class="title"> Customer's name Transaction Details </h5>
+                          {{-- <h5 class="title"> Customer's name Transaction Details </h5> --}}
                           
                          
                               <hr>

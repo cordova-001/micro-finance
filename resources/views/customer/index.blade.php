@@ -94,7 +94,7 @@
                                                                         <div class='dropdown-menu dropdown-menu-end'>
                                                                         <form method='get'>
                                                                             <ul class='link-list-opt no-bdr'>
-                                                                                {{-- <li class="form-control"><span><a href="{{ route('customer.details', $customers->customer_id) }}"><em class='icon ni ni-eye'></em> Customer Profile</a> </span></li> --}}
+                                                                                <li class="form-control"><span><a href="{{ route('customer.details', $customers->customer_id) }}"><em class='icon ni ni-eye'></em> Customer Profile</a> </span></li>
                                                                                 <li class="form-control"><span><a href="{{ route('customer.details', $customers->customer_id) }}"><em class='icon ni ni-eye'></em> Edit Customer</a> </span></li>
                                                                                 <li class="form-control"><span><a href="{{ route('customer.details', $customers->customer_id) }}"><em class='icon ni ni-eye'></em>  Transaction History</a> </span></li>
                                                                                 {{-- <li class="form-control"><span><a href="{{ route('customer.details', $customers->customer_id) }}"><em class='icon ni ni-eye'></em>  Send Email </a> </span></li> --}}

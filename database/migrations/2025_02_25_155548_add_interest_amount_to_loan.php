@@ -14,7 +14,7 @@ class AddInterestAmountToLoan extends Migration
     public function up()
     {
         Schema::table('loans', function (Blueprint $table) {
-            //
+            $table->decimal('interest_amount', 15, 2)->after('interest_rate'); 
         });
     }
 
@@ -26,7 +26,7 @@ class AddInterestAmountToLoan extends Migration
     public function down()
     {
         Schema::table('loans', function (Blueprint $table) {
-            //
+            $table->decimal('interest_amount', 15, 2); 
         });
     }
 }

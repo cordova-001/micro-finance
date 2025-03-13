@@ -16,6 +16,7 @@
     </div>
 </x-app-layout> --}}
 
+{{-- @dd($customer) --}}
 
 @extends('layout.app')
 @section('content')
@@ -46,38 +47,52 @@
                     <div class="row g-gs">
                         <div class="col-xxl-12">
                             <div class="row g-gs">
-                                <div class="col-md-12">
-                                    <div class="card">
+
+                                <form action="{{ route('loan.loan_process') }}" class="pt-2" method="POST" enctype="multipart/form-data">
+                                <div class="col-md-12" >
+                                    <div class="card" style="background-color: rgb(220, 228, 233);">
                                         <div class="card-inner">
-                                            <div class="card-title-group align-start mb-2">
-                                                <div class="card-title">
-                                                    <h6 class="title">Loan Performances </h6>
-                                                    <p>In last 30 days</p>
-                                                </div>
-                                                <div class="card-tools">
-                                                    <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" title="Financial System"></em>
-                                                </div>
-                                            </div>
-                                            <div class="align-end gy-3 gx-5 flex-wrap flex-md-nowrap flex-lg-wrap flex-xxl-nowrap">
-                                                <div class="nk-sale-data-group flex-md-nowrap g-4">
-                                                     <div class="nk-sale-data">
-                                                        <span class="amount">5490 <span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>16.93%</span></span>
-                                                        <span class="sub-title">This Month</span>
-                                                    </div>
-                                                    <div class="nk-sale-data">
-                                                        <span class="amount">1480<span class="change up text-success"><em class="icon ni ni-arrow-long-up"></em>4.26%</span></span>
-                                                        <span class="sub-title">This Week</span>
-                                                    </div> 
-                                                </div>
-                                                <div class="nk-sales-ck sales-revenue">
-                                                    <canvas class="student-enrole" id="enrolement"></canvas>
-                                                </div>
-                                            </div>
+                                            
+                                                {{-- <div class="row gy-4">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                          <div class="form-group">
+                                                            <label class="form-label">Account Number</label>
+                                                            <div class="form-control-wrap">                                                                      
+                                                                <select class="form-select js-select2" required data-search="on" name="account_number">
+                                                                    
+                                                                  @foreach ($customer as $customers) 
+                                                                  <option value="">Enter Account Number</option>
+                                                                    <option value="{{ $customers->customer_id }} ">  
+                                                                      {{ $customers->customer_id }} - {{ $customers->first_name }} {{ $customers->last_name }}
+                                                                    </option>
+                                                                   
+                                                                  @endforeach      
+                                                                </select>
+                                                                <br>
+                                                                <button class="btn btn-primary">Try this</button>
+                                                              
+                                                            </div>
+                                                            <br>
+                                                            
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                      
+                                                </div> --}}
+                                            
+                                            
+                                           
                                         </div>
                                     </div>
                                 </div><!-- .col -->
+                                
+                            </form>
+
+                                
+
                                 <div class="col-md-3">
-                                    <div class="card">
+                                    <div class="card" style="border: 1px solid;">
                                         <div class="nk-ecwg nk-ecwg3">
                                             <div class="card-inner pb-0">
                                                 <div class="card-title-group">
@@ -87,7 +102,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">{{ $all_customers }}</div>
+                                                        <div class="amount fw-normal"> {{ number_format($all_customers) }}</div>
                                                         <div class="info text-end">
                                                             <h6>  </h6>
                                                              <h5> </h5> 
@@ -100,7 +115,7 @@
                                     </div><!-- .card -->
                                 </div><!-- .col -->
                                 <div class="col-md-3">
-                                    <div class="card">
+                                    <div class="card" style="border: 1px solid;">
                                         <div class="nk-ecwg nk-ecwg3">
                                             <div class="card-inner pb-0">
                                                 <div class="card-title-group">
@@ -110,7 +125,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">{{ $totalSavings }}</div>
+                                                        <div class="amount fw-normal"> &#8358;{{ number_format($totalSavings) }}</div>
                                                         <div class="info text-end">
                                                             <!-- <h5> 232323 Customers</h5> -->
                                                         </div>
@@ -122,7 +137,7 @@
                                     </div><!-- .card -->
                                 </div><!-- .col -->
                                 <div class="col-md-3">
-                                    <div class="card">
+                                    <div class="card" style="border: 1px solid;">
                                         <div class="nk-ecwg nk-ecwg3">
                                             <div class="card-inner pb-0">
                                                 <div class="card-title-group">
@@ -132,7 +147,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">{{ $totalWithdrawal }}</div>
+                                                        <div class="amount fw-normal"> &#8358;{{ number_format($totalWithdrawal) }}</div>
                                                         {{-- <h5> 12345 Customers</h5> --}}
                                                     </div>
                                                 </div>
@@ -153,7 +168,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">{{ $totalBalance }}</div>
+                                                        <div class="amount fw-normal"> &#8358;{{ number_format($totalBalance) }}</div>
                                                         {{-- <h5> 2345 Customers</h5> --}}
                                                     </div>
                                                 </div>
@@ -163,78 +178,21 @@
                                     </div><!-- .card -->
                                 </div><!-- .col -->
 
-                                <div class="col-md-3">
-                                    <div class="card" style="background-color: rgb(42, 17, 134);">
-                                        <div class="nk-ecwg nk-ecwg3">
-                                            <div class="card-inner pb-0">
-                                                <div class="card-title-group">
-                                                    <div class="card-title">
-                                                        <h6 class="title">Total Inbound Transfer</h6>
-                                                    </div>
-                                                </div>
-                                                <div class="data">
-                                                    <div class="data-group">
-                                                        <div class="amount fw-normal">#0</div>
+                                
 
-                                                    </div>
-                                                </div>
-                                            </div><!-- .card-inner -->
-                                           
-                                        </div><!-- .nk-ecwg -->
-                                    </div><!-- .card -->
-                                </div><!-- .col -->
                                 <div class="col-md-3">
-                                    <div class="card" style="background-color: rgb(20, 24, 65);">
+                                    <div class="card" style="border: 1px solid;">
                                         <div class="nk-ecwg nk-ecwg3">
                                             <div class="card-inner pb-0">
                                                 <div class="card-title-group">
                                                     <div class="card-title">
-                                                        <h6 class="title" style="color: white;">Total Outbound Transfer</h6>
+                                                        <h6 class="title">Total Loan Principal</h6>
                                                     </div>
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal" style="color: white;">#0</div>
-
-                                                    </div>
-                                                </div>
-                                            </div><!-- .card-inner -->
-                                           
-                                        </div><!-- .nk-ecwg -->
-                                    </div><!-- .card -->
-                                </div><!-- .col -->
-                                <div class="col-md-3">
-                                    <div class="card" style="background-color: rgb(59, 59, 147);">
-                                        <div class="nk-ecwg nk-ecwg3">
-                                            <div class="card-inner pb-0">
-                                                <div class="card-title-group">
-                                                    <div class="card-title">
-                                                        <h6 class="title" style="color: white;">Total Investment</h6>
-                                                    </div>
-                                                </div>
-                                                <div class="data">
-                                                    <div class="data-group">
-                                                        <div class="amount fw-normal" style="color: white;">#0</div>
-
-                                                    </div>
-                                                </div>
-                                            </div><!-- .card-inner -->
-                                           
-                                        </div><!-- .nk-ecwg -->
-                                    </div><!-- .card -->
-                                </div><!-- .col -->
-                                <div class="col-md-3">
-                                    <div class="card" style="background-color: rgb(35, 30, 51); color:white;">
-                                        <div class="nk-ecwg nk-ecwg3">
-                                            <div class="card-inner pb-0">
-                                                <div class="card-title-group">
-                                                    <div class="card-title">
-                                                        <h6 class="title" style="color: white;">Total Disbursed Dividends</h6>
-                                                    </div>
-                                                </div>
-                                                <div class="data">
-                                                    <div class="data-group">
-                                                        <div class="amount fw-normal" style="color: white;">#0</div>
+                                                        <div class="amount fw-normal"> &#8358;{{ number_format($totalPrincipalLoan) }}</div>
+                                                        
 
                                                     </div>
                                                 </div>
@@ -245,7 +203,28 @@
                                 </div><!-- .col -->
 
                                 <div class="col-md-3">
-                                    <div class="card" style="background-color: skyblue;">
+                                    <div class="card" style="border: 1px solid;">
+                                        <div class="nk-ecwg nk-ecwg3">
+                                            <div class="card-inner pb-0">
+                                                <div class="card-title-group">
+                                                    <div class="card-title">
+                                                        <h6 class="title">Total Pending Loan Request </h6>
+                                                    </div>
+                                                </div>
+                                                <div class="data">
+                                                    <div class="data-group">
+                                                        <div class="amount fw-normal"> &#8358;{{ number_format($totalPendingLoan) }}</div>
+
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card-inner -->
+                                           
+                                        </div><!-- .nk-ecwg -->
+                                    </div><!-- .card -->
+                                </div><!-- .col -->
+
+                                <div class="col-md-3">
+                                    <div class="card" style="border: 1px solid;">
                                         <div class="nk-ecwg nk-ecwg3">
                                             <div class="card-inner pb-0">
                                                 <div class="card-title-group">
@@ -255,7 +234,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">#0</div>
+                                                        <div class="amount fw-normal">&#8358;0</div>
 
                                                     </div>
                                                 </div>
@@ -266,7 +245,7 @@
                                 </div><!-- .col -->
 
                                 <div class="col-md-3">
-                                    <div class="card" style="background-color: skyblue;">
+                                    <div class="card" style="border: 1px solid;">
                                         <div class="nk-ecwg nk-ecwg3">
                                             <div class="card-inner pb-0">
                                                 <div class="card-title-group">
@@ -276,7 +255,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">#0</div>
+                                                        <div class="amount fw-normal">&#8358;0</div>
 
                                                     </div>
                                                 </div>
@@ -287,7 +266,7 @@
                                 </div><!-- .col -->
 
                                 <div class="col-md-3">
-                                    <div class="card" style="background-color: skyblue;">
+                                    <div class="card" style="border: 1px solid;">
                                         <div class="nk-ecwg nk-ecwg3">
                                             <div class="card-inner pb-0">
                                                 <div class="card-title-group">
@@ -297,7 +276,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">#0</div>
+                                                        <div class="amount fw-normal">&#8358;0</div>
 
                                                     </div>
                                                 </div>
@@ -308,7 +287,7 @@
                                 </div><!-- .col -->
 
                                 <div class="col-md-3">
-                                    <div class="card" style="background-color: skyblue;">
+                                    <div class="card" style="border: 1px solid;">
                                         <div class="nk-ecwg nk-ecwg3">
                                             <div class="card-inner pb-0">
                                                 <div class="card-title-group">
@@ -318,7 +297,88 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">#0</div>
+                                                        <div class="amount fw-normal">&#8358;0</div>
+
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card-inner -->
+                                           
+                                        </div><!-- .nk-ecwg -->
+                                    </div><!-- .card -->
+                                </div><!-- .col -->
+
+                                <div class="col-md-3">
+                                    <div class="card" style="border: 1px solid;">
+                                        <div class="nk-ecwg nk-ecwg3">
+                                            <div class="card-inner pb-0">
+                                                <div class="card-title-group">
+                                                    <div class="card-title">
+                                                        <h6 class="title">Total Inbound Transfer</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="data">
+                                                    <div class="data-group">
+                                                        <div class="amount fw-normal">&#8358;0</div>
+
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card-inner -->
+                                           
+                                        </div><!-- .nk-ecwg -->
+                                    </div><!-- .card -->
+                                </div><!-- .col -->
+                                <div class="col-md-3">
+                                    <div class="card" style="border: 1px solid;">
+                                        <div class="nk-ecwg nk-ecwg3">
+                                            <div class="card-inner pb-0">
+                                                <div class="card-title-group">
+                                                    <div class="card-title">
+                                                        <h6 class="title" >Total Outbound Transfer</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="data">
+                                                    <div class="data-group">
+                                                        <div class="amount fw-normal">&#8358;0</div>
+
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card-inner -->
+                                           
+                                        </div><!-- .nk-ecwg -->
+                                    </div><!-- .card -->
+                                </div><!-- .col -->
+                                <div class="col-md-3">
+                                    <div class="card" style="border: 1px solid;">
+                                        <div class="nk-ecwg nk-ecwg3">
+                                            <div class="card-inner pb-0">
+                                                <div class="card-title-group">
+                                                    <div class="card-title">
+                                                        <h6 class="title" >Total Investment</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="data">
+                                                    <div class="data-group">
+                                                        <div class="amount fw-normal" >&#8358;0</div>
+
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card-inner -->
+                                           
+                                        </div><!-- .nk-ecwg -->
+                                    </div><!-- .card -->
+                                </div><!-- .col -->
+                                <div class="col-md-3">
+                                    <div class="card" style="border: 1px solid;">
+                                        <div class="nk-ecwg nk-ecwg3">
+                                            <div class="card-inner pb-0">
+                                                <div class="card-title-group">
+                                                    <div class="card-title">
+                                                        <h6 class="title" >Total Disbursed Dividends</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="data">
+                                                    <div class="data-group">
+                                                        <div class="amount fw-normal">&#8358;0</div>
 
                                                     </div>
                                                 </div>

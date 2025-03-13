@@ -12,6 +12,15 @@ use App\Http\Controllers\HighChartController;
 use App\Http\Controllers\SavingsProductController;
 use App\Http\Controllers\InternetBankingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LoanRepaymentManagementController;
+use App\Http\Controllers\FinancialReportController;
+use App\Http\Controllers\AccountOfficerController;
+use App\Http\Controllers\AccountSystemController;
+use App\Http\Controllers\InvestmentProductController;
+use App\Http\Controllers\InvestmentController;
+use App\Http\Controllers\BankAccountController;
+use App\Http\Controllers\LoanRepaymentController;
+use App\Http\Controllers\LoanRepaymentScheduleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +33,7 @@ use App\Http\Controllers\DashboardController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('dashboard');
 })->middleware(['auth']);
 
 // Route::get('/dashboard', function () {
@@ -48,14 +57,42 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/create-loan-product', [LoanProductController::class, 'create'])->name('loan.create_product');
     Route::get('/loan_request', [LoanManagementController::class, 'newNewLoan'])->name('loan.loan_request');
     Route::post('/loan_process', [LoanManagementController::class, 'processLoan'])->name('loan.loan_process');
-    Route::post('/create_loan_request', [LoanManagementController::class, 'createLoanRequest'])->name('loan.create.loan_request');
-    Route::get('/get_loans', [LoanManagementController::class, 'getLoan'])->name('loan.loan_mgt');
+    Route::post('/loan_management/create_loan_request', [LoanManagementController::class, 'createLoanRequest'])->name('loan.create.loan_request');
+    Route::get('/loan_management/get_loans', [LoanManagementController::class, 'getLoan'])->name('loan.loan_mgt');
     Route::get('/manage_loan/{id}', [LoanManagementController::class, 'manageLoan'])->name('loan.manage');
+    Route::post('/manage_disbursed_loan/{id}', [LoanManagementController::class, 'manageDisbursedLoan'])->name('loan.manage.disbursed');
     Route::get('/guarantor', [LoanManagementController::class, 'newGuarantor'])->name('loan.guarantor');
+    Route::post('/loan_management/disburse/{id}/', [LoanManagementController::class, 'disburseAndGenerateSchedule'])->name('loan.disburse');
+    Route::get('/display_bank_account', [LoanManagementController::class, 'getBankAccount'])->name('loan.getBankAccount');
 
-    //center uri
-    Route::resource('/center', CenterController::class);
-    Route::get('/create-center', [CenterController::class, 'create'])->name('center.create');
+    // Route::get('view_repayment', [LoanRepaymentManagementController::class, 'viewRepayment'])->name('view_repayment');
+    Route::post('generate_repayment_schedule/{id}/generate-schedule', [LoanRepaymentManagementController::class, 'generateRepaymentSchedule'])->name('generate_repayment_schedule');
+    Route::get('repayment_schedule/{loan}', [LoanRepaymentManagementController::class, 'repaymentSchedule'])->name('repayment_schedule');
+    Route::get('repayment_schedule/{loan}/edit', [LoanRepaymentManagementController::class, 'editRepaymentSchedule'])->name('edit_repayment_schedule');
+    Route::put('repayment_schedule/{loan}', [LoanRepaymentManagementController::class, 'updateRepaymentSchedule'])->name('update_repayment_schedule');
+    Route::post('make_payment/{loanId}', [LoanRepaymentManagementController::class, 'makeRepayment'])->name('make_payment');
+    Route::get('view_repayment', [LoanRepaymentManagementController::class, 'getLoanRepayment'])->name('view_repayment');
+    Route::get('pending_repayment', [LoanRepaymentManagementController::class, 'getPendingRepayment'])->name('pending_repayment');
+    Route::get('due_loan', [LoanRepaymentManagementController::class, 'getDueLoansToday'])->name('due_loan_today');
+    Route::get('get_due_loan', [LoanRepaymentManagementController::class, 'getDueLoans'])->name('due_loan');
+    Route::get('get_branch_repayment', [LoanRepaymentManagementController::class, 'getDueLoans'])->name('due_loan');
+
+
+    Route::get('/newIncome', [FinancialReportController::class, 'incomeForm'])->name('account.income');
+    Route::get('/newExpenses', [FinancialReportController::class, 'incomeForm'])->name('account.expenses');
+
+    Route::post('/new_bank_account', [BankAccountController::class, 'createBankAccount'])->name('bank_account.create');
+
+    
+
+
+    // Loan Management Details
+    Route::put('approve_loan/{loan}', [LoanManagementController::class, 'approveLoanStatus'])->name('approve_loan');
+    Route::get('disburse_loan/{loan}', [LoanManagementController::class, 'disburseLoan'])->name('disburse_loan');
+    Route::put('reject_loan/{loan}', [LoanManagementController::class, 'rejectLoanStatus'])->name('reject_loan');
+    Route::get('/loan_management/approved_loans', [LoanManagementController::class, 'getApprovedLoan'])->name('approved_loans');
+    Route::get('/loan_management/rejected_loans', [LoanManagementController::class, 'getRejectedLoan'])->name('rejected_loans');
+    Route::get('/loan_management/disbursed_loans', [LoanManagementController::class, 'getDisbursedLoan'])->name('disbursed_loans');
 
     //financial account url details
     Route::resource('chart', ChartController::class);
@@ -69,6 +106,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/customer', [CustomerControllers::class, 'index'])->name('customer.index');
     Route::post('/new_customer', [CustomerControllers::class, 'addCustomer'])->name('customer.add');
     Route::get('/customer/{customer_id}/details', [CustomerControllers::class, 'getCustomerDetails'])->name('customer.details');
+    Route::get('/customer/{customer_id}/edit', [CustomerControllers::class, 'edit'])->name('customer.edit');
+    Route::get('/getCustomer', [CustomerControllers::class, 'getCustomerToDashboard'])->name('customer.getCustomer');
 
     Route::get('/chart', [HighchartController::class, 'handleChart']);
 
@@ -85,6 +124,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/start_transfer', [TransactionController::class, 'newTransfer'])->name('start_transfer');
     Route::post('/confirm_for_transfer', [TransactionController::class, 'ConfirmAccountForTransfer'])->name('confirm_for_transfer');
     Route::get('/manage_deposit', [TransactionController::class, 'manageDeposit'])->name('manage_deposit');
+
+    Route::get('/general_ledger', [AccountSystemController::class, 'viewGeneralLedger'])->name('general_ledger');
     
 
     Route::get('/dashboard', [DashboardController::class, 'getDashboardStats'])->name('dashboard');
@@ -155,7 +196,7 @@ Route::middleware(['auth'])->group(function () {
     // });
 
     Route::get('add_investment_product', function(){
-        return view('investments.add_investment_product');
+        return view('investment.add_investment_product');
     });
 
     Route::get('all_investment', function(){
@@ -214,6 +255,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('cash_flow_statement', function(){
         return view('reports.cash_flow_cummulative');
     });
+
+    
+
+    Route::get('settings', function () {
+        return view('settings.general');
+    });
+    Route::get('email_template', function () {
+        return view('settings.email_template');
+    });
+
 
     /**
      * 

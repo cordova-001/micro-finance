@@ -168,8 +168,26 @@
 
                               <div class="col-md-6">
                                 <div class="form-group">
+                                  <label class="form-label" for="address-line2"> Cash / Bank </label>
+                                  {{-- <input type="text" required  class="form-control" name="staff" value="{{ $user->name }}" > --}}
+                                  <select name="bank_account" id="bank_account" class="form-control">
+                                    <option value="">Select Bank Account</option>
+                                    @foreach ($bank_accounts as $bank_account)                                     
+                                      <option value="{{ $bank_account->id }} ">  
+                                        {{ $bank_account->bank_name }}
+                                      </option>
+                                      
+                                    @endforeach
+                                    
+                                  </select>
+                                  <strong type="button" style="color: rgb(37, 31, 70);" class="" data-bs-toggle="modal" data-bs-target="#modalForm"> Click here to add Cash / Bank Account for Journal Posting</strong>
+                                </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                <div class="form-group">
                                   <label class="form-label" for="address-line2">Account Officer</label>
-                                  <input type="text" required  class="form-control" name="staff" value="{{ $user->name }}" >
+                                  <input type="text" required readonly class="form-control" name="staff" value="{{ $user->name }}" >
                                 </div>
                               </div>
                              
@@ -183,6 +201,59 @@
                               </div>
                             </div>
                           </form>
+
+                          <div class="modal fade" id="modalForm">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title"> Add Cash/Bank Account </h5>
+                                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <em class="icon ni ni-cross"></em>
+                                        </a>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{ route('bank_account.create') }}" method="POST" class="form-validate is-alter">
+                                          @csrf
+                                            <div class="form-group">
+                                                <label class="form-label" for="full-name"> Branch </label>
+                                                <div class="form-control-wrap">
+                                                    {{-- <input type="text" class="form-control" id="full-name" required> --}}
+                                                    <select name="branch" class="form-control" id="">
+                                                      <option value="">Select a Branch</option>
+                                                      @foreach ($branches as $branch) 
+                                                      
+                                                        <option value="{{ $branch->id }} ">  
+                                                          {{ $branch->branch_name }} {{ $branch->id }}
+                                                        </option>
+                                                       
+                                                      @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                              <label class="form-label" for="full-name"> Code </label>
+                                              <div class="form-control-wrap">
+                                                  <input type="text" class="form-control" id="code" name="code" required>
+                                              </div>
+                                          </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="email-address">Bank Account Name </label>
+                                                <div class="form-control-wrap">
+                                                    <input type="text" class="form-control" id="bank_name" name="bank_name" required>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-lg btn-primary">Save Informations</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                 
+                                </div>
+                            </div>
+                        </div>
+
                         </div>
                         <!--tab pan -->
 

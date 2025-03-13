@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/dashlite.css') }}?ver=3.0.3">
     <link id="skin-default" rel="stylesheet" href="{{ asset('assets/css/theme.css') }}?ver=3.0.3">
+    
 
 </head>
 
@@ -147,7 +148,7 @@
                             <a href="{{ route('customer.for.transaction') }}" class="nk-menu-link"><span class="nk-menu-text">Add Savings</span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="{{ route('manage_deposit') }}" class="nk-menu-link"><span class="nk-menu-text">Manage All Savings</span></a>
+                            <a href="{{ route('manage_deposit') }}" class="nk-menu-link"><span class="nk-menu-text">View All Savings</span></a>
                         </li>
                         {{-- <li class="nk-menu-item">
                             <a href="{{ route('center.index') }}" class="nk-menu-link"><span class="nk-menu-text">Upload Bulk Savings</span></a>
@@ -214,10 +215,10 @@
                             <a href="#" class="nk-menu-link"><span class="nk-menu-text">Add Investor</span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="{{ route('center.index') }}" class="nk-menu-link"><span class="nk-menu-text"> Manage  Investor</span></a>
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> Manage  Investor</span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="{{ route('center.index') }}" class="nk-menu-link"><span class="nk-menu-text">Manage Investment</span></a>
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Investment</span></a>
                         </li>
                         
                     </ul><!-- .nk-menu-sub -->
@@ -243,19 +244,13 @@
                             <a href="{{ route('loan.loan_mgt') }}" class="nk-menu-link"><span class="nk-menu-text">Loan Management</span></a>
                         </li>
 
+                        <li class="nk-menu-item">
+                            <a href="{{ route('approved_loans') }}" class="nk-menu-link"><span class="nk-menu-text">Open Loan </span></a>
+                        </li>
+
                         {{--  --}}
 
-                        <li class="nk-menu-item">
-                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> Due Loans </span></a>
-                        </li>
-
-                        <li class="nk-menu-item">
-                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> Missed Repayment</span></a>
-                        </li>
-
-                        <li class="nk-menu-item">
-                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> Past Maturity Date</span></a>
-                        </li>
+                        
 
                         <li class="nk-menu-item">
                             <a href="#" class="nk-menu-link"><span class="nk-menu-text"> One Month Late Loans </span></a>
@@ -272,9 +267,9 @@
                         
 
                         
-                        <li class="nk-menu-item">
+                        {{-- <li class="nk-menu-item">
                             <a href="approve_loan" class="nk-menu-link"><span class="nk-menu-text">Disburse Loan</span></a>
-                        </li>
+                        </li> --}}
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
                 <li class="nk-menu-item has-sub">
@@ -284,14 +279,32 @@
                     </a>
                     <ul class="nk-menu-sub" style="background-color: aliceblue;">
                         <li class="nk-menu-item">
-                            <a href="view_repayment" class="nk-menu-link"><span class="nk-menu-text">View Repayment</span></a>
+                            <a href="{{ route('view_repayment') }}" class="nk-menu-link"><span class="nk-menu-text">View Repayment</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('pending_repayment') }}" class="nk-menu-link"><span class="nk-menu-text">All Pending Repayment</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('due_loan_today') }}" class="nk-menu-link"><span class="nk-menu-text"> Due Loans </span></a>
+                        </li>
+
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> Missed Repayment</span></a>
+                        </li>
+
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> No Repayment</span></a>
+                        </li>
+
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> Past Maturity Date</span></a>
                         </li>
                         <li class="nk-menu-item">
                             <a href="bulkRepayment" class="nk-menu-link"><span class="nk-menu-text">Bulk Repayment </span></a>
                         </li>
-                        <li class="nk-menu-item">
+                        {{-- <li class="nk-menu-item">
                             <a href="approve_repayment" class="nk-menu-link"><span class="nk-menu-text">Approve Repayment </span></a>
-                        </li>
+                        </li> --}}
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
                 
@@ -408,6 +421,8 @@
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
 
+               
+
                 
                 <li class="nk-menu-item has-sub">
                     <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
@@ -422,7 +437,7 @@
                             <a href="#" class="nk-menu-link"><span class="nk-menu-text">Cash Flow Monthly</span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">General Ledger</span></a>
+                            <a href="{{ route('general_ledger') }}" class="nk-menu-link"><span class="nk-menu-text">General Ledger</span></a>
                         </li>
                         <li class="nk-menu-item">
                             <a href="#" class="nk-menu-link"><span class="nk-menu-text">Trial Balance</span></a>
@@ -434,19 +449,21 @@
                             <a href="#" class="nk-menu-link"><span class="nk-menu-text">Balance Sheet
                         </li>
                     </ul><!-- .nk-menu-sub -->
-                </li><!-- .nk-menu-item -->
+                </li><!-- .nk-menu-item -->                                
+                
                 <li class="nk-menu-item">
-                    <a href="#" class="nk-menu-link">
-                        <span class="nk-menu-icon"><em class="icon ni ni-dashlite-alt"></em></span>
-                        <span class="nk-menu-text">Main Dashboard</span>
+                    <a href="settings" class="nk-menu-link" style="background-color: aliceblue;">
+                        <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
+                        <span class="nk-menu-text">Settings</span>
                     </a>
                 </li><!-- .nk-menu-item -->
-                <li class="nk-menu-item">
+                {{-- <li class="nk-menu-item">
                     <a href="#" class="nk-menu-link">
                         <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
                         <span class="nk-menu-text">All Components</span>
                     </a>
-                </li><!-- .nk-menu-item -->
+                </li><!-- .nk-menu-item --> --}}
+                
             </ul><!-- .nk-menu -->
         </div><!-- .nk-sidebar-menu -->
     </div><!-- .nk-sidebar-content -->

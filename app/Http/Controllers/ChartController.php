@@ -40,12 +40,14 @@ class ChartController extends Controller
     {
         $business_id = Auth::user()->business_id;
 
+        // dd($business_id);
+
         $chart = Chart::create([
-            'chart_name' => $request->input('chart_name'),
-            'gl_code' => $request->input('gl_code'),
+            'account_name' => $request->input('account_name'),
+            'account_number' => $request->input('account_code'),
             'type' => $request->input('type'),
             'notes' => $request->input('notes'),
-            'business_id' => $$business_id,
+            'business_id' => $business_id,
         ]);
 
         return redirect()->back()->with('success', 'The Chart to account has been added successfully');

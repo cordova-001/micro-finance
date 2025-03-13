@@ -7,6 +7,8 @@ use App\Models\Customers;
 use App\Models\Branch;
 use App\Models\SavingsProduct;
 use Illuminate\Http\Request;
+use App\Models\BankAccount;
+use App\Models\GeneralLedger;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 
@@ -22,8 +24,9 @@ class TransactionController extends Controller
         $user = Auth::user();
         $branches = Branch::where('business_id', $user->business_id)->get();
         $customers = Customers::where('business_id', $user->business_id)->get();
-        $sproducts = SavingsProduct::where('business_id', $user->business_id)->get();        
-        return view('transactions.add_savings', compact('customers', 'user', 'sproducts', 'branches'));
+        $sproducts = SavingsProduct::where('business_id', $user->business_id)->get();
+        $bank_accounts = BankAccount::where('business_id', $user->business_id)->get();        
+        return view('transactions.add_savings', compact('customers', 'user', 'sproducts', 'branches', 'bank_accounts'));
     }
 
     /**
@@ -38,7 +41,8 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function addDeposit(Request $request)
+
+     public function addOldDeposit(Request $request)
     {
         try{
             $user = Auth::user();
@@ -289,6 +293,118 @@ class TransactionController extends Controller
                 // session()->flash('success', 'Thanks for filling. Your form submitted successfully!');
             
                 // return redirect()->back();
+
+                return redirect()->back()->with('success', 'TThe deposit has been credited successfully');
+                
+
+                    
+            }catch (\Illuminate\Validation\ValidationException $e) {
+                // Log validation errors
+                Log::error('Validation errors:', $e->errors());
+                return back()->withErrors($e->errors());  // Display errors back to the user
+            }
+    }
+    public function addDeposit(Request $request)
+    {
+        try{
+            $user = Auth::user();
+            $business_id = Auth::user()->business_id;
+            $acctNo = $request->input('account_number');
+            $totalAmountReceived = Transaction::sum('amount_received');
+            $amount_paid = $request->input('deposit_amount');
+            $amount_paid = (float) $amount_paid;
+            $totalAmountPaid = Transaction::sum('amount_paid');
+            $customer = Customers::where('customer_id', $acctNo)->first(); // Fetch the customer record
+            if (!$customer) {
+                return back()->withErrors(['error' => 'Account number not found!']);
+            }
+            
+            
+            $transaction_type = 'Credit';
+            $branch = $request->input('branch');
+
+            $d_date = $request->input('deposit_date');
+
+            $savings_product = $request->input('savings_product');
+            $getSavingsProductDetails = SavingsProduct::where('product_name', $savings_product)->where('business_id', $business_id)->first();
+            
+
+            $balance = $totalAmountPaid - $totalAmountReceived + $amount_paid;
+            $transaction_id = substr(Str::uuid()->toString(), 0, 15);
+
+            // dd($getSavingsProductDetails);
+            
+            
+                
+                $request->validate([
+                    'account_number' => 'required',
+                    'deposit_amount' => 'required',                
+                    'deposit_date' => 'required',
+                    'savings_product' => 'required',
+                ]);
+
+
+                $transaction = new Transaction();
+                $transaction->account_number = $request->input('account_number');
+                $transaction->account_name = $customer->first_name . ' ' . $customer->last_name;
+                $transaction->amount_paid = $request->input('deposit_amount');
+                $transaction->depositor_phone = $request->input('depositor_phone');
+                $transaction->depositor_name = $request->input('depositor_name');
+                $transaction->branch_id = $request->input('branch');
+                $transaction->transaction_date = $request->input('deposit_date');
+                $transaction->savings_product = $request->input('savings_product');
+                $transaction->business_id = $business_id;
+                $transaction->total_balance = $balance;
+                $transaction->transaction_id = $transaction_id;
+                $transaction->transaction_means = $request->input('transactions_means');
+                $transaction->transaction_type = $transaction_type;
+                $transaction->narration = $request->input('narration');
+                $transaction->staff = $user->name;
+
+                if ($request->hasFile('file')) {
+                    $file = $request->file('file');
+                    $imageName1 = time() . '_file.' . $file->getClientOriginalExtension();
+                    $file->move(public_path('images'), $imageName1);
+                    $transaction->file = $imageName1;
+                }
+
+
+
+                $transaction->save();
+
+                GeneralLedger::create([
+                    'business_id' => $business_id,
+                    'branch_id' => $branch,
+                    'transaction_id' => $transaction_id,
+                    'transaction_type' => 'Customer Deposit',
+                    'account_name' => 'Cash',
+                    'account_number' => '100', // Assume this is the cash account number
+                    'debit' => $amount_paid,
+                    'credit' => 0,
+                    'balance' => GeneralLedger::where('account_number', '100')->sum('debit') - 
+                                 GeneralLedger::where('account_number', '100')->sum('credit') + $amount_paid,
+                    'transaction_date' => $d_date,
+                    'desription' => 'Customer deposit received',
+                    'created_by' => $user->name,
+                ]);
+        
+                // ✅ 2. Credit Customer Savings Account (Liability)
+                GeneralLedger::create([
+                    'business_id' => $business_id,
+                    'branch_id' => $branch,
+                    'transaction_id' => $transaction_id,
+                    'transaction_type' => 'Customer Deposit',
+                    'account_name' => 'Customer Savings Account',
+                    'account_number' => $acctNo, // Customer’s account number
+                    'debit' => 0,
+                    'credit' => $amount_paid,
+                    'balance' => GeneralLedger::where('account_number', $acctNo)->sum('debit') - 
+                                 GeneralLedger::where('account_number', $acctNo)->sum('credit') - $amount_paid,
+                    'transaction_date' => $d_date,
+                    'description' => 'Deposit into savings account',
+                    'created_by' => $user->name,
+                ]);
+        
 
                 return redirect()->back()->with('success', 'TThe deposit has been credited successfully');
                 

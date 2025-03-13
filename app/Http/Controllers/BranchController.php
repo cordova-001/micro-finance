@@ -79,10 +79,10 @@ class BranchController extends Controller
                         ->get();
 
         // Fetch Investments for this branch
-            // $investments = DB::table('investments')
-            //             ->where('branch_id', $id)
-            //             ->where('business_id', $business_id)
-            //             ->get();
+            $repayments = DB::table('loan_repayments')
+                        ->where('branch_id', $id)
+                        ->where('business_id', $business_id)
+                        ->get();
 
             $transactions = DB::table('transactions')
                         ->where('branch_id', $id)
@@ -90,7 +90,7 @@ class BranchController extends Controller
                         // ->where('transaction_type', 'savings') 
                         ->get();
             
-            return view('branch.show', compact('branch', 'loans', 'transactions'));
+            return view('branch.show', compact('branch', 'loans', 'repayments', 'transactions'));
         
         } catch (\Exception $e) {
             \Log::error('Error fetching branch data: ' . $e->getMessage());
