@@ -178,69 +178,110 @@ class LoanRepaymentManagementController extends Controller
      */
 
      public function makeRepayment(Request $request, $loanId)
-    {
-        $business_id = Auth::user()->business_id;
-        $loan = Loans::findOrFail($loanId);
-        $amountPaid = $request->paid_amount;
-        $user = Auth::user();
-        $transaction_id = substr(Str::uuid()->toString(), 0, 15);
-        // dd($request->method());
+        {
+            $business_id = Auth::user()->business_id;
+            $loan = Loans::findOrFail($loanId);
+            $amountPaid = $request->paid_amount;
+            $user = Auth::user();
+            $transaction_id = substr(Str::uuid()->toString(), 0, 15);
+            // dd($request->method());
 
-        $nextDue = LoanRepaymentSchedule::where('loan_id', $loanId)
-            ->where('status', 'Pending')
-            ->orderBy('due_date', 'asc')
-            ->first();
+            $nextDue = LoanRepaymentSchedule::where('loan_id', $loanId)
+                ->where('status', 'Pending')
+                ->orderBy('due_date', 'asc')
+                ->first();
 
-        if (!$nextDue) {
-            return redirect()->back->with('message', 'No pending repayments for this loan');
-        }
+            if (!$nextDue) {
+                return redirect()->back->with('message', 'No pending repayments for this loan');
+            }
 
-        // Save repayment
-        LoanRepayment::create([
-            'loan_id' => $loanId,
-            'schedule_id' => $nextDue->id,
-            'paid_amount' => $amountPaid,
-            'paid_date' => now(),
-            'payment_means' => $request->payment_means,
-            'payment_reference' => $request->payment_reference,
-            'collected_by' => $request->collected_by,
-            'business_id' => $business_id,
-            'branch_id' => $loan->branch_id,
-            'customer_id' => $loan->customer_id,
+            $remainingInterest = $nextDue->interest_amount;
+            $remainingPrincipal = $nextDue->principal_amount;
+
+            // Allocate payment to interest first, then to principal
+            $interestPaid = min($amountPaid, $remainingInterest);
+            $remainingAmount = $amountPaid - $interestPaid;
+
+            // dd($remainingAmount);
+
+            $principalPaid = min($remainingAmount, $remainingPrincipal);
+            $totalPaid = $interestPaid + $principalPaid;
+
+            // dd($totalPaid);
+
+            // Save repayment
+            LoanRepayment::create([
+                'loan_id' => $loanId,
+                'schedule_id' => $nextDue->id,
+                'paid_amount' => $amountPaid,
+                'total_paid' => $totalPaid,
+                'interest_paid' => $interestPaid,
+                'principal_paid' => $principalPaid,
+                'paid_date' => now(),
+                'payment_means' => $request->payment_means,
+                'payment_reference' => $request->payment_reference,
+                'collected_by' => $request->collected_by,
+                'business_id' => $business_id,
+                'branch_id' => $loan->branch_id,
+                'customer_id' => $loan->customer_id,
+                
+            ]); 
             
-        ]); 
 
-        // Update schedule status
-        $nextDue->update(['status' => 'Paid']);
+            // Update total repayment in loan table
+            $totalRepayment = LoanRepayment::where('loan_id', $loanId)->sum('paid_amount');
+            $totalAmountDue = LoanRepaymentSchedule::where('loan_id', $loanId)
+                                ->where('status', 'Pending')
+                                ->sum(DB::raw('principal_amount + interest_amount'));
+            $balance = $loan->loan_amount - $totalRepayment;
 
-         // General Ledger Entry
-        $account_number = $loan->customer_id; // Assuming customer ID is used as the account number
+            $loan->total_paid = $totalRepayment;
+            $loan->total_due = $totalAmountDue;
+            $loan->balance = $balance;
+            $loan->save();
 
-        // Calculate updated balance
-        $balance_before = GeneralLedger::where('account_number', $account_number)->sum('debit') 
-                        - GeneralLedger::where('account_number', $account_number)->sum('credit');
+            $nextDue->interest_amount -= $interestPaid;
+            $nextDue->principal_amount -= $principalPaid;
 
-        $balance_after = $balance_before - $amountPaid;
+            // Mark as Paid if fully settled
+            if ($nextDue->interest_amount <= 0 && $nextDue->principal_amount <= 0) {
+                $nextDue->status = 'Paid';
+            }
 
-        // Insert into General Ledger
-        GeneralLedger::create([
-            'account_number' => $account_number,
-            'transaction_type' => 'Loan Repayment',
-            'debit' => 0, // No debit since this is a repayment (money coming in)
-            'credit' => $amountPaid, // Crediting the loan repayment
-            'balance' => $balance_after, // Updated balance
-            'transaction_date' => now(),
-            'transaction_id' => $transaction_id,
-            'description' => 'Loan Repayment',
-            'reference' => $request->payment_reference, 
-            'business_id' => $business_id,
-            'branch_id' => $loan->branch_id,
-            'created_by' => $user->id,
-        ]);
+            $nextDue->save();
+
+            
+            // Update schedule status
+            // $nextDue->update(['status' => 'Paid']);
+
+            // General Ledger Entry
+            $account_number = $loan->customer_id; // Assuming customer ID is used as the account number
+
+            // Calculate updated balance
+            $balance_before = GeneralLedger::where('account_number', $account_number)->sum('debit') 
+                            - GeneralLedger::where('account_number', $account_number)->sum('credit');
+
+            $balance_after = $balance_before - $amountPaid;
+
+            // Insert into General Ledger
+            GeneralLedger::create([
+                'account_number' => $account_number,
+                'transaction_type' => 'Loan Repayment',
+                'debit' => 0, // No debit since this is a repayment (money coming in)
+                'credit' => $amountPaid, // Crediting the loan repayment
+                'balance' => $balance_after, // Updated balance
+                'transaction_date' => now(),
+                'transaction_id' => $transaction_id,
+                'description' => 'Loan Repayment',
+                'reference' => $request->payment_reference, 
+                'business_id' => $business_id,
+                'branch_id' => $loan->branch_id,
+                'created_by' => $user->id,
+            ]);
 
 
-        return redirect()->back()->with('message', 'Repayment recorded successfully');
-    }
+            return redirect()->back()->with('message', 'Repayment recorded successfully');
+        }
 
     /**
      * Show the form for creating a new resource.

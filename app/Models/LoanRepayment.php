@@ -22,6 +22,15 @@ class LoanRepayment extends Model
         'branch_id',
         'schedule_id',
         'collected_by',
+        'interest_paid',
+        'penalty_paid',
+        'principal_paid',
+        'balance',
+        'total_paid',
+        'total_due',
+        'status',
+        'created_by',
+        'updated_by',
 
     ];
 }

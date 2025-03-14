@@ -190,7 +190,7 @@ class LoanManagementController extends Controller
             $allLoans = DB::table('loans')
             ->join('customers', 'loans.customer_id', '=', 'customers.customer_id')
             ->where('loans.business_id', $user->business_id)
-            ->where('loans.status', 'Disbursed')
+            ->where('loans.status', 'Open')
             ->select('loans.*', 'customers.first_name', 'customers.last_name')
             ->get();
 
@@ -399,14 +399,14 @@ class LoanManagementController extends Controller
 
             if ($scheduleExists) {
                 // If schedule exists, just update loan status if not already "Disbursed"
-                if ($loan->status !== 'Disbursed') {
-                    $loan->update(['status' => 'Disbursed']);
+                if ($loan->status !== 'Open') {
+                    $loan->update(['status' => 'Open']);
                 }
                 return redirect()->back()->with('success', 'Loan status updated to Disbursed.');
             }
 
             // Update loan status to "Disbursed"
-            $loan->update(['status' => 'Disbursed']);
+            $loan->update(['status' => 'Open']);
 
             // Loan details
             $account_number = $loan->customer_id;
@@ -539,17 +539,19 @@ class LoanManagementController extends Controller
         $business_id = $user->business_id;
         $loan = Loans::findOrFail($id);
 
+        // dd($loan);
+
 
         $scheduleExists = LoanRepaymentSchedule::where('loan_id', $loan->id)->exists();
 
         if ($scheduleExists) {
-            if ($loan->status !== 'Disbursed') {
-                $loan->update(['status' => 'Disbursed']);
+            if ($loan->status !== 'Open') {
+                $loan->update(['status' => 'Open']);
             }
             return redirect()->back()->with('success', 'Loan status updated to Disbursed.');
         }
 
-        $loan->update(['status' => 'Disbursed']);
+        $loan->update(['status' => 'Open']);
 
         $account_number = $loan->customer_id;
         $amount = (float) $loan->loan_amount;
@@ -567,13 +569,15 @@ class LoanManagementController extends Controller
 
         $installments = $duration;
 
-        if ($loan->interest_type === 'flat') {
+        if ($loan->interest_type === 'Flat') {
             $totalInterest = $amount * $interestRate * $installments;
             $totalRepayable = $amount + $totalInterest;
             $installmentAmount = $totalRepayable / $installments;
             $interestPerInstallment = $totalInterest / $installments;
             $principalPerInstallment = $amount / $installments;
 
+            // dd($totalInterest, $totalRepayable, $installmentAmount, $interestPerInstallment, $principalPerInstallment);
+        
             for ($i = 0; $i < $installments; $i++) {
                 LoanRepaymentSchedule::create([
                     'loan_id' => $loan->id,
@@ -587,7 +591,32 @@ class LoanManagementController extends Controller
                     'customer_id' => $account_number,
                 ]);
             }
+        
+        } elseif ($loan->interest_type === 'reducing') {
+            $remainingPrincipal = $amount;
+            $principalPerInstallment = $amount / $installments;
+        
+            for ($i = 0; $i < $installments; $i++) {
+                $interestForInstallment = $remainingPrincipal * $interestRate;
+                $installmentAmount = $principalPerInstallment + $interestForInstallment;
+        
+                LoanRepaymentSchedule::create([
+                    'loan_id' => $loan->id,
+                    'principal_amount' => $principalPerInstallment,
+                    'interest_amount' => $interestForInstallment,
+                    'total_amount_due' => $installmentAmount,
+                    'due_date' => $startDate->copy()->$interval($i),
+                    'status' => 'Pending',
+                    'business_id' => $business_id,
+                    'branch_id' => $loan->branch_id,
+                    'customer_id' => $account_number,
+                ]);
+        
+                // Reduce the principal after each installment
+                $remainingPrincipal -= $principalPerInstallment;
+            }
         }
+        
 
         $transaction_id = substr(Str::uuid()->toString(), 0, 15);
 

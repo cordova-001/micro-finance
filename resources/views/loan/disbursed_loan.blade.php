@@ -46,16 +46,16 @@
                                         <div class="card-inner">
                                             <table class="datatable-init-export nowrap table" data-export-title="Export">
                                                 <thead>
-                                                    <tr>
+                                                    <tr style="background-color: rgb(207, 207, 229); font-weight: bold; font-size: 14px;">
                                                         <th> Account Name </th>
                                                         <th> Account Number </th>
                                                         <th> Loan Product </th>
-                                                        <th> Loan Principal Amount </th>
+                                                        <th> Principal  </th>
                                                         {{-- <th> Interest Rate</th> --}}
                                                         <th> Interest  </th>
-                                                        <th> Total Repayment Amount </th>
-                                                        <th> Each Repayment Amount </th>
-                                                        <th> Repayment Period </th>
+                                                        <th> Total Due </th>
+                                                        <th> Paid </th>
+                                                        <th> Balance </th>
                                                         {{-- <th> Application Date </th> --}}
                                                          
                                                         <th> Action </th>                                                   
@@ -72,9 +72,9 @@
                                                             <td>{{ $allLoan->loan_amount }}</td>
                                                             {{-- <td>{{ $allLoan->interest_rate }}</td> --}}
                                                             <td>{{ $allLoan->interest_amount }}</td>
-                                                            <td>{{ $allLoan->total_repayment_amount }}</td>
-                                                            <td>{{ $allLoan->each_repayment_amount }}</td>
-                                                            <td>{{ $allLoan->repayment_period }}</td>
+                                                            <td>{{ $allLoan->total_due }}</td>
+                                                            <td>{{ $allLoan->total_paid }}</td>
+                                                            <td>{{ $allLoan->balance }}</td>
                                                             {{-- <td>{{ $allLoan->application_date }}</td> --}}
                                                             
                                                             <td>
