@@ -46,6 +46,12 @@
                             <div class="row gy-4">
                               <div class="col-md-6">
                                 <div class="form-group">
+                                  <label class="form-label" for="first-name">Branch Manager</label>
+                                  <input type="text" name="manager" class="form-control" id="branch-name" placeholder="Branch Manager">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
                                   <label class="form-label" for="first-name">Branch Name</label>
                                   <input type="text" name="branch_name" class="form-control" id="branch-name" placeholder="Branch name">
                                 </div>

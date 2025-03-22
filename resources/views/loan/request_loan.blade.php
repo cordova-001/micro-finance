@@ -89,7 +89,7 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-line2">Loan Amount</label>
-                                  <input type="number" required step="0.1" class="form-control" name="loan_amount" id="amount" >
+                                  <input type="number" required step="0.1" class="form-control" name="loan_amount" id="amount"  >
                                 </div>
                               </div>
                               <div class="col-md-6">
@@ -97,8 +97,20 @@
                                   <label class="form-label" for="address-st"> Repayment Frequency </label>
                                   <select name="frequency" required id="" class="form-control">
                                     <option value="">Select a Frequency</option>
+                                      <option value="daily">  Daily </option>
                                       <option value="Weekly">  Weekly </option>
                                       <option value="Monthly">  Monthly </option>                                                                         
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label" for="address-st"> Interest Type </label>
+                                  <select name="interest_type" required id="" class="form-control">
+                                    <option value="">Select a Interest Type</option>
+                                      <option value="flat">  Flat Rate </option>
+                                      <option value="reducing">  Reducing Balance </option>                                                                         
                                   </select>
                                 </div>
                               </div>

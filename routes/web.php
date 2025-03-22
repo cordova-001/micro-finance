@@ -92,7 +92,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('reject_loan/{loan}', [LoanManagementController::class, 'rejectLoanStatus'])->name('reject_loan');
     Route::get('/loan_management/approved_loans', [LoanManagementController::class, 'getApprovedLoan'])->name('approved_loans');
     Route::get('/loan_management/rejected_loans', [LoanManagementController::class, 'getRejectedLoan'])->name('rejected_loans');
-    Route::get('/loan_management/disbursed_loans', [LoanManagementController::class, 'getDisbursedLoan'])->name('disbursed_loans');
+    Route::get('/loan_management/open_loans', [LoanManagementController::class, 'getDisbursedLoan'])->name('disbursed_loans');
 
     //financial account url details
     Route::resource('chart', ChartController::class);
@@ -107,6 +107,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/new_customer', [CustomerControllers::class, 'addCustomer'])->name('customer.add');
     Route::get('/customer/{customer_id}/details', [CustomerControllers::class, 'getCustomerDetails'])->name('customer.details');
     Route::get('/customer/{customer_id}/edit', [CustomerControllers::class, 'edit'])->name('customer.edit');
+    Route::put('/customer/{customer_id}', [CustomerControllers::class, 'update'])->name('customer.update');
     Route::get('/getCustomer', [CustomerControllers::class, 'getCustomerToDashboard'])->name('customer.getCustomer');
 
     Route::get('/chart', [HighchartController::class, 'handleChart']);

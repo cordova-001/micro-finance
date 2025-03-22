@@ -27,7 +27,10 @@ class Customers extends Model
          'branch_id', 
          'signature', 
          'id_card', 
-         'passport'
+         'passport',
+         'middle_name',
+         'bvn',
+         'phone_next_of_kin',
     ];
 
     public function Branch()

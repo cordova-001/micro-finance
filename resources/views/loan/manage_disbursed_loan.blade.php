@@ -21,7 +21,7 @@
                           <div class="col-md-12">
                             
 
-                            @include('components.loan_nav')
+                            {{-- @include('components.loan_nav') --}}
 
                         </div><!-- .col -->
                           @if (session('success'))
@@ -61,7 +61,7 @@
                                                 <th> Account Number </th>
                                                 <th> Loan Product </th>
                                                 <th> Loan Principal Amount </th>
-                                                <th> Interest Rate </th>
+                                                <th> Interest AMount </th>
                                                 <th> Total Repayment Amount </th>
                                                 <th> Each Repayment Amount </th>
                                                 <th> Repayment Period </th>
@@ -75,12 +75,12 @@
                                             {{-- @foreach ($loan as $loans) --}}
                                                 <tr>
                                                     
-                                                    {{-- <td>{{ $loans->first_name }} {{ $allLoan->last_name }}</td> --}}
-                                                    <td>{{ $loan->customer_id }}</td>
+                                                    {{-- <td>{{ $loan->first_name }} {{ $loan->last_name }}</td> --}}
+                                                    <td>{{ $loan->customer_id }} </td>
                                                     <td>{{ $loan->loan_product }}</td>
-                                                    <td>{{ $loan->loan_amount }}</td>
-                                                    <td>{{ $loan->interest_rate }}</td>
-                                                    <td>{{ $loan->total_repayment_amount }}</td>
+                                                    <td>{{ $loan->loan_amount }} </td>
+                                                    <td>{{ $loan->interest_amount }}</td>
+                                                    <td> {{ $loan->total_repayment_amount }} </td>
                                                     <td>{{ $loan->each_repayment_amount }}</td>
                                                     <td>{{ $loan->repayment_period }}</td>
                                                     <td>{{ $loan->application_date }}</td>
@@ -117,10 +117,10 @@
                                       <a class="nav-link active" data-bs-toggle="tab" href="#tabItem5"><span> Loan Details  </span></a>
                                   </li>
                                   <li class="nav-item">
-                                      <a class="nav-link" data-bs-toggle="tab" href="#tabItem6"><span> Add Repayment </span></a>
+                                      <a class="nav-link" data-bs-toggle="tab" href="#tabItem6"><span> Add Repayment  </span></a>
                                   </li>
                                   <li class="nav-item">
-                                      <a class="nav-link" data-bs-toggle="tab" href="#tabItem7"><span> Loan Schedule </span></a>
+                                      <a class="nav-link" data-bs-toggle="tab" href="#tabItem7"><span> Loan Schedule  </span></a>
                                   </li>
                                   
                               </ul>
@@ -262,7 +262,7 @@
                                                 @csrf
                                                 <div class="row gy-4">
 
-                                                  <h4>Add Repayment</h4>
+                                                  <h4>Add Repayment </h4>
                                                   
                     
                                                   <div class="col-md-8">
@@ -352,36 +352,43 @@
                                                 <table class="datatable-init-export nowrap table" data-export-title="Export">
                                                     <thead>
                                                         <tr > 
-                                                            <th>Loan ID</th>
-                                                            <th>Principal Amount </th>
+                                                            <th>Loan ID </th>
+                                                            <th>Principal Amount  </th>
                                                             <th>Interest Amount </th>
                                                             <th> Total Amount Due  </th>
+                                                            <th> Amount Paid  </th>
+                                                            <th> Balance  </th>
                                                             <th> Due Date  </th>
                                                             <th> Status </th>
                                                             
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($fetchedloan as $loan)
+                                                        @foreach ($fetchedloan as $loans)
                                                             <tr>
                                                               
-                                                                <td> {{ $loan->loan_id }}</td>
-                                                                <td> {{ $loan->principal_amount }} </td>
-                                                                <td>{{ $loan->interest_amount }}</td>
-                                                                <td>{{ $loan->total_amount_due }}</td>
-                                                                <td>{{ $loan->due_date }}</td>
-                                                                <td>{{ $loan->status }}</td>
+                                                                <td> {{ $loans->loan_id }}</td>
+                                                                <td> {{ number_format($loans->principal_amount) }} </td>
+                                                                <td>{{ number_format($loans->interest_amount) }}</td>
+                                                                <td>{{ number_format($loans->total_amount_due) }}</td>
+                                                                <td>{{ number_format($loans->repayment_amount) }}</td>
+                                                                <td>{{ number_format($loans->balance) }}</td>
+                                                                <td>{{ $loans->due_date }}</td>
+                                                                <td>{{ $loans->status }}</td>
                                                                 
                                                             </tr>
                                                             
                                                         @endforeach
-                                                        <tr style="background-color: aquamarine;">
+                                                        <tr style="background-color: rgb(206, 214, 245);">
+                                                          <td>as</td>
+                                                          <td> {{ number_format($loan->loan_amount)  }} </td>
+                                                          <td> {{ number_format($loan->interest_amount) }}  </td>
+                                                          <td> {{ $loan->total_repayment_amount }} </td>
                                                           <td>as</td>
                                                           <td>as</td>
-                                                          <td>as</td>
-                                                          <td>as</td>
-                                                          <td>as</td>
-                                                          <td>as</td>
+                                                          <td></td>
+                                                          <td></td>
+                                                          {{ $loans }}
                                                         </tr>
                                                        
                                                     </tbody>

@@ -103,10 +103,8 @@
                                                 <div class="data">
                                                     <div class="data-group">
                                                         <div class="amount fw-normal"> {{ number_format($all_customers) }}</div>
-                                                        <div class="info text-end">
-                                                            <h6>  </h6>
-                                                             <h5> </h5> 
-                                                        </div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
+                                                      
                                                     </div>
                                                 </div>
                                             </div><!-- .card-inner -->
@@ -126,9 +124,8 @@
                                                 <div class="data">
                                                     <div class="data-group">
                                                         <div class="amount fw-normal"> &#8358;{{ number_format($totalSavings) }}</div>
-                                                        <div class="info text-end">
-                                                            <!-- <h5> 232323 Customers</h5> -->
-                                                        </div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
+                                                       
                                                     </div>
                                                 </div>
                                             </div><!-- .card-inner -->
@@ -148,7 +145,8 @@
                                                 <div class="data">
                                                     <div class="data-group">
                                                         <div class="amount fw-normal"> &#8358;{{ number_format($totalWithdrawal) }}</div>
-                                                        {{-- <h5> 12345 Customers</h5> --}}
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
+                                                       
                                                     </div>
                                                 </div>
                                             </div><!-- .card-inner -->
@@ -169,7 +167,8 @@
                                                 <div class="data">
                                                     <div class="data-group">
                                                         <div class="amount fw-normal"> &#8358;{{ number_format($totalBalance) }}</div>
-                                                        {{-- <h5> 2345 Customers</h5> --}}
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
+                                                       
                                                     </div>
                                                 </div>
                                             </div><!-- .card-inner -->
@@ -192,6 +191,7 @@
                                                 <div class="data">
                                                     <div class="data-group">
                                                         <div class="amount fw-normal"> &#8358;{{ number_format($totalPrincipalLoan) }}</div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
                                                         
 
                                                     </div>
@@ -214,8 +214,10 @@
                                                 <div class="data">
                                                     <div class="data-group">
                                                         <div class="amount fw-normal"> &#8358;{{ number_format($totalPendingLoan) }}</div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>          
 
                                                     </div>
+                                                    
                                                 </div>
                                             </div><!-- .card-inner -->
                                            
@@ -235,6 +237,7 @@
                                                 <div class="data">
                                                     <div class="data-group">
                                                         <div class="amount fw-normal">&#8358;0</div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
 
                                                     </div>
                                                 </div>
@@ -256,6 +259,7 @@
                                                 <div class="data">
                                                     <div class="data-group">
                                                         <div class="amount fw-normal">&#8358;0</div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
 
                                                     </div>
                                                 </div>
@@ -277,6 +281,7 @@
                                                 <div class="data">
                                                     <div class="data-group">
                                                         <div class="amount fw-normal">&#8358;0</div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
 
                                                     </div>
                                                 </div>
@@ -298,6 +303,7 @@
                                                 <div class="data">
                                                     <div class="data-group">
                                                         <div class="amount fw-normal">&#8358;0</div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
 
                                                     </div>
                                                 </div>
@@ -319,6 +325,7 @@
                                                 <div class="data">
                                                     <div class="data-group">
                                                         <div class="amount fw-normal">&#8358;0</div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
 
                                                     </div>
                                                 </div>
@@ -339,6 +346,7 @@
                                                 <div class="data">
                                                     <div class="data-group">
                                                         <div class="amount fw-normal">&#8358;0</div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
 
                                                     </div>
                                                 </div>
@@ -359,6 +367,7 @@
                                                 <div class="data">
                                                     <div class="data-group">
                                                         <div class="amount fw-normal" >&#8358;0</div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
 
                                                     </div>
                                                 </div>
@@ -379,6 +388,7 @@
                                                 <div class="data">
                                                     <div class="data-group">
                                                         <div class="amount fw-normal">&#8358;0</div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
 
                                                     </div>
                                                 </div>

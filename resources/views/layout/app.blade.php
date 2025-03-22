@@ -31,10 +31,10 @@
                     <div class="nk-sidebar-element nk-sidebar-head">
     <div class="nk-sidebar-brand">
         <a href="index" class="logo-link nk-sidebar-logo">
-            {{-- <h2>PRIMAX</h2> --}}
-            <img class="logo-light logo-img" src="./images/cordovalogo.png" srcset="./images/cordovalogo.png 2x" alt="logo">
-                            <img class="logo-dark logo-img" src="./images/cordovalogo.png" srcset="./images/cordovalogo.png 2x" alt="logo-dark">
-                            <img class="logo-small logo-img logo-img-small" src="./images/cordovalogo.png" srcset="./images/cordovalogo.png 2x" alt="logo-small"> 
+            
+            <img class="logo-light logo-img" src="{{ asset('/images/primaxlogo.jpg') }}" srcset="{{ asset('/images/primaxlogo.jpg 2x') }}" alt="logo">
+                            <img class="logo-dark logo-img" src="{{ asset('/images/primaxlogo.jpg') }}" srcset="{{ asset('/images/primaxlogo.jpg 2x') }}" alt="logo-dark">
+                            <img class="logo-small logo-img logo-img-small" src="{{ asset('/images/primaxlogo.jpg') }}" srcset="{{ asset('/images/primaxlogo.jpg 2x') }}" alt="logo-small"> 
         </a>
     </div>
     <div class="nk-menu-trigger me-n2">
@@ -85,7 +85,7 @@
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
 
-                {{-- <li class="nk-menu-item has-sub">
+                <li class="nk-menu-item has-sub">
                     <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
                         <span class="nk-menu-icon"><em class="icon ni ni-user-fill"></em></span>
                         <span class="nk-menu-text"> Account Officer </span>
@@ -103,7 +103,7 @@
 
 
                     </ul><!-- .nk-menu-sub -->
-                </li><!-- .nk-menu-item --> --}}
+                </li><!-- .nk-menu-item -->
                 
 
                 <li class="nk-menu-item has-sub">
@@ -122,13 +122,11 @@
 
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
-                
-                
 
                 <li class="nk-menu-item has-sub">
                     <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
                         <span class="nk-menu-icon"><em class="icon ni ni-book-fill"></em></span>
-                        <span class="nk-menu-text">Savings Management </span>
+                        <span class="nk-menu-text">Product Management </span>
                     </a>
                     <ul class="nk-menu-sub" style="background-color: aliceblue;">
                         <li class="nk-menu-item">
@@ -142,28 +140,35 @@
                             <a href="{{ route('all.savings.product') }}" class="nk-menu-link"><span class="nk-menu-text"> Manage Savings Product</span></a>
                         </li>
                         <li class="nk-menu-item">
-                            @php
-                                // dd(route('customer.for.transaction'));
-                            @endphp
-                            <a href="{{ route('customer.for.transaction') }}" class="nk-menu-link"><span class="nk-menu-text">Add Savings</span></a>
+                            <a href="{{ route('loan.product') }}" class="nk-menu-link"><span class="nk-menu-text">Loan Products</span></a>
                         </li>
+
                         <li class="nk-menu-item">
-                            <a href="{{ route('manage_deposit') }}" class="nk-menu-link"><span class="nk-menu-text">View All Savings</span></a>
+                            <a href="{{ route('loan.create_product') }}" class="nk-menu-link"><span class="nk-menu-text">Create Loan Product</span></a>
                         </li>
-                        {{-- <li class="nk-menu-item">
-                            <a href="{{ route('center.index') }}" class="nk-menu-link"><span class="nk-menu-text">Upload Bulk Savings</span></a>
-                        </li> --}}
+                       
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
+                
+                
 
                 <li class="nk-menu-item has-sub">
                     <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
                         <span class="nk-menu-icon"><em class="icon ni ni-book-fill"></em></span>
-                        <span class="nk-menu-text">Withdrawal Management</span>
+                        <span class="nk-menu-text">Transaction Management </span>
                     </a>
                     <ul class="nk-menu-sub" style="background-color: aliceblue;">
                         <li class="nk-menu-item">
                             <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
+                        </li>
+                        
+                       
+                        <li class="nk-menu-item">
+                         
+                            <a href="{{ route('customer.for.transaction') }}" class="nk-menu-link"><span class="nk-menu-text">Add Savings</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('manage_deposit') }}" class="nk-menu-link"><span class="nk-menu-text">View All Savings</span></a>
                         </li>
                         <li class="nk-menu-item">
                             <a href="add_withdrawal" class="nk-menu-link"><span class="nk-menu-text">Add Withdrawal</span></a>
@@ -171,58 +176,15 @@
                         <li class="nk-menu-item">
                             <a href="{{ route('manage_withdrawal') }}" class="nk-menu-link"><span class="nk-menu-text">View Withdrawal</span></a>
                         </li>
-                        
-                    </ul><!-- .nk-menu-sub -->
-                </li><!-- .nk-menu-item -->
-
-                <li class="nk-menu-item has-sub">
-                    <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
-                        <span class="nk-menu-icon"><em class="icon ni ni-book-fill"></em></span>
-                        <span class="nk-menu-text">Transfers Management </span>
-                    </a>
-                    <ul class="nk-menu-sub" style="background-color: aliceblue;">
-                        <li class="nk-menu-item">
-                            <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
-                        </li>
-                        <li class="nk-menu-item">
-                            <a href="{{ route('start_transfer') }}" class="nk-menu-link"><span class="nk-menu-text">Intra-Bank Transfer</span></a>
-                        </li>
                         {{-- <li class="nk-menu-item">
-                            <a href="{{ route('center.index') }}" class="nk-menu-link"><span class="nk-menu-text">Inter-Bank Transfer</span></a>
+                            <a href="{{ route('center.index') }}" class="nk-menu-link"><span class="nk-menu-text">Upload Bulk Savings</span></a>
                         </li> --}}
-                        
-                        
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
 
-                <li class="nk-menu-item has-sub" >
-                    <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
-                        <span class="nk-menu-icon"><em class="icon ni ni-book-fill"></em></span>
-                        <span class="nk-menu-text">Investment Management </span>
-                    </a>
-                    <ul class="nk-menu-sub" style="background-color: aliceblue;">
-                        <li class="nk-menu-item">
-                            <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
-                        </li>
-                        <li class="nk-menu-item">
-                            <a href="add_investment_product" class="nk-menu-link"><span class="nk-menu-text">Add Investment Product</span></a>
-                        </li>
-                        <li class="nk-menu-item">
-                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Investment Product</span></a>
-                        </li>
-                        
-                        <li class="nk-menu-item">
-                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">Add Investor</span></a>
-                        </li>
-                        <li class="nk-menu-item">
-                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> Manage  Investor</span></a>
-                        </li>
-                        <li class="nk-menu-item">
-                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Investment</span></a>
-                        </li>
-                        
-                    </ul><!-- .nk-menu-sub -->
-                </li><!-- .nk-menu-item -->
+               
+
+                
 
                 <li class="nk-menu-item has-sub">
                     <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
@@ -230,22 +192,14 @@
                         <span class="nk-menu-text">Loan Management </span>
                     </a>
                     <ul class="nk-menu-sub" style="background-color: aliceblue;">
+                       
                         <li class="nk-menu-item">
-                            <a href="{{ route('loan.product') }}" class="nk-menu-link"><span class="nk-menu-text">Loan Products</span></a>
+                            <a href="{{ route('loan.loan_request') }}" class="nk-menu-link"><span class="nk-menu-text"> Request Loan </span></a>
                         </li>
+                        
 
                         <li class="nk-menu-item">
-                            <a href="{{ route('loan.create_product') }}" class="nk-menu-link"><span class="nk-menu-text">Create Loan Product</span></a>
-                        </li>
-                        <li class="nk-menu-item">
-                            <a href="{{ route('loan.loan_request') }}" class="nk-menu-link"><span class="nk-menu-text">Loan Request</span></a>
-                        </li>
-                        <li class="nk-menu-item">
-                            <a href="{{ route('loan.loan_mgt') }}" class="nk-menu-link"><span class="nk-menu-text">Loan Management</span></a>
-                        </li>
-
-                        <li class="nk-menu-item">
-                            <a href="{{ route('approved_loans') }}" class="nk-menu-link"><span class="nk-menu-text">Open Loan </span></a>
+                            <a href="{{ route('disbursed_loans') }}" class="nk-menu-link"><span class="nk-menu-text">Open Loan </span></a>
                         </li>
 
                         {{--  --}}
@@ -307,7 +261,85 @@
                         </li> --}}
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
+
+                <li class="nk-menu-item has-sub" >
+                    <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
+                        <span class="nk-menu-icon"><em class="icon ni ni-book-fill"></em></span>
+                        <span class="nk-menu-text">Approval Management </span>
+                    </a>
+                    <ul class="nk-menu-sub" style="background-color: aliceblue;">
+                        <li class="nk-menu-item">
+                            <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="add_investment_product" class="nk-menu-link"><span class="nk-menu-text"> Deposit</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('loan.loan_mgt') }}" class="nk-menu-link"><span class="nk-menu-text">Loan Management</span></a>
+                        </li>
+                        
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> Loan Disbursement</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> Withdrawal</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">  </span></a>
+                        </li>
+                        
+                    </ul><!-- .nk-menu-sub -->
+                </li><!-- .nk-menu-item -->
                 
+                <li class="nk-menu-item has-sub">
+                    <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
+                        <span class="nk-menu-icon"><em class="icon ni ni-book-fill"></em></span>
+                        <span class="nk-menu-text">Transfers Management </span>
+                    </a>
+                    <ul class="nk-menu-sub" style="background-color: aliceblue;">
+                        <li class="nk-menu-item">
+                            <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('start_transfer') }}" class="nk-menu-link"><span class="nk-menu-text">Intra-Bank Transfer</span></a>
+                        </li>
+                        {{-- <li class="nk-menu-item">
+                            <a href="{{ route('center.index') }}" class="nk-menu-link"><span class="nk-menu-text">Inter-Bank Transfer</span></a>
+                        </li> --}}
+                        
+                        
+                    </ul><!-- .nk-menu-sub -->
+                </li><!-- .nk-menu-item -->
+
+                <li class="nk-menu-item has-sub" >
+                    <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
+                        <span class="nk-menu-icon"><em class="icon ni ni-book-fill"></em></span>
+                        <span class="nk-menu-text">Investment Management </span>
+                    </a>
+                    <ul class="nk-menu-sub" style="background-color: aliceblue;">
+                        <li class="nk-menu-item">
+                            <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="add_investment_product" class="nk-menu-link"><span class="nk-menu-text">Add Investment Product</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Investment Product</span></a>
+                        </li>
+                        
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">Add Investor</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text"> Manage  Investor</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Investment</span></a>
+                        </li>
+                        
+                    </ul><!-- .nk-menu-sub -->
+                </li><!-- .nk-menu-item -->
+
                 {{-- <li class="nk-menu-item has-sub">
                     <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
                         <span class="nk-menu-icon"><em class="icon ni ni-property-add"></em></span>

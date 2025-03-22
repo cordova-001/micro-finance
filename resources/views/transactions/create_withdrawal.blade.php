@@ -11,6 +11,29 @@
                     </div><!-- .nk-block-head-content -->
                   </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="nk-block nk-block-lg">
                   <div class="card">
                     <div class="card-inner">
@@ -45,7 +68,7 @@
                                             <div class="card card-bordered">
                                                 {{-- <img src="./images/slides/slide-a.jpg" class="card-img-top" alt=""> --}}
                                                 <div class="card-inner">
-                                                    <h5 class="card-title">Account Summary</h5>
+                                                    <h5 class="card-title">Account Summary </h5>
                                                     <p><b>Account Name:  </b> {{ $checkAccountNo->first_name }} {{ $checkAccountNo->last_name }} <br>
                                                     <b>Account Number:</b>  {{ $checkAccountNo->customer_id }} <br>
                                                     <b>Total Savings:</b> {{ $totalSavings }} <br>

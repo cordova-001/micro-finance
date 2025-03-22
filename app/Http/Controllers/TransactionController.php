@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
 use App\Models\Customers;
 use App\Models\Branch;
+use Illuminate\Support\Facades\DB;
 use App\Models\SavingsProduct;
 use Illuminate\Http\Request;
 use App\Models\BankAccount;
@@ -42,269 +43,155 @@ class TransactionController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function addOldDeposit(Request $request)
+     public function addDeposit(Request $request)
     {
-        try{
+        $request->validate([
+            'account_number' => 'required',
+            'deposit_amount' => 'required|numeric|min:0',                 
+            'deposit_date' => 'required',
+            'savings_product' => 'required',
+            'file' => 'image|mimes:jpeg,png,jpg,gif,svg,pdf|max:2048',
+
+        ]); 
+
             $user = Auth::user();
-            $business_id = Auth::user()->business_id;
-            $acctNo = $request->input('account_number');
+            $business_id = $user->business_id;
+        
+            // Fetch customer details
+            $acctNo = $request->account_number;
+            $customer = Customers::where('customer_id', $acctNo)->first();
+            if (!$customer) {
+                return back()->withErrors(['error' => 'Customer not found!']);
+            }   
+            
+            $productName = $request->savings_product;
+            $amountReceived = $request->deposit_amount;
+            $savings_product = $request->savings_product;
+            $d_date = $request->deposit_date;
+
             $totalAmountReceived = Transaction::sum('amount_received');
             $amount_paid = $request->input('deposit_amount');
             $totalAmountPaid = Transaction::sum('amount_paid');
-            $customer = Customers::where('customer_id', $acctNo)->first(); // Fetch the customer record
-            if (!$customer) {
-                return back()->withErrors(['error' => 'Account number not found!']);
-            }
-            
+            $balance = $totalAmountPaid - $totalAmountReceived + $amount_paid;
             
             $transaction_type = 'Credit';
             $branch = $request->input('branch');
-
-            $d_date = $request->input('deposit_date');
-
-            $savings_product = $request->input('savings_product');
-            $getSavingsProductDetails = SavingsProduct::where('product_name', $savings_product)->where('business_id', $business_id)->first();
-            // dd($getSavingsProductDetails);
-            // search from Transactions table to check if there is account opening fee to be deducted from this account 
-            // $opening_fee_transaction = Transaction::where('account_number', $acctNo)
-            //     ->where('transaction_type', 'Debit')
-            //     ->where('narration', 'Maintenance fee')
-            //     ->first();
-
-
-            // if($getSavingsProductDetails->opening_fee > 0)
-            // {
-            //     // check from the transaction table if there has been any prior deduction for this savings product from this account owner. If no, deduct it from the first payment
-            //     $check_maintenance_fee = Transaction::where('account_number', $acctNo)
-            //                             ->where('savings_product', $getSavingsProductDetails->product_name)
-            //                             ->where('opening_fee', $getSavingsProductDetails->opening_fee)
-            //                             ->where('business_id', $business_id)->count();
-
-            //     // I want to get the number of count of this check_maintenance_fee 
-            //     // dd($check_maintenance_fee);
-            //     if($check_maintenance_fee < 1 )
-            //     {
-            //         $opening_fee = $getSavingsProductDetails->opening_fee;
-            //         $amount_to_record = $amount_paid - $opening_fee;
-            //         $balance = $totalAmountPaid - $totalAmountReceived + $opening_fee; //  current balance when we sum the total amount paid minus total amount recieved plus maintenance fee
-            //         $balance_amount_to_record = $totalAmountPaid - $totalAmountReceived + $amount_to_record; // current balance when we sum the total amount paid minus total amount recieved plus the amount to record
-            //         $narration = 'Opening fee';
-            //         $transaction_type = 'Credit';
-            //         $transaction_id = substr(Str::uuid()->toString(), 0, 15);
-
-            //         $transaction = new Transaction();
-            //         $transaction->account_number = $request->input('account_number');
-            //         $transaction->account_name = $customer->first_name . ' ' . $customer->last_name;
-            //         $transaction->amount_paid = $opening_fee;
-            //         $transaction->depositor_phone = $request->input('depositor_phone');
-            //         $transaction->depositor_name = $request->input('depositor_name');
-            //         $transaction->branch_id = $request->input('branch');
-            //         $transaction->transaction_date = $request->input('deposit_date');
-            //         $transaction->savings_product = $request->input('savings_product');
-            //         $transaction->business_id = $business_id;
-            //         $transaction->total_balance = $balance;
-            //         $transaction->transaction_id = $transaction_id;
-            //         $transaction->transaction_means = $request->input('transactions_means');
-            //         $transaction->transaction_type = $transaction_type;
-            //         $transaction->narration = $narration;
-            //         $transaction->staff = $user->name;
-    
-            //         if ($request->hasFile('file')) {
-            //             $file = $request->file('file');
-            //             $imageName1 = time() . '_file.' . $file->getClientOriginalExtension();
-            //             $file->move(public_path('images'), $imageName1);
-            //             $transaction->file = $imageName1;
-            //         }
-            //         // $add_deposit = Transaction::create([
-            //         //     'account_number' => $request->input('account_number'),
-            //         //     'account_name' => $customer->first_name . ' ' . $customer->last_name, 
-            //         //     'amount_paid' => $opening_fee,
-            //         //     'depositor_phone' => $request->input('depositor_phone'),
-            //         //     'depositor_name' => $request->input('depositor_name'),
-            //         //     // 'deposit_date' => $request->input('deposit_date'),
-            //         //     'branch_id' => $request->input('branch'),
-            //         //     'transaction_date' => $request->input('deposit_date'),
-            //         //     'savings_product' => $request->input('savings_product'),
-            //         //     'business_id' => $business_id,
-            //         //     'total_balance' => $balance,
-            //         //     'transaction_id' => $transaction_id,
-            //         //     'transaction_type' => $transaction_type,
-            //         //     'narration' => $narration,
-            //         //     'staff' => $user->name,
-                        
-            //         // ]);
-            //         // I want to create a new transaction for the amount paid after deducting the opening fee
-            //         $transaction_id = substr(Str::uuid()->toString(), 0, 15);
-            //         $transaction = new Transaction();
-            //         $transaction->accoubt_number = $request->input('account_number');
-            //         $transaction->account_name = $customer->first_name . ' ' . $customer->last_name;
-            //         $transaction->amount_paid = $amount_to_record;
-            //         $transaction->depositor_phone = $request->input('depositor_phone');
-            //         $transaction->depositor_name = $request->input('depositor_name');
-            //         $transaction->branch_id = $request->input('branch');
-            //         $transaction->transaction_date = $request->input('deposit_date');
-            //         $transaction->savings_product = $request->input('savings_product');
-            //         $transaction->business_id = $business_id;
-            //         $transaction->total_balance = $balance_amount_to_record;
-            //         $transaction->transaction_id = $transaction_id;
-            //         $transaction->transaction_means = $request->input('transactions_means');
-            //         $transaction->transaction_type = $transaction_type;
-            //         $transaction->narration = $request->input('narration');
-            //         $transaction->staff = $user->name;
-    
-            //         if ($request->hasFile('file')) {
-            //             $file = $request->file('file');
-            //             $imageName1 = time() . '_file.' . $file->getClientOriginalExtension();
-            //             $file->move(public_path('images'), $imageName1);
-            //             $transaction->file = $imageName1;
-            //         }
-            //         // $add_deposit = Transaction::create([
-            //         //     'account_number' => $request->input('account_number'),
-            //         //     'account_name' => $customer->first_name . ' ' . $customer->last_name, 
-            //         //     'amount_paid' => $amount_to_record,
-            //         //     'depositor_phone' => $request->input('depositor_phone'),
-            //         //     'depositor_name' => $request->input('depositor_name'),
-            //         //     'branch_id' => $request->input('branch'),
-            //         //     'transaction_date' => $request->input('deposit_date'),
-            //         //     'savings_product' => $request->input('savings_product'),
-            //         //     'business_id' => $business_id,
-            //         //     'total_balance' => $balance_amount_to_record,
-            //         //     'transaction_id' => $transaction_id,
-            //         //     'transaction_type' => $transaction_type,
-            //         //     'narration' => $request->input('narration'),
-            //         //     'staff' => $user->name,
-                        
-            //         // ]);
-
-            //         return redirect()->back()->with('success', 'The Deposit has been created successfully after deducting the opening fee');
-            //     }
-
-            //     $transaction_id = substr(Str::uuid()->toString(), 0, 15);
-            //     $transaction = new Transaction();
-            //     $transaction->account_number = $request->input('account_number');
-            //     $transaction->account_name = $customer->first_name . ' ' . $customer->last_name;
-            //     $transaction->amount_paid = $request->input('deposit_amount');
-            //     $transaction->depositor_phone = $request->input('depositor_phone');
-            //     $transaction->depositor_name = $request->input('depositor_name');
-            //     $transaction->branch_id = $request->input('branch');
-            //     $transaction->transaction_date = $request->input('deposit_date');
-            //     $transaction->savings_product = $request->input('savings_product');
-            //     $transaction->business_id = $business_id;
-            //     $transaction->total_balance = $balance;
-            //     $transaction->transaction_id = $transaction_id;
-            //     $transaction->transaction_means = $request->input('transactions_means');
-            //     $transaction->transaction_type = $transaction_type;
-            //     $transaction->narration = $request->input('narration');
-            //     $transaction->staff = $user->name;
-
-            //     if ($request->hasFile('file')) {
-            //         $file = $request->file('file');
-            //         $imageName1 = time() . '_file.' . $file->getClientOriginalExtension();
-            //         $file->move(public_path('images'), $imageName1);
-            //         $transaction->file = $imageName1;
-            //     }
-
-            //     // $add_deposit = Transaction::create([
-            //     //     'account_number' => $request->input('account_number'),
-            //     //     'account_name' => $customer->first_name . ' ' . $customer->last_name, 
-            //     //     'amount_paid' => $request->input('deposit_amount'),
-            //     //     'depositor_phone' => $request->input('depositor_phone'),
-            //     //     'depositor_name' => $request->input('depositor_name'),
-            //     //     'branch_id' => $request->input('branch'),
-            //     //     'transaction_date' => $request->input('deposit_date'),
-            //     //     'savings_product' => $request->input('savings_product'),
-            //     //     'business_id' => $business_id,
-            //     //     'total_balance' => $balance,
-            //     //     'transaction_id' => $transaction_id,
-            //     //     'transaction_type' => $transaction_type,
-            //     //     'narration' => $request->input('narration'),
-            //     //     'staff' => $user->name,
-                    
-            //     // ]);
-
-            //     return redirect()->back()->with('success', 'The Deposit has been created successfully');
             
-            // }
+            
+            // Fetch savings product details
+            $savingsProduct = SavingsProduct::where('product_name', $savings_product)->where('business_id', $business_id)->first();
+            if (!$savingsProduct) {
+                return back()->withErrors(['error' => 'Savings product not found!']);
+            }
 
-            $balance = $totalAmountPaid - $totalAmountReceived + $amount_paid;
+            
+            // Check if opening fee is applicable
+            $openingFee = $savingsProduct->opening_fee ?? 0;
+            
+            // Check if opening fee is applicable
+            $openingFeeApplicable = $openingFee > 0;
+
+            // If opening fee exists, check if it has already been deducted
+            $feeAlreadyDeducted = $openingFeeApplicable
+            ? Transaction::where('account_number', $acctNo)
+                ->where('business_id', $business_id) // Ensure it's within the same business
+                ->where('narration', 'Opening Fee')
+                ->exists()
+            : true;
+
+             // Calculate existing balance for the account
+            $totalAmountReceived = Transaction::where('account_number', $acctNo)
+                ->where('business_id', $business_id)
+                ->sum('amount_received');
+
+            $totalAmountPaid = Transaction::where('account_number', $acctNo)
+                ->where('business_id', $business_id)
+                ->sum('amount_paid');
+
+            $currentBalance = $totalAmountPaid - $totalAmountReceived;
             $transaction_id = substr(Str::uuid()->toString(), 0, 15);
 
-            // dd($getSavingsProductDetails);
-            
-            
-                
-                $request->validate([
-                    'account_number' => 'required',
-                    'deposit_amount' => 'required',                
-                    'deposit_date' => 'required',
-                    'savings_product' => 'required',
+             // Handle file upload
+            // $uploadedFileName = null;
+            // if ($request->hasFile('file')) {
+            //     $uploadedFileName = $this->uploadFile($request->file('file'));
+            // }
+
+            $imageName1 = null;
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $imageName1 = time() . 'file.' . $file->getClientOriginalExtension();
+                $file->move(public_path('images'), $imageName1);
+                // $customer->file = $imageName1;
+            }
+
+               // Begin Database Transaction
+        DB::beginTransaction();            
+        try{  
+            if ($openingFeeApplicable && !$feeAlreadyDeducted) {
+                // Deduct opening fee (Transaction 1)
+                Transaction::create([                    
+                    'account_name' => $customer->first_name . ' ' . $customer->last_name,
+                    'account_number' => $acctNo,
+                    'business_id' => $business_id,
+                    'narration' => 'Opening Fee',
+                    'amount_received' => 0,
+                    'amount_paid' => $openingFee,
+                    'total_balance' => $currentBalance - $openingFee,
+                    'depositor_phone' => $request->input('depositor_phone'),
+                    'depositor_name' => $request->input('depositor_name'),
+                    'branch_id' => $branch,
+                    'transaction_date' => $d_date,
+                    'savings_product' => $savings_product,
+                    'transaction_id' => $transaction_id,
+                    'transaction_means' => $request->input('transactions_means'),
+                    'transaction_type' => $transaction_type,
+                    'staff' => $user->name,
+                    'file' => $imageName1,
                 ]);
-
-
-                $transaction = new Transaction();
-                $transaction->account_number = $request->input('account_number');
-                $transaction->account_name = $customer->first_name . ' ' . $customer->last_name;
-                $transaction->amount_paid = $request->input('deposit_amount');
-                $transaction->depositor_phone = $request->input('depositor_phone');
-                $transaction->depositor_name = $request->input('depositor_name');
-                $transaction->branch_id = $request->input('branch');
-                $transaction->transaction_date = $request->input('deposit_date');
-                $transaction->savings_product = $request->input('savings_product');
-                $transaction->business_id = $business_id;
-                $transaction->total_balance = $balance;
-                $transaction->transaction_id = $transaction_id;
-                $transaction->transaction_means = $request->input('transactions_means');
-                $transaction->transaction_type = $transaction_type;
-                $transaction->narration = $request->input('narration');
-                $transaction->staff = $user->name;
-
-                if ($request->hasFile('file')) {
-                    $file = $request->file('file');
-                    $imageName1 = time() . '_file.' . $file->getClientOriginalExtension();
-                    $file->move(public_path('images'), $imageName1);
-                    $transaction->file = $imageName1;
-                }
-
-                // $add_deposit = Transaction::create([
-                //     'account_number' => $request->input('account_number'),
-                //     'account_name' => $customer->first_name . ' ' . $customer->last_name, 
-                //     'amount_paid' => $request->input('deposit_amount'),
-                //     'depositor_phone' => $request->input('depositor_phone'),
-                //     'depositor_name' => $request->input('depositor_name'),
-                //     'branch_id' => $request->input('branch'),
-                //     'transaction_date' => $request->input('deposit_date'),
-                //     'savings_product' => $request->input('savings_product'),
-                //     'business_id' => $business_id,
-                //     'total_balance' => $balance,
-                //     'transaction_id' => $transaction_id,
-                //     'transaction_means' => $request->input('transaction_means'),
-                //     // 'file' => $imageName1,
-                //     'transaction_type' => $transaction_type,
-                //     'narration' => $request->input('narration'),
-                //     'staff' => $user->name,
-                   
-                // ]);
-
-
-                $transaction->save();
-
-                // $this->sendEmail($tenant);
-            
-                // session()->flash('success', 'Thanks for filling. Your form submitted successfully!');
-            
-                // return redirect()->back();
-
-                return redirect()->back()->with('success', 'TThe deposit has been credited successfully');
-                
-
+    
+                // Update balance after deducting the opening fee
+                $currentBalance -= $openingFee;
+    
+                // Adjust the deposit amount after deducting the opening fee
+                $amountReceived -= $openingFee;
+            }       
+                // Process deposit transaction (Transaction 2)
+            if ($amountReceived > 0) {
+                Transaction::create([
+                    'account_name' => $customer->first_name . ' ' . $customer->last_name,
+                    'account_number' => $acctNo,
+                    'business_id' => $business_id,
+                    'narration' => 'Deposit',
+                    'amount_received' => 0,
+                    'amount_paid' => $amountReceived,
+                    'total_balance' => $currentBalance + $amountReceived,
+                    'depositor_phone' => $request->input('depositor_phone'),
+                    'depositor_name' => $request->input('depositor_name'),
+                    'branch_id' => $branch,
+                    'transaction_date' => $d_date,
+                    'savings_product' => $savings_product,
+                    'transaction_id' => $transaction_id,
+                    'transaction_means' => $request->input('transactions_means'),
+                    'transaction_type' => $transaction_type,
+                    'staff' => $user->name,
+                    'file' => $imageName1,
+                ]);
+               
+            }           
+             // Commit transaction
+             DB::commit();                                                 
                     
             }catch (\Illuminate\Validation\ValidationException $e) {
+                DB::rollBack();
                 // Log validation errors
                 Log::error('Validation errors:', $e->errors());
                 return back()->withErrors($e->errors());  // Display errors back to the user
             }
     }
-    public function addDeposit(Request $request)
+
+    
+    public function addDeposit2(Request $request)
     {
         try{
             $user = Auth::user();
@@ -430,7 +317,10 @@ class TransactionController extends Controller
     public function newWithdrawal()
     {
         $user = Auth::user();
-        return view('transactions.add_withdrawal' );
+        $business_id = $user->business_id;
+        $getAccountDetails = Customers::where('business_id', $business_id)->get();
+        $branch = Branch::where('business_id', $business_id)->get();
+        return view('transactions.add_withdrawal', compact('business_id', 'getAccountDetails', 'branch'));
     }
 
 
@@ -442,11 +332,13 @@ class TransactionController extends Controller
         // dd($checkAccountNo);
         if(empty($acctNo))
         {
-            return "A valid Account number is required";
+            // return "A valid Account number is required";
+            return redirect()->back()->with('error', 'A valid account number is required');
         }
         if($checkAccountNo->count() < 1)
         {
-            return "Invalid Account Number";
+            // return "Invalid Account Number";
+            return redirect()->back()->with('error', 'Invalid Account Number');
         }
         $chkAcctDetail = Transaction::where('account_number', $checkAccountNo->customer_id)->first(); //this is to get the details of account transactions
         $totalSavings = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('amount_paid');
@@ -475,30 +367,34 @@ class TransactionController extends Controller
         $balance = $totalSavings - $totalWithdrawal;
         $currentBalance = $balance - $withdraw_amount;
         $transaction_id = substr(Str::uuid()->toString(), 0, 15);
-        $withdraw_date = $request->input('withdraw_date');
+        $withdrawal_date = $request->input('withdrawal_date');
         $withdrawn_by = $request->input('withdrawn_by');
+        $branch_id = $request->input('branch_id');
         $staff = $request->input('staff');
         $transaction_type = 'Debit';
+
+        if(!$checkAccountNo)
+        {
+            return redirect()->back()->with('error', 'Invalid Account Number');
+        }
 
         if($balance < $withdraw_amount){
             return redirect()->back()->with('error', 'Insufficient fund')->withInput();            
         }
         
         $request->validate([
-            'account_number' => 'required',
-            'deposit_amount' => 'required',
-            'depositor_phone' => 'nullable',
+            'account_number' => 'required',            
             'branch_id' => 'required',
-            'deposit_date' => 'required',
-            'savings_product' => 'required',
+            // 'deposit_date' => 'required',
         ]);
 
         $add_withdrawal = Transaction::create([
+            'account_name' => $checkAccountNo->first_name . ' ' . $checkAccountNo->last_name,
             'account_number' => $request->input('account_number'),
             'amount_received' => $withdraw_amount,
             'withdrawn_by' => $withdrawn_by,
-            'branch' => $request->input('branch'),
-            'withdraw_date' => $request->input('withdraw_date'),
+            'branch_id' => $request->input('branch_id'),
+            'transaction_date' => $request->input('withdrawal_date'),
             'business_id' => $business_id,
             'total_balance' => $currentBalance,
             'transaction_id' => $transaction_id,

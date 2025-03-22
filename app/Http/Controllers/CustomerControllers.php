@@ -180,14 +180,15 @@ class CustomerControllers extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($customer_id)
     {
         $user = Auth::user();
         $business_id = Auth::user()->business_id;
-        $customer = Customers::where('id', $id)->where('business_id', $business_id)->firstOrFail();
+        $customer = Customers::where('customer_id', $customer_id)->where('business_id', $business_id)->firstOrFail();
+        $branch = Branch::where('business_id', $business_id);
 
         //  dd($branch);
-        return view('customer.edit', compact('customer', 'business_id'));
+        return view('customer.edit', compact('customer', 'business_id', 'branch'));
     }
 
     /**
@@ -226,18 +227,24 @@ class CustomerControllers extends Controller
             ]);
 
             if ($request->hasFile('passport')) {
-                $passportPath = $request->file('passport')->store('passports', 'public');
-                $validated['passport'] = $passportPath;
+                $passport = $request->file('passport');
+                $imageName1 = time() . '_passport.' . $passport->getClientOriginalExtension();
+                $passport->move(public_path('images'), $imageName1);
+                $customer->passport = $imageName1;
             }
-            
-            if ($request->hasFile('international_passport')) {
-                $intPassportPath = $request->file('international_passport')->store('international_passports', 'public');
-                $validated['international_passport'] = $intPassportPath;
+        
+            if ($request->hasFile('signature')) {
+                $signature = $request->file('signature');
+                $imageName2 = time() . 'signature.' . $signature->getClientOriginalExtension();
+                $signature->move(public_path('images'), $imageName2);
+                $customer->signature = $imageName2;
             }
-            
-            if ($request->hasFile('national_id')) {
-                $nationalIdPath = $request->file('national_id')->store('national_ids', 'public');
-                $validated['national_id'] = $nationalIdPath;
+        
+            if ($request->hasFile('id_card')) {
+                $id_card = $request->file('id_card');
+                $imageName3 = time() . 'id_card.' . $id_card->getClientOriginalExtension();
+                $id_card->move(public_path('images'), $imageName3);
+                $customer->id_card = $imageName3;
             }
     
             $customer->update($validated);

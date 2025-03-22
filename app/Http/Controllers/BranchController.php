@@ -51,6 +51,7 @@ class BranchController extends Controller
         'address' => $request->input('address'),
         'branch_no' => $request->input('branch_no'),
         'business_id' => $business_id,
+        'manager' => $request->input('manager'), 
         ]);
 
         return redirect()->route('branch.index')->with('success', 'The branch has been created successfully');
@@ -134,6 +135,7 @@ class BranchController extends Controller
             'phone' => 'required|string|max:15',
             'email' => 'required|email|max:255',
             'address' => 'nullable|string|max:255',
+            'manager' => 'nullable|string|max:255',
         ]);
 
         $branch->update($validated);

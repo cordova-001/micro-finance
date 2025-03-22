@@ -16,7 +16,8 @@ class Branch extends Model
         'email',
         'phone',
         'branch_no',
-        'business_id'
+        'business_id',
+        'manager',
     ];
 
     public function customers()

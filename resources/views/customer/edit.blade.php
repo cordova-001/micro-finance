@@ -41,46 +41,39 @@
                                   </div>
                               @endif
                           
-                          <form action="{{ route('customer.add') }}" class="pt-2" method="POST" enctype="multipart/form-data">
+                          <form action="{{ route('customer.update', ['customer_id' => $customer->customer_id]) }}" class="pt-2" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="row gy-4">
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="first-name">First Name</label>
-                                  <input type="text" name="first_name" class="form-control" id="first-name" placeholder="First name">
+                                  <input type="text" name="first_name" class="form-control" id="first-name" value="{{ $customer->first_name }}" >
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="last-name">Last Name</label>
-                                  <input type="text" name="last_name" class="form-control" id="last-name" placeholder="Last name">
+                                  <input type="text" name="last_name" class="form-control" id="last-name" value="{{ $customer->last_name }}">
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="email">Email Address</label>
-                                  <input type="email" name="email" class="form-control" id="email" placeholder="Email Address">
+                                  <input type="email" name="email" class="form-control" id="email" value="{{ $customer->email }}">
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="phone-no">Phone Number</label>
-                                  <input type="text" name="phone" class="form-control" id="phone-no" maxlength="11" placeholder="Phone Number">
+                                  <input type="text" name="phone" class="form-control" id="phone-no" maxlength="11" value="{{ $customer->phone }}" >
                                 </div>
                               </div>
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="address-l1">Gender</label>
-                                  <select class="form-select js-select2" id="gender" name="gender">
-                                    <option>Male</option>
-                                    <option>Female</option>
-                                  </select>
-                                </div>
-                              </div>
+                              
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-line2">Address</label>
-                                  <input type="text" class="form-control" name="address" id="address-line2" value="">
+                                  <input type="text" class="form-control" name="address" id="address-line2" value="{{ $customer->address }}">
                                 </div>
                               </div>
                               <div class="col-md-6">
@@ -130,51 +123,43 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Local Government</label>
-                                  <input type="text" name="local_govt" class="form-control" id="address-st" placeholder="Local Govt">
+                                  <input type="text" name="local_govt" class="form-control" id="address-st" value=" {{ $customer->local_govt }}">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Next of Kin</label>
-                                  <input type="text" name="next_of_kin" class="form-control" id="address-st" placeholder="Next of Kin">
+                                  <input type="text" name="next_of_kin" class="form-control" id="address-st" value="{{ $customer->next_of_kin }}">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">addy_of_nok</label>
-                                  <input type="text" name="address_of_next_of_kin" class="form-control" id="address-st" placeholder="Address of Kin">
+                                  <input type="text" name="address_of_next_of_kin" class="form-control" id="address-st" value="{{ $customer->address_of_next_of_kin }}">
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Date of Birth</label>
-                                  <input type="date" name="date_of_birth" class="form-control" id="address-st" placeholder="Date of Birth">
+                                  <input type="date" name="date_of_birth" class="form-control" id="address-st" value="{{ $customer->date_of_birth }}">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Occupation</label>
-                                  <input type="text" name="occupation" class="form-control" id="address-st" placeholder="occupation">
+                                  <input type="text" name="occupation" class="form-control" id="address-st" value="{{ $customer->occupation }}">
                                 </div>
                               </div>
 
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label" for="address-st">Status</label>
-                                  <select class="form-select js-select2" name="status">
-                                    <option>Active</option>
-                                    <option>Suspended</option>
-                                  </select>
-                                </div>
-                              </div>
+                             
 
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Customer ID / Account Number</label>
-                                  <input type="text" name="customer_id" maxlength="6" class="form-control" id="address-st" value="{{ rand(10000, 999999) }}">
+                                  <input type="text" name="customer_id"  readonly class="form-control" id="address-st" value="{{ $customer->customer_id }}">
                                 </div>
                               </div>
 

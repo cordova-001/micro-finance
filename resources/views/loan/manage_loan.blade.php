@@ -11,6 +11,7 @@
                     </div><!-- .nk-block-head-content -->
                   </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
+                @include('Components.loan_nav')
                 <div class="nk-block nk-block-lg">
                   <div class="card">
                     <div class="card-inner">

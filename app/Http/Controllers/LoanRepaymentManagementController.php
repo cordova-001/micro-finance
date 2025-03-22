@@ -9,6 +9,7 @@ use App\Models\Customers;
 use Carbon\Carbon;
 use App\Models\Branch;
 use App\Models\LoanProduct;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use App\Models\GeneralLedger;
 use App\Models\LoanRepayment;
@@ -38,9 +39,9 @@ class LoanRepaymentManagementController extends Controller
 
         $amount = $loan->loan_amount;
         $interestRate = $loan->interest_rate / 100; // Convert percentage to decimal
-        $frequency = strtolower($loan->repayment_period); // daily, weekly, monthly
-        // dd($frequency);
-        $duration = $loan->frequency; // Number of days, weeks or months
+        $frequency = strtolower($loan->frequency); // daily, weekly, monthly
+        
+        $duration = $loan->repayment_period; // Number of days, weeks or months
         $startDate = Carbon::parse($loan->first_due_date);
 
         // Determine number of payments & interval
@@ -54,7 +55,13 @@ class LoanRepaymentManagementController extends Controller
             $installments = $duration;
             $interval = 'addMonths';
         } else {
-            return redirect()->back()->with('error', 'Invalid Frequency');
+            
+            // Log::error('Invalid Frequency: ' . $frequency);
+            return redirect()->back()->with('error', 'Invalid Frequency ' . $frequency);
+            // return response()->json(['frequency' => $frequency]);
+
+            
+
         }
 
         if ($loan->interest_type === 'flat') {

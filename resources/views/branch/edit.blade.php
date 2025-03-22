@@ -41,7 +41,7 @@
                                 </ul>
                             </div>
                         @endif
-
+ 
                           
                           <form action="{{ route('branch.update', ['id' => $branch->id]) }}" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -49,11 +49,17 @@
                             <div class="row gy-4">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name">Branch Name</label>
-                                  <input type="text" name="branch_name" class="form-control" id="branch-name" value="{{ $branch->branch_name }}">
+                                  <label class="form-label" for="first-name">Branch Manager</label>
+                                  <input type="text" name="manager" class="form-control" id="branch-name" value="{{ $branch->manager }}">
                                   {{-- <input type="text" name="branch_name" class="form-control" id="branch-name" value="{{ $branch->id }}"> --}}
                                 </div>
                               </div>
+                              <div class="form-group">
+                                <label class="form-label" for="first-name">Branch Name</label>
+                                <input type="text" name="branch_name" class="form-control" id="branch-name" value="{{ $branch->branch_name }}">
+                                {{-- <input type="text" name="branch_name" class="form-control" id="branch-name" value="{{ $branch->id }}"> --}}
+                              </div>
+                            </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="last-name">Email Address</label>

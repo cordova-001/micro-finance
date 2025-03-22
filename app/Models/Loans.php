@@ -31,6 +31,9 @@ class Loans extends Model
         'repayment_date',
         'bank_name',
         'repayment_status',
+        'total_paid',
+        'total_due',
+        'balance'
     ];
 
     // I want to create necessary relationships here for the loans table and other tables that are related to it such as the branch, customers, and loan products table

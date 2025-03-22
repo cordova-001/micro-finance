@@ -135,7 +135,7 @@
                                                                               <a href="{{ route('branch.show', $branches->id) }}" class="dropdown-item"> <em class='icon ni ni-activity-round'></em> View Details</a>
                                                                                 
                                                                             </ul>
-                                                                            
+                                                                             
                                                                         </div>
                                                                     </div>
                                                                 </li>
