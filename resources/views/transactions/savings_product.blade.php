@@ -55,7 +55,7 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="first-name">Product Code</label>
-                                  <input type="text" name="product_code" class="form-control" id="product-name" placeholder="Product Code">
+                                  <input type="text" name="product_code" class="form-control" id="product-name" value="{{ rand(1111, 9999) }}" readonly placeholder="Product Code">
                                 </div>
                               </div>
 

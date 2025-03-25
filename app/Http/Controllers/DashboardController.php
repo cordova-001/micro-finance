@@ -26,17 +26,37 @@ class DashboardController extends Controller
 
         // dd($business_id);
         $all_customers = Customers::where('business_id', $business_id)->count();
+        // get all custmers registered this year
+        $all_customers_this_year = Customers::where('business_id', $business_id)->whereYear('created_at', date('Y'))->count();
+        // get all custmers registered this month
+        $all_customers_this_month = Customers::where('business_id', $business_id)->whereMonth('created_at', date('m'))->count();      
         $totalSavings = Transaction::where('business_id', $business_id)->sum('amount_paid');
         // dd($totalSavings);
         $totalWithdrawal = Transaction::where('business_id', $business_id)->sum('amount_received');
 
         $totalBalance = $totalSavings - $totalWithdrawal;
 
-        $totalPrincipalLoan = Loans::where('business_id', $business_id)->where('status', 'disbursed')->sum('loan_amount');
+        $totalPrincipalLoan = Loans::where('business_id', $business_id)->where('status', 'open')->sum('loan_amount');
+        // get total loan principal for this year
+        $totalPrincipalLoanThisYear = Loans::where('business_id', $business_id)->where('status', 'open')->whereYear('created_at', date('Y'))->sum('loan_amount');
+        // get total loan principal for this month
+        $totalPrincipalLoanThisMonth = Loans::where('business_id', $business_id)->where('status', 'open')->whereMonth('created_at', date('m'))->sum('loan_amount');
+
         $totalPendingLoan = Loans::where('business_id', $business_id)->where('status', 'pending')->sum('loan_amount');
 
+        $fullyPaidLoan = Loans::where('business_id', $business_id)->where('status', 'closed')->sum('loan_amount');
+        $fullyPaidLoanThisYear = Loans::where('business_id', $business_id)->where('status', 'closed')->whereYear('created_at', date('Y'))->sum('loan_amount');
+        $fullyPaidLoanThisMonth = Loans::where('business_id', $business_id)->where('status', 'closed')->whereMonth('created_at', date('m'))->sum('loan_amount');
 
-        return view('dashboard', compact('all_customers', 'totalSavings', 'totalWithdrawal', 'totalBalance', 'totalPendingLoan', 'totalPrincipalLoan'));
+        $getLoanRepayment = LoanRepayment::where('business_id', $business_id)->sum('paid_amount');
+        $getLoanRepaymentThisYear = LoanRepayment::where('business_id', $business_id)->whereYear('created_at', date('Y'))->sum('paid_amount');
+        $getLoanRepaymentThisMonth = LoanRepayment::where('business_id', $business_id)->whereMonth('created_at', date('m'))->sum('paid_amount');
+        
+
+
+        return view('dashboard', compact('all_customers', 'totalSavings', 'totalWithdrawal', 'fullyPaidLoan', 'fullyPaidLoanThisMonth',
+                         'fullyPaidLoanThisYear', 'getLoanRepayment', 'getLoanRepaymentThisMonth', 'getLoanRepaymentThisYear', 'totalBalance', 
+                         'totalPendingLoan', 'totalPrincipalLoanThisMonth', 'totalPrincipalLoanThisYear', 'totalPrincipalLoan', 'all_customers_this_year', 'all_customers_this_month'));
     }
 
     /**

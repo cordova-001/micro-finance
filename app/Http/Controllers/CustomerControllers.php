@@ -36,6 +36,13 @@ class CustomerControllers extends Controller
         return view('customer.create', compact('branch'));
     }
 
+    public function createCorporateCustomer()
+    {
+        $business_id = Auth::user()->business_id;
+        $branch = Branch::where('business_id', $business_id)->get();
+        return view('customer.create_corporate', compact('branch'));
+    }
+
     public function getCustomerToDashboard()
     {
         $business_id = Auth::user()->business_id;
@@ -74,6 +81,7 @@ class CustomerControllers extends Controller
 
         $customer = new Customers();
         $customer->first_name = $request->input('first_name');
+        $customer->middlename = $request->input('middlename');
         $customer->last_name = $request->input('last_name');
         $customer->address = $request->input('address');
         $customer->occupation = $request->input('occupation');

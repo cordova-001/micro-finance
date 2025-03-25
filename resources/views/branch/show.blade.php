@@ -47,21 +47,87 @@
                         <div class="col-xxl-12">
                             <div class="row g-gs">
                                 
-                                <div class="col-md-3">
-                                    <div class="card">
+                                <div class="col-md-4">
+                                    <div class="card" style="border: 1px solid;">
                                         <div class="nk-ecwg nk-ecwg3">
                                             <div class="card-inner pb-0">
                                                 <div class="card-title-group">
                                                     <div class="card-title">
-                                                        <h6 class="title">Pending Loan Application</h6>
+                                                        <h6 class="title">Number of Customers  </h6>
+                                                    </div>
+                                                </div>
+                                                <div class="data">
+                                                    <span> <strong> Total  {{ number_format($all_customers) }}<br>
+                                                        This Year {{ $all_customers_this_year }} <br>
+                                                        This Month {{ $all_customers_this_month }} </strong> 
+                                                    </span>                                                  
+                                                </div>
+                                            </div><!-- .card-inner -->
+                                           
+                                        </div><!-- .nk-ecwg -->
+                                    </div><!-- .card -->
+                                </div><!-- .col -->
+                                <div class="col-md-4">
+                                    <div class="card" style="border: 1px solid;">
+                                        <div class="nk-ecwg nk-ecwg3">
+                                            <div class="card-inner pb-0">
+                                                <div class="card-title-group">
+                                                    <div class="card-title">
+                                                        <h6 class="title">PRINCIPAL RELEASED  </h6>
+                                                    </div>
+                                                </div>
+                                                <div class="data">
+                                                    <div class="data">
+                                                        <div class="data-group">
+                                                        <p> <strong> Total Loan disbursement -  &#8358;{{ number_format($totalPrincipalLoan) }} <br>
+                                                            Disbursement (this Year) - &#8358;{{ number_format($totalPrincipalLoanThisYear) }} <br>
+                                                            Disbursement this Month - &#8358;{{ number_format($totalPrincipalLoanThisMonth) }} </strong> </p>                                                  
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card-inner -->
+                                           
+                                        </div><!-- .nk-ecwg -->
+                                    </div><!-- .card -->
+                                </div><!-- .col -->
+                                <div class="col-md-4">
+                                    <div class="card" style="border: 1px solid;">
+                                        <div class="nk-ecwg nk-ecwg3">
+                                            <div class="card-inner pb-0">
+                                                <div class="card-title-group">
+                                                    <div class="card-title">
+                                                        <h6 class="title"> COLLECTIONS  </h6>
+                                                    </div>
+                                                </div>
+                                                <div class="data">
+                                                    <div class="data">
+                                                        <p> <strong> Total no of collections - &#8358;{{ number_format($getLoanRepayment) }} <br>
+                                                            Collections (this Year) - &#8358;{{ number_format($getLoanRepaymentThisYear) }} <br>
+                                                            Collections this Month - &#8358;{{ number_format($getLoanRepaymentThisMonth) }} </strong> </p>                                                  
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card-inner -->
+                                           
+                                        </div><!-- .nk-ecwg -->
+                                    </div><!-- .card -->
+                                </div><!-- .col -->
+                                
+
+                                
+                                <div class="col-md-4">
+                                    <div class="card" style="border: 1px solid;">
+                                        <div class="nk-ecwg nk-ecwg3">
+                                            <div class="card-inner pb-0">
+                                                <div class="card-title-group">
+                                                    <div class="card-title">
+                                                        <h6 class="title"> Total Savings</h6>
                                                     </div>
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">0</div>
-                                                        <div class="info text-end">
-                                                            <!-- <h5> 232323 Customers</h5> -->
-                                                        </div>
+                                                        <div class="amount fw-normal"> &#8358;{{ number_format($totalSavings) }}</div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
+                                                       
                                                     </div>
                                                 </div>
                                             </div><!-- .card-inner -->
@@ -69,21 +135,20 @@
                                         </div><!-- .nk-ecwg -->
                                     </div><!-- .card -->
                                 </div><!-- .col -->
-                                <div class="col-md-3">
-                                    <div class="card">
+                                <div class="col-md-4">
+                                    <div class="card" style="border: 1px solid;">
                                         <div class="nk-ecwg nk-ecwg3">
                                             <div class="card-inner pb-0">
                                                 <div class="card-title-group">
                                                     <div class="card-title">
-                                                        <h6 class="title">Processed Loan Application</h6>
+                                                        <h6 class="title">Total Withdrawal </h6>
                                                     </div>
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">0</div>
-                                                        <div class="info text-end">
-                                                            <!-- <h5> 232323 Customers</h5> -->
-                                                        </div>
+                                                        <div class="amount fw-normal"> &#8358;{{ number_format($totalWithdrawal) }}</div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
+                                                       
                                                     </div>
                                                 </div>
                                             </div><!-- .card-inner -->
@@ -91,60 +156,45 @@
                                         </div><!-- .nk-ecwg -->
                                     </div><!-- .card -->
                                 </div><!-- .col -->
-                                <div class="col-md-3">
-                                    <div class="card">
+
+                                <div class="col-md-4" >
+                                    <div class="card" style="border: 1px solid;">
                                         <div class="nk-ecwg nk-ecwg3">
                                             <div class="card-inner pb-0">
                                                 <div class="card-title-group">
                                                     <div class="card-title">
-                                                        <h6 class="title">Total Loan Approved</h6>
+                                                        <h6 class="title">Total Balance</h6>
                                                     </div>
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">0</div>
+                                                        <div class="amount fw-normal"> &#8358;{{ number_format($totalBalance) }}</div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card-inner -->
+                                           
+                                        </div><!-- .nk-ecwg -->
+                                    </div><!-- .card -->
+                                </div><!-- .col -->
+
+                                
+
+                                <div class="col-md-4">
+                                    <div class="card" style="border: 1px solid;">
+                                        <div class="nk-ecwg nk-ecwg3">
+                                            <div class="card-inner pb-0">
+                                                <div class="card-title-group">
+                                                    <div class="card-title">
+                                                        <h6 class="title">	Total outstanding open loans</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="data">
+                                                    <div class="data-group">
+                                                        <div class="amount fw-normal"> &#8358;{{ number_format($totalPrincipalLoan) }}</div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
                                                         
-                                                    </div>
-                                                </div>
-                                            </div><!-- .card-inner -->
-                                            
-                                        </div><!-- .nk-ecwg -->
-                                    </div><!-- .card -->
-                                </div><!-- .col -->
-
-                                <div class="col-md-3">
-                                    <div class="card">
-                                        <div class="nk-ecwg nk-ecwg3">
-                                            <div class="card-inner pb-0">
-                                                <div class="card-title-group">
-                                                    <div class="card-title">
-                                                        <h6 class="title">Total Loan Approved</h6>
-                                                    </div>
-                                                </div>
-                                                <div class="data">
-                                                    <div class="data-group">
-                                                        <div class="amount fw-normal">0</div>
-                                                        {{-- <h5> 2345 Customers</h5> --}}
-                                                    </div>
-                                                </div>
-                                            </div><!-- .card-inner -->
-                                           
-                                        </div><!-- .nk-ecwg -->
-                                    </div><!-- .card -->
-                                </div><!-- .col -->
-
-                                <div class="col-md-3">
-                                    <div class="card" style="background-color: skyblue;">
-                                        <div class="nk-ecwg nk-ecwg3">
-                                            <div class="card-inner pb-0">
-                                                <div class="card-title-group">
-                                                    <div class="card-title">
-                                                        <h6 class="title">Total Loan Repaid</h6>
-                                                    </div>
-                                                </div>
-                                                <div class="data">
-                                                    <div class="data-group">
-                                                        <div class="amount fw-normal">#0</div>
 
                                                     </div>
                                                 </div>
@@ -153,18 +203,22 @@
                                         </div><!-- .nk-ecwg -->
                                     </div><!-- .card -->
                                 </div><!-- .col -->
-                                <div class="col-md-3">
-                                    <div class="card" style="background-color: skyblue;">
+
+                                
+
+                                <div class="col-md-4">
+                                    <div class="card" style="border: 1px solid;">
                                         <div class="nk-ecwg nk-ecwg3">
                                             <div class="card-inner pb-0">
                                                 <div class="card-title-group">
                                                     <div class="card-title">
-                                                        <h6 class="title">Total Loan Repaid</h6>
+                                                        <h6 class="title"> Principal outstanding open loans </h6>
                                                     </div>
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">#0</div>
+                                                        <div class="amount fw-normal">&#8358;0</div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
 
                                                     </div>
                                                 </div>
@@ -173,18 +227,20 @@
                                         </div><!-- .nk-ecwg -->
                                     </div><!-- .card -->
                                 </div><!-- .col -->
-                                <div class="col-md-3">
-                                    <div class="card" style="background-color: skyblue;">
+
+                                <div class="col-md-4">
+                                    <div class="card" style="border: 1px solid;">
                                         <div class="nk-ecwg nk-ecwg3">
                                             <div class="card-inner pb-0">
                                                 <div class="card-title-group">
                                                     <div class="card-title">
-                                                        <h6 class="title">Total Loan Repaid</h6>
+                                                        <h6 class="title"> Interest outstanding open loans </h6>
                                                     </div>
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">#0</div>
+                                                        <div class="amount fw-normal">&#8358;0</div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
 
                                                     </div>
                                                 </div>
@@ -193,18 +249,68 @@
                                         </div><!-- .nk-ecwg -->
                                     </div><!-- .card -->
                                 </div><!-- .col -->
-                                <div class="col-md-3">
-                                    <div class="card" style="background-color: skyblue;">
+
+                                
+
+                                <div class="col-md-4">
+                                    <div class="card" style="border: 1px solid;">
                                         <div class="nk-ecwg nk-ecwg3">
                                             <div class="card-inner pb-0">
                                                 <div class="card-title-group">
                                                     <div class="card-title">
-                                                        <h6 class="title">Total Loan Repaid</h6>
+                                                        <h6 class="title"> Open loans </h6>
                                                     </div>
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">#0</div>
+                                                        <div class="amount fw-normal">&#8358;0</div>
+                                                        <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
+
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card-inner -->
+                                           
+                                        </div><!-- .nk-ecwg -->
+                                    </div><!-- .card -->
+                                </div><!-- .col -->
+
+                                <div class="col-md-4">
+                                    <div class="card" style="border: 1px solid;">
+                                        <div class="nk-ecwg nk-ecwg3">
+                                            <div class="card-inner pb-0">
+                                                <div class="card-title-group">
+                                                    <div class="card-title">
+                                                        <h6 class="title"> Fully paid loans  </h6>
+                                                    </div>
+                                                </div>
+                                                <div class="data">
+                                                    <div class="data-group">
+                                                        <p> <strong> 
+                                                             This Year  &#8358;{{ number_format($fullyPaidLoanThisYear) }}<br>
+                                                             This Month &#8358;{{ number_format($fullyPaidLoanThisMonth) }} <br> </strong> </p>     
+                                                    </div>                                             
+                                                    
+                                                </div>
+                                            </div><!-- .card-inner -->
+                                           
+                                        </div><!-- .nk-ecwg -->
+                                    </div><!-- .card -->
+                                </div><!-- .col -->
+
+                                <div class="col-md-4">
+                                    <div class="card" style="border: 1px solid;">
+                                        <div class="nk-ecwg nk-ecwg3">
+                                            <div class="card-inner pb-0">
+                                                <div class="card-title-group">
+                                                    <div class="card-title">
+                                                        <h6 class="title"> Restructured loans  </h6>
+                                                    </div>
+                                                </div>
+                                                <div class="data">
+                                                    <div class="data-group">
+                                                        <p> <strong> 
+                                                            This Year <br>
+                                                            This Month  <br></strong> </p>  
 
                                                     </div>
                                                 </div>
@@ -309,7 +415,7 @@
                             </div>
                             <div class="card card-bordered card-preview">
                                 <div class="card-inner">
-                                    {{-- <table class="datatable-init-export nowrap table" data-export-title="Export">
+                                    <table class="datatable-init-export nowrap table" data-export-title="Export"> 
                                         <thead>
                                             <tr>
                                                 <th>Loan ID</th>
@@ -329,38 +435,40 @@
                                             @foreach ($repayments as $repayment)
                                                 <tr>
                                                     <td>{{ $repayment->loan_id }}</td>
-                                                    <td>{{ $repayment->first_name }} {{ $allLoan->last_name }}</td>
+                                                    {{-- <td>{{ $repayment->first_name }} </td> --}}
                                                     <td>{{ $repayment->customer_id }}</td>
-                                                    <td>{{ $repayment->first_name }} {{ $allLoan->last_name }}</td>
+                                                    <td>Ahmad</td>
                                                     <td>{{ $repayment->paid_amount }}</td>
                                                     
                                                     <td>{{ $repayment->paid_date }}</td>
                                                     <td>{{ $repayment->collected_by }}</td>
                                                     <td>{{ $repayment->payment_means }}</td>
                                                     
-                                                    {{-- <td>
+                                                    <td>
                                                         <li>
                                                             <div class='drodown'>
                                                                 <a href='' class='dropdown-toggle btn btn-icon btn-trigger' data-bs-toggle='dropdown'><em class='icon ni ni-more-h'></em></a>
                                                                 <div class='dropdown-menu dropdown-menu-end'>
                                                                     <ul class='link-list-opt no-bdr'>
+                                                                        
                                                                       
-                                                                         <a href="{{ route('branch.edit', $branches->id) }}" class="dropdown-item"><em class='icon ni ni-eye'></em>  Edit Loan  </a> 
+                                                                         {{-- <a href="{{ route('branch.edit', $branches->id) }}" class="dropdown-item"><em class='icon ni ni-eye'></em>  Edit Loan  </a>  --}}
                                                                         <hr>
+                                                                        as
+                                                                        {{-- <a href="{{ route('loan.manage', $allLoan->id) }}" class="dropdown-item"> <em class='icon ni ni-activity-round'></em> Manage Loan</a>
                                                                         <a href="{{ route('loan.manage', $allLoan->id) }}" class="dropdown-item"> <em class='icon ni ni-activity-round'></em> Manage Loan</a>
-                                                                        <a href="{{ route('loan.manage', $allLoan->id) }}" class="dropdown-item"> <em class='icon ni ni-activity-round'></em> Manage Loan</a>
-                                                                        <a href="{{ route('loan.manage', $allLoan->id) }}" class="dropdown-item"> <em class='icon ni ni-activity-round'></em> Manage Loan</a>
+                                                                        <a href="{{ route('loan.manage', $allLoan->id) }}" class="dropdown-item"> <em class='icon ni ni-activity-round'></em> Manage Loan</a> --}}
                                                                           
                                                                       </ul>
                                                                 </div>
                                                             </div>
                                                         </li>
-                                                    </td> --}}
-                                                {{-- </tr> --}}
-                                            {{-- @endforeach --}}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                            
-                                        {{-- </tbody> --}}
-                                    {{-- </table> --}} 
+                                        </tbody>
+                                    </table> 
                                 </div>
                             </div><!-- .card-preview -->
                         </div> <!-- nk-block -->

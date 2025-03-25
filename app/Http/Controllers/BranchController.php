@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Customers;
+use App\Models\LoanRepayment;
+use App\Models\Loans;
+use App\Models\Transaction;
+// use App\Models\LoanRepayment;
 use App\Models\Branch;
 use Illuminate\Support\Facades\DB;
 
@@ -90,8 +95,38 @@ class BranchController extends Controller
                         ->where('business_id', $business_id)
                         // ->where('transaction_type', 'savings') 
                         ->get();
+
+            $all_customers = Customers::where('business_id', $business_id)->where('branch_id', $id)->count();
+            // get all custmers registered this year
+            $all_customers_this_year = Customers::where('business_id', $business_id)->where('branch_id', $id)->whereYear('created_at', date('Y'))->count();
+            // get all custmers registered this month
+            $all_customers_this_month = Customers::where('business_id', $business_id)->where('branch_id', $id)->whereMonth('created_at', date('m'))->count();      
+            $totalSavings = Transaction::where('business_id', $business_id)->where('branch_id', $id)->sum('amount_paid');
+            // dd($totalSavings);
+            $totalWithdrawal = Transaction::where('business_id', $business_id)->where('branch_id', $id)->sum('amount_received');
+    
+            $totalBalance = $totalSavings - $totalWithdrawal;
+    
+            $totalPrincipalLoan = Loans::where('business_id', $business_id)->where('branch_id', $id)->where('status', 'open')->sum('loan_amount');
+            // get total loan principal for this year
+            $totalPrincipalLoanThisYear = Loans::where('business_id', $business_id)->where('branch_id', $id)->where('status', 'open')->whereYear('created_at', date('Y'))->sum('loan_amount');
+            // get total loan principal for this month
+            $totalPrincipalLoanThisMonth = Loans::where('business_id', $business_id)->where('branch_id', $id)->where('status', 'open')->whereMonth('created_at', date('m'))->sum('loan_amount');
+    
+            $totalPendingLoan = Loans::where('business_id', $business_id)->where('branch_id', $id)->where('status', 'pending')->sum('loan_amount');
+    
+            $fullyPaidLoan = Loans::where('business_id', $business_id)->where('branch_id', $id)->where('status', 'closed')->sum('loan_amount');
+            $fullyPaidLoanThisYear = Loans::where('business_id', $business_id)->where('branch_id', $id)->where('status', 'closed')->whereYear('created_at', date('Y'))->sum('loan_amount');
+            $fullyPaidLoanThisMonth = Loans::where('business_id', $business_id)->where('branch_id', $id)->where('status', 'closed')->whereMonth('created_at', date('m'))->sum('loan_amount');
+    
+            $getLoanRepayment = LoanRepayment::where('business_id', $business_id)->where('branch_id', $id)->sum('paid_amount');
+            $getLoanRepaymentThisYear = LoanRepayment::where('business_id', $business_id)->where('branch_id', $id)->whereYear('created_at', date('Y'))->sum('paid_amount');
+            $getLoanRepaymentThisMonth = LoanRepayment::where('business_id', $business_id)->where('branch_id', $id)->whereMonth('created_at', date('m'))->sum('paid_amount');
+                        
             
-            return view('branch.show', compact('branch', 'loans', 'repayments', 'transactions'));
+            return view('branch.show', compact('branch', 'loans', 'repayments', 'transactions', 'all_customers', 'totalSavings', 'totalWithdrawal', 'fullyPaidLoan', 'fullyPaidLoanThisMonth',
+                         'fullyPaidLoanThisYear', 'getLoanRepayment', 'getLoanRepaymentThisMonth', 'getLoanRepaymentThisYear', 'totalBalance', 
+                         'totalPendingLoan', 'totalPrincipalLoanThisMonth', 'totalPrincipalLoanThisYear', 'totalPrincipalLoan', 'all_customers_this_year', 'all_customers_this_month'));
         
         } catch (\Exception $e) {
             \Log::error('Error fetching branch data: ' . $e->getMessage());

@@ -130,9 +130,9 @@
                                                             <td>{{ $general_ledgers->account_number }}</td>
                                                             <td>{{ $general_ledgers->account_name }}</td>
                                                             
-                                                            <td>{{ $general_ledgers->debit }}</td>
-                                                            <td>{{ $general_ledgers->credit }}</td>
-                                                            <td>{{ $general_ledgers->balance }}</td>
+                                                            <td>{{ number_format($general_ledgers->debit) }}</td>
+                                                            <td>{{ number_format($general_ledgers->credit) }}</td>
+                                                            <td>{{ number_format($general_ledgers->balance) }}</td>
                                                             {{-- <td>
                                                                 <li>
                                                                     <div class='drodown'>

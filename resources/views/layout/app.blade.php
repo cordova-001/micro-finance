@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
     <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="./images/favicon.png">
+    <link rel="shortcut icon" href="./images/primax_logo.jpg">
     {{-- <script src="https://code.highcharts.com/highcharts.js"></script> --}}
     <!-- Page Title  -->
     <title>:: Primax | Microfinance Automation Software</title>
@@ -114,6 +114,9 @@
                     <ul class="nk-menu-sub" style="background-color: aliceblue;">
                         <li class="nk-menu-item">
                             <a href="{{ route('customer.create') }}" class="nk-menu-link"><span class="nk-menu-text"> Add Customer </span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('customer.createCorporateCustomer') }}" class="nk-menu-link"><span class="nk-menu-text"> Add Corporate Customer </span></a>
                         </li>
                         <li class="nk-menu-item">
                             <a href="{{ route('customer.index') }}" class="nk-menu-link"><span class="nk-menu-text"> Manage All Customer </span></a>
@@ -236,7 +239,7 @@
                             <a href="{{ route('view_repayment') }}" class="nk-menu-link"><span class="nk-menu-text">View Repayment</span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="{{ route('pending_repayment') }}" class="nk-menu-link"><span class="nk-menu-text">All Pending Repayment</span></a>
+                            <a href="{{ route('pending_repayment') }}" class="nk-menu-link"><span class="nk-menu-text"> Pending Repayment</span></a>
                         </li>
                         <li class="nk-menu-item">
                             <a href="{{ route('due_loan_today') }}" class="nk-menu-link"><span class="nk-menu-text"> Due Loans </span></a>

@@ -109,6 +109,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/customer/{customer_id}/edit', [CustomerControllers::class, 'edit'])->name('customer.edit');
     Route::put('/customer/{customer_id}', [CustomerControllers::class, 'update'])->name('customer.update');
     Route::get('/getCustomer', [CustomerControllers::class, 'getCustomerToDashboard'])->name('customer.getCustomer');
+    Route::get('/corporate', [CustomerControllers::class, 'createCorporateCustomer'])->name('customer.createCorporateCustomer');
+    // Route::get('corporate', function(){
+    //     return view('customer.create_corporate');
+    // });
 
     Route::get('/chart', [HighchartController::class, 'handleChart']);
 
