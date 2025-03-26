@@ -81,7 +81,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                   <div class="nk-block-between">
                     <div class="nk-block-head-content">
-                      <h3 class="nk-block-title page-title"> Create Corporate Entity</h3>
+                      <h3 class="nk-block-title page-title"> Create Corporate Account</h3>
                     </div><!-- .nk-block-head-content -->
                   </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
@@ -90,7 +90,7 @@
                     <div class="card-inner">
                       <div class="tab-content">
                         <div class="tab-pane active" id="tabItem5">
-                          <h5 class="title">Add A Customer </h5>
+                          <h5 class="title">Add Corporate Details  </h5>
                               @if (session('success'))
                                   <div class="alert alert-success alert-dismissible fade show" role="alert">
                                       {{ session('success') }}
@@ -301,16 +301,14 @@
                             <hr>
                             <div class="col-md-12">
                               <div class="form-group">
+                                
                                   <div class="file-upload-container">
-                                    <label for="file-upload" class="upload-btn">Select Files to Upload</label>
-                                    <input type="file" id="file-upload" multiple class="file-input">
-                                </div>
-                          
-                                <div id="preview-container" class="preview-container">
-                                    <p>No files selected yet...</p>
-                                </div>
+                                    <label class="form-label" for="address-st">Uploads</label>
+                                    <input type="file" name="uploads[]" id="file-upload" multiple class="form-control" id="address-st"  placeholder="Upoads">
+                                    <div id="preview-container" class="preview-container"></div>
+                                  </div>
+                                {{-- </div> --}}
                               </div>
-
                             </div>
 
                               <div class="col-md-12">

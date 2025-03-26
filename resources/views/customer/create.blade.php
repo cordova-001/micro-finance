@@ -294,25 +294,34 @@
                               <div class="col-md-12">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Passport</label>
-                                  <input type="file" name="passport" class="form-control" id="address-st" multiple placeholder="Passport">
+                                  <input type="file" name="passport" class="form-control" id="address-st"  placeholder="Passport">
                                 </div>
                               </div>
 
                               <div class="col-md-12">
                                 <div class="form-group">
-                                  <div id="preview-container" class="preview-container">
-                                  {{-- <div class="form-group"> --}}
-                                    <div class="file-upload-container">
-                                      <label for="file-upload" class="upload-btn">Select Files to Upload</label>
-                                      <input type="file" id="file-upload" multiple name="uploads" class="file-input">
-                                    </div>
-                            
                                   
-                                      {{-- <p>No files selected yet...</p> --}}
+                                    <div class="file-upload-container">
+                                      <label class="form-label" for="address-st">Uploads</label>
+                                      <input type="file" name="uploads[]" id="file-upload" multiple class="form-control" id="address-st"  placeholder="Upoads">
+                                      <div id="preview-container" class="preview-container"></div>
+                                    </div>
                                   {{-- </div> --}}
                                 </div>
-                                </div>
                               </div>
+
+                              {{-- <div class="col-md-12">
+                                <div class="form-group">
+                                  <div id="preview-container" class="preview-container">
+                                  
+                                    <div class="file-upload-container">
+                                      <label for="file-upload" class="upload-btn">Select Files to Upload</label>
+                                      <input type="file" id="file-upload" multiple name="uploads[]" class="file-input">
+                                    </div>
+                            
+                                </div>
+                                </div>
+                              </div> --}}
 
 
                               <div class="col-md-12">
@@ -343,6 +352,8 @@
         <script>
           document.getElementById('file-upload').addEventListener('change', function(event) {
               let previewContainer = document.getElementById('preview-container');
+              console.log("Selected files:", event.target.files);
+
               previewContainer.innerHTML = ''; // Clear previous previews
   
               let files = event.target.files;

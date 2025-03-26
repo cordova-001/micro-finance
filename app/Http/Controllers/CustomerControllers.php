@@ -67,16 +67,17 @@ class CustomerControllers extends Controller
         $business_id = Auth::user()->business_id;
         $customer_id = $request->input('customer_id');
         $customer_id2 = $business_id.$customer_id;
-    // Validate the form data
-    $request->validate([
-        'first_name' => 'required',
-        'last_name' => 'required',
-        'email' => 'required|unique:customers|email',
-        'phone' => 'required|unique:customers',
-        'customer_id' => 'required',
-        'passport' => 'image|mimes:jpeg,png,jpg,gif|max:5000',
-        'uploads' => 'image|mimes:jpeg,png,jpg,gif|max:5000',
-    ]);
+        // Validate the form data
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|unique:customers|email',
+            'phone' => 'required|unique:customers',
+            'customer_id' => 'required',
+            'passport' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5000',
+            'uploads.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5000',
+            
+        ]);
 
         $customer = new Customers();
         $customer->first_name = $request->input('first_name');
@@ -102,25 +103,40 @@ class CustomerControllers extends Controller
         $customer->title = $request->input('title'); 
         
 
-    if ($request->hasFile('passport')) {
-        $passport = $request->file('passport');
-        $imageName1 = time() . '_passport.' . $passport->getClientOriginalExtension();
-        $passport->move(public_path('images'), $imageName1);
-        $customer->passport = $imageName1;
-    }
+        if ($request->hasFile('passport')) {
+            $passport = $request->file('passport');
+            $imageName1 = time() . '_passport.' . $passport->getClientOriginalExtension();
+            $passport->move(public_path('images'), $imageName1);
+            $customer->passport = $imageName1;
+        }
 
-   // ✅ Handle Multiple File Uploads
-   $uploadedFiles = [];
-   if ($request->hasFile('uploads')) {
-       foreach ($request->file('uploads') as $file) {
-           $fileName = time() . '_' . $file->getClientOriginalName();
-           $file->move(public_path('images'), $fileName);
-           $uploadedFiles[] = $fileName;
-       }
-   }
+        // ✅ Handle Multiple File Uploads
+        // $uploadedFiles = [];
+        // if ($request->hasFile('uploads')) {
+        //     foreach ($request->file('uploads') as $file) {
+        //         $fileName = time() . '_' . $file->getClientOriginalName();
+        //         $file->move(public_path('images'), $fileName);
+        //         $uploadedFiles[] = $fileName;
+        //     }
+        // }
+
+        $uploadedFiles = [];
+
+        if ($request->hasFile('uploads')) {
+            foreach ($request->file('uploads') as $file) {
+                \Log::info("File received: " . $file->getClientOriginalName());
+                if ($file->isValid()) {
+                    $fileName = time() . '_' . $file->getClientOriginalName();
+                    $file->move(public_path('images'), $fileName);
+                    $uploadedFiles[] = $fileName;
+                }
+            }
+        }        
 
      // Store uploaded files as JSON in database
      $customer->uploads = json_encode($uploadedFiles);
+
+    //  dd($request->all(), $request->file('uploads'));
 
     // dd($customer);
     $customer->save();
@@ -131,6 +147,29 @@ class CustomerControllers extends Controller
 
     return redirect()->back();
 
+}
+
+public function storex(request $request) {
+
+    $input=$request->all();
+    $images=array();
+    if($files=$request->file('images')){
+        foreach($files as $file){
+            $name=$file->getClientOriginalName();
+            $file->move('image',$name);
+            $images[]=$name;
+        }
+    }
+    /*Insert your data*/
+
+    Detail::insert( [
+        'images'=>  implode("|",$images),
+        'description' =>$input['description'],
+        //you can put other insertion here
+    ]);
+
+
+    return redirect('redirecting page');
 }
 
     /**

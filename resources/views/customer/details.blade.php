@@ -34,7 +34,7 @@
                                             </div>
                                             <div class="col-lg-2">
                                               <div class="card card-bordered">
-                                                  <img src="{{ asset('images/' . $customer->signature) }}" class="card-img-top" alt="">
+                                                  <img src="{{ asset('images/' . $customer->uploads) }}" class="card-img-top" alt="">
                                                   
                                               </div>
                                           </div>
