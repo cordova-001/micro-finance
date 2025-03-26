@@ -23,9 +23,7 @@ class CreateCorporateAccountTable extends Migration
             $table->string('bvn')->nullable();
             $table->string('cac_rc_no')->nullable();
             $table->unsignedBigInteger('branch_id');
-            $table->foreign('branch_id')->references('id')->on('branch')->onDelete('cascade');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('business_id')->references('business_id')->on('users')->onDelete('cascade'); 
+            $table->foreign('branch_id')->references('id')->on('branch')->onDelete('cascade');             
             $table->string('uploads')->nullable();
             $table->string('director_1_fname')->nullable();
             $table->string('director_1_mname')->nullable();

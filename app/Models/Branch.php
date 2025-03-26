@@ -80,4 +80,8 @@ class Branch extends Model
         return $this->hasMany(Loan::class);
     }
     
+    public function corporateCustomer()
+    {
+        return $this->hasMany(CorporateCustomer::class);
+    }
 }

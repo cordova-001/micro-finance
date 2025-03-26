@@ -302,7 +302,7 @@
                                 <div class="form-group">
                                   
                                     <div class="file-upload-container">
-                                      <label class="form-label" for="address-st">Uploads</label>
+                                      <label class="form-label" for="address-st">Upload other files</label>
                                       <input type="file" name="uploads[]" id="file-upload" multiple class="form-control" id="address-st"  placeholder="Upoads">
                                       <div id="preview-container" class="preview-container"></div>
                                     </div>

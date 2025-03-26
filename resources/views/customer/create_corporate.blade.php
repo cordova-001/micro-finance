@@ -121,25 +121,37 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="first-name">Company Name</label>
-                                  <input type="text" name="first_name" class="form-control" id="first-name" placeholder="First name">
+                                  <input type="text" name="first_name" class="form-control" id="first-name" placeholder="Company Name">
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name">Company Address</label>
-                                  <input type="text" name="middlename" class="form-control" id="first-name" placeholder="middlename">
+                                  <label class="form-label" for="company-address">Company Address</label>
+                                  <input type="text" name="company_address" class="form-control" id="company-address" placeholder="Company Address">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label" for="first-name">Company Email</label>
+                                  <input type="email" name="company_email" class="form-control" id="company-email" placeholder="Company Email">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label" for="first-name">Company Phone Number</label>
+                                  <input type="text" name="company_phone" class="form-control" id="company-phone" placeholder="Company Phone Number">
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="last-name">TIN</label>
-                                  <input type="text" name="last_name" class="form-control" id="last-name" placeholder="Last name">
+                                  <input type="text" name="last_name" class="form-control" id="last-name" placeholder="TIN">
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="email">BVN</label>
-                                  <input type="email" name="email" class="form-control" id="email" placeholder="Email Address">
+                                  <input type="email" name="email" class="form-control" id="email" placeholder="BVN">
                                 </div>
                               </div>
                               <div class="col-md-6">
@@ -303,7 +315,7 @@
                               <div class="form-group">
                                 
                                   <div class="file-upload-container">
-                                    <label class="form-label" for="address-st">Uploads</label>
+                                    <label class="form-label" for="address-st">Upload other files </label>
                                     <input type="file" name="uploads[]" id="file-upload" multiple class="form-control" id="address-st"  placeholder="Upoads">
                                     <div id="preview-container" class="preview-container"></div>
                                   </div>
