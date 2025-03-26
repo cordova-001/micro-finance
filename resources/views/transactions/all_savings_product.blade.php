@@ -104,18 +104,19 @@
                                                             <ul class='nk-tb-actions gx-1'>
 
                                                                 <li>
-                                                                    <div class='drodown'>
-                                                                        <a href='' class='dropdown-toggle btn btn-icon btn-trigger' data-bs-toggle='dropdown'><em class='icon ni ni-more-h'></em></a>
-                                                                        <div class='dropdown-menu dropdown-menu-end'>
-                                                                        <form method='get'>
-                                                                            <ul class='link-list-opt no-bdr'>
-                                                                              <li><span><em class='icon ni ni-eye'></em><input name='branch_details' formaction='branch_details' type='submit' style='border: 0px; background-color: white; float: center;' value='View Details' class='icon ni ni-eye' /></span></li>
-                                                                              <br>
-                                                                              {{-- <input type='text' name='bid' value='$bid' hidden />
-                                                                              <li><em class='icon ni ni-activity-round'></em><input name='edit_branch' type='submit' formaction='edit_branch' style='border: 0px; background-color: white; float: center;' value='Edit Branch' class='icon ni ni-eye' /></li>
-                                                                                 --}}
+                                                                    <div class="drodown">
+                                                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                                            <ul class="link-list-opt no-bdr">
+                                                                                
+                                                                                <li><a href="#"><em class="icon ni ni-eye"></em><span>View Details</span></a></li>
+                                                                                <li><a href="#"><em class="icon ni ni-repeat"></em><span>Transaction</span></a></li>
+                                                                                <li><a href="#"><em class="icon ni ni-activity-round"></em><span>Activities</span></a></li>
+                                                                                <li class="divider"></li>
+                                                                                <li><a href="#"><em class="icon ni ni-shield-star"></em><span>Edit</span></a></li>
+                                                                                <li><a href="#"><em class="icon ni ni-shield-off"></em><span>Reset 2FA</span></a></li>
+                                                                                <li><a href="#"><em class="icon ni ni-delete"></em><span>Suspend User</span></a></li>
                                                                             </ul>
-                                                                            </form>
                                                                         </div>
                                                                     </div>
                                                                 </li>

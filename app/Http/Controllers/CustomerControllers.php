@@ -75,8 +75,7 @@ class CustomerControllers extends Controller
         'phone' => 'required|unique:customers',
         'customer_id' => 'required',
         'passport' => 'image|mimes:jpeg,png,jpg,gif|max:5000',
-        'international_passport' => 'image|mimes:jpeg,png,jpg,gif|max:5000',
-        'national_id' => 'image|mimes:jpeg,png,jpg,gif|max:5000',
+        'uploads' => 'image|mimes:jpeg,png,jpg,gif|max:5000',
     ]);
 
         $customer = new Customers();
@@ -98,6 +97,9 @@ class CustomerControllers extends Controller
         $customer->next_of_kin = $request->input('next_of_kin');
         $customer->address_of_next_of_kin = $request->input('address_of_next_of_kin');
         $customer->business_id = $business_id;
+        $customer->bvn = $request->input('bvn');
+        $customer->phone_next_of_kin = $request->input('phone_next_of_kin');
+        $customer->title = $request->input('title'); 
         
 
     if ($request->hasFile('passport')) {
@@ -107,19 +109,18 @@ class CustomerControllers extends Controller
         $customer->passport = $imageName1;
     }
 
-    if ($request->hasFile('signature')) {
-        $signature = $request->file('signature');
-        $imageName2 = time() . 'signature.' . $signature->getClientOriginalExtension();
-        $signature->move(public_path('images'), $imageName2);
-        $customer->signature = $imageName2;
-    }
+   // ✅ Handle Multiple File Uploads
+   $uploadedFiles = [];
+   if ($request->hasFile('uploads')) {
+       foreach ($request->file('uploads') as $file) {
+           $fileName = time() . '_' . $file->getClientOriginalName();
+           $file->move(public_path('images'), $fileName);
+           $uploadedFiles[] = $fileName;
+       }
+   }
 
-    if ($request->hasFile('id_card')) {
-        $id_card = $request->file('id_card');
-        $imageName3 = time() . 'id_card.' . $id_card->getClientOriginalExtension();
-        $id_card->move(public_path('images'), $imageName3);
-        $customer->id_card = $imageName3;
-    }
+     // Store uploaded files as JSON in database
+     $customer->uploads = json_encode($uploadedFiles);
 
     // dd($customer);
     $customer->save();

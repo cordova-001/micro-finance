@@ -32,6 +32,8 @@ class Customers extends Model
          'middle_name',
          'bvn',
          'phone_next_of_kin',
+         'title',
+         'uploads', 
     ];
 
     public function Branch()

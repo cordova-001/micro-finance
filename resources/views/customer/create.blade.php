@@ -119,6 +119,12 @@
                             <div class="row gy-4">
                               <div class="col-md-6">
                                 <div class="form-group">
+                                  <label class="form-label" for="first-name">Title</label>
+                                  <input type="text" name="title" class="form-control" id="first-name" placeholder="Mr. Mrs. Ms. Dr. Prof.">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
                                   <label class="form-label" for="first-name">First Name</label>
                                   <input type="text" name="first_name" class="form-control" id="first-name" placeholder="First name">
                                 </div>
@@ -145,6 +151,12 @@
                                 <div class="form-group">
                                   <label class="form-label" for="phone-no">Phone Number</label>
                                   <input type="text" name="phone" class="form-control" id="phone-no" maxlength="11" placeholder="Phone Number">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label" for="phone-no">BVN</label>
+                                  <input type="number" name="bvn" maxlength="11" class="form-control" id="phone-no" maxlength="11" placeholder="BVN">
                                 </div>
                               </div>
                               <div class="col-md-6">
@@ -215,11 +227,17 @@
 
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="address-st">Next of Kin</label>
+                                  <label class="form-label" for="address-st">Name of Next of Kin</label>
                                   <input type="text" name="next_of_kin" class="form-control" id="address-st" placeholder="Next of Kin">
                                 </div>
                               </div>
 
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label" for="address-st">Phone Number of Next of Kin</label>
+                                  <input type="text" name="phone_no__of_next_of_kin" class="form-control" id="address-st" placeholder="Phone Number of Next of Kin">
+                                </div>
+                              </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Address of Next of Kin</label>
@@ -286,7 +304,7 @@
                                   {{-- <div class="form-group"> --}}
                                     <div class="file-upload-container">
                                       <label for="file-upload" class="upload-btn">Select Files to Upload</label>
-                                      <input type="file" id="file-upload" multiple class="file-input">
+                                      <input type="file" id="file-upload" multiple name="uploads" class="file-input">
                                     </div>
                             
                                   

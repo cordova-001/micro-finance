@@ -80,8 +80,8 @@
                                   {{-- <input type="text" name="branch" class="form-control" id="branch" >
                                    --}}
                                    <select name="branch_id" id="branch" required class="form-control">
-                                    @foreach ($branch as $branches)     
-                                    <option value="">Select Branch</option>                                                                     
+                                    <option value="">Select Branch</option>   
+                                    @foreach ($branch as $branches)                                                                                                           
                                     <option value="{{ $branches->id }}"> {{ $branches->branch_name }} </option>
                                     @endforeach
                                    </select>

@@ -69,9 +69,9 @@ class TransactionController extends Controller
             $savings_product = $request->savings_product;
             $d_date = $request->deposit_date;
 
-            $totalAmountReceived = Transaction::sum('amount_received');
+            $totalAmountReceived = Transaction::where('business_id', $business_id)->sum('amount_received');
             $amount_paid = $request->input('deposit_amount');
-            $totalAmountPaid = Transaction::sum('amount_paid');
+            $totalAmountPaid = Transaction::where('business_id', $business_id)->sum('amount_paid');
             $balance = $totalAmountPaid - $totalAmountReceived + $amount_paid;
             
             $transaction_type = 'Credit';
@@ -125,6 +125,8 @@ class TransactionController extends Controller
                 // $customer->file = $imageName1;
             }
 
+            // dd($request->all());
+            // dd($imageName1);
                // Begin Database Transaction
         DB::beginTransaction();            
         try{  
@@ -178,10 +180,11 @@ class TransactionController extends Controller
                     'file' => $imageName1,
                 ]);
                
-            }           
+            }         
+            
              // Commit transaction
              DB::commit();                                                 
-                    
+             return redirect()->back()->with('success', 'The transactions was successfully recorded');
             }catch (\Illuminate\Validation\ValidationException $e) {
                 DB::rollBack();
                 // Log validation errors
