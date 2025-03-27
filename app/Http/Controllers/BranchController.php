@@ -8,7 +8,7 @@ use App\Models\Customers;
 use App\Models\LoanRepayment;
 use App\Models\Loans;
 use App\Models\Transaction;
-// use App\Models\LoanRepayment;
+use App\Models\LoanRepaymentSchedule;
 use App\Models\Branch;
 use Illuminate\Support\Facades\DB;
 
@@ -122,11 +122,13 @@ class BranchController extends Controller
             $getLoanRepayment = LoanRepayment::where('business_id', $business_id)->where('branch_id', $id)->sum('paid_amount');
             $getLoanRepaymentThisYear = LoanRepayment::where('business_id', $business_id)->where('branch_id', $id)->whereYear('created_at', date('Y'))->sum('paid_amount');
             $getLoanRepaymentThisMonth = LoanRepayment::where('business_id', $business_id)->where('branch_id', $id)->whereMonth('created_at', date('m'))->sum('paid_amount');
-                        
+            
+            $getOpenPrincipalRepayment = LoanRepaymentSchedule::where('business_id', $business_id)->where('branch_id', $id)->where('status', 'pending')->sum('principal_amount');
+            $getOpenInterestRepayment = LoanRepaymentSchedule::where('business_id', $business_id)->where('branch_id', $id)->where('status', 'pending')->sum('interest_amount');
             
             return view('branch.show', compact('branch', 'loans', 'repayments', 'transactions', 'all_customers', 'totalSavings', 'totalWithdrawal', 'fullyPaidLoan', 'fullyPaidLoanThisMonth',
                          'fullyPaidLoanThisYear', 'getLoanRepayment', 'getLoanRepaymentThisMonth', 'getLoanRepaymentThisYear', 'totalBalance', 
-                         'totalPendingLoan', 'totalPrincipalLoanThisMonth', 'totalPrincipalLoanThisYear', 'totalPrincipalLoan', 'all_customers_this_year', 'all_customers_this_month'));
+                         'totalPendingLoan', 'totalPrincipalLoanThisMonth', 'getOpenPrincipalRepayment', 'getOpenInterestRepayment', 'totalPrincipalLoanThisYear', 'totalPrincipalLoan', 'all_customers_this_year', 'all_customers_this_month'));
         
         } catch (\Exception $e) {
             \Log::error('Error fetching branch data: ' . $e->getMessage());

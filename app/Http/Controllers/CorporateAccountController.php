@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\CorporateCustomer;
 use App\Models\Branch;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class CorporateAccountController extends Controller
 {
@@ -17,10 +18,10 @@ class CorporateAccountController extends Controller
      */
     public function getAccountForm()
     {
-        $user = User::all();
+        $user = Auth::user();
         $business_id = $user->business_id;
         $branch = Branch::where('business_id', $business_id)->get();
-        return view('customer.corporate_account', compact('branch', 'business_id'));
+        return view('customer.create_corporate', compact('branch', 'business_id'));
     }
 
     /**
@@ -30,60 +31,77 @@ class CorporateAccountController extends Controller
      */
     public function addCorporateCustomer(Request $request)
     {
+
+       
+
         $business_id = Auth::user()->business_id;
         $customer_id = $request->input('customer_id');        
         // Validate the form data
         $request->validate([
             'company_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|unique:customers|email',
-            'phone' => 'required|unique:customers',
+            'company_email' => 'required|unique:corporate_account|email',
+            'company_phone' => 'required|unique:corporate_account',
             'customer_id' => 'required',
             'passport' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5000',
             'uploads.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5000',
             
         ]);
+        try{
 
-        $customer = new Customers();
-        $customer->first_name = $request->input('first_name');
-        $customer->middlename = $request->input('middlename');
-        $customer->last_name = $request->input('last_name');
-        $customer->address = $request->input('address');
-        $customer->occupation = $request->input('occupation');
-        $customer->phone = $request->input('phone');
-        $customer->email = $request->input('email');
-        $customer->state_of_origin = $request->input('state_of_origin');
-        $customer->status = $request->input('status');
-        $customer->date_of_birth = $request->input('date_of_birth');
-        $customer->local_govt = $request->input('local_govt');
-        $customer->choices = $request->input('gender');
-        $customer->customer_id = $customer_id2;
-        $customer->branch_id = $request->input('branch_id');
-        $customer->state_of_origin = $request->input('state_of_origin');
-        $customer->next_of_kin = $request->input('next_of_kin');
-        $customer->address_of_next_of_kin = $request->input('address_of_next_of_kin');
-        $customer->business_id = $business_id;
+        $customer = new CorporateCustomer();
+        $customer->company_name = $request->input('company_name');
+        $customer->company_address = $request->input('comapny_address');
+        $customer->company_email = $request->input('company_email');
+        $customer->company_phone = $request->input('company_phone');
+        $customer->tin = $request->input('tin');
         $customer->bvn = $request->input('bvn');
-        $customer->phone_next_of_kin = $request->input('phone_next_of_kin');
-        $customer->title = $request->input('title'); 
-        
+        $customer->cac_rc_no = $request->input('cac_rc_no');
+        $customer->customer_id = $business_id.$customer_id;
+        $customer->business_id = $business_id;
+        $customer->branch_id = $request->input('branch_id');
 
-        if ($request->hasFile('passport')) {
-            $passport = $request->file('passport');
-            $imageName1 = time() . '_passport.' . $passport->getClientOriginalExtension();
+        $customer->director_1_fname = $request->input('director_1_fname');
+        $customer->director_1_mname = $request->input('director_1_mname');
+        $customer->director_1_surname = $request->input('director_1_surname');
+        $customer->director_1_email = $request->input('director_1_email');
+        $customer->director_1_phone = $request->input('director_1_phone');
+        $customer->director_1_address = $request->input('director_1_address');
+
+        $customer->director_2_fname = $request->input('director_2_fname');
+        $customer->director_2_mname = $request->input('director_2_mname');
+        $customer->director_2_surname = $request->input('director_2_surname');
+        $customer->director_2_email = $request->input('director_2_email');
+        $customer->director_2_phone = $request->input('director_2_phone');
+        $customer->director_2_address = $request->input('director_2_address');
+
+        $customer->director_3_fname = $request->input('director_3_fname');
+        $customer->director_3_mname = $request->input('director_3_mname');
+        $customer->director_3_surname = $request->input('director_3_surname');
+        $customer->director_3_email = $request->input('director_3_email');
+        $customer->director_3_phone = $request->input('director_3_phone');
+        $customer->director_3_address = $request->input('director_3_address');
+
+                         
+        if ($request->hasFile('passport1')) {
+            $passport = $request->file('passport1');
+            $imageName1 = time() . '_passport1.' . $passport->getClientOriginalExtension();
             $passport->move(public_path('images'), $imageName1);
-            $customer->passport = $imageName1;
+            $customer->director_1_passport = $imageName1;
         }
 
-        // ✅ Handle Multiple File Uploads
-        // $uploadedFiles = [];
-        // if ($request->hasFile('uploads')) {
-        //     foreach ($request->file('uploads') as $file) {
-        //         $fileName = time() . '_' . $file->getClientOriginalName();
-        //         $file->move(public_path('images'), $fileName);
-        //         $uploadedFiles[] = $fileName;
-        //     }
-        // }
+        if ($request->hasFile('passport2')) {
+            $passport = $request->file('passport2');
+            $imageName2 = time() . '_passport2.' . $passport->getClientOriginalExtension();
+            $passport->move(public_path('images'), $imageName1);
+            $customer->director_2_passport = $imageName2;
+        }
+
+        if ($request->hasFile('passport3')) {
+            $passport = $request->file('passport3');
+            $imageName3 = time() . '_passport3.' . $passport->getClientOriginalExtension();
+            $passport->move(public_path('images'), $imageName3);
+            $customer->director_3_passport = $imageName3;
+        }
 
         $uploadedFiles = [];
 
@@ -98,21 +116,33 @@ class CorporateAccountController extends Controller
             }
         }        
 
-     // Store uploaded files as JSON in database
-     $customer->uploads = json_encode($uploadedFiles);
+        // Store uploaded files as JSON in database
+        $customer->uploads = json_encode($uploadedFiles);
 
-    //  dd($request->all(), $request->file('uploads'));
+        //  dd($request->all(), $request->file('uploads'));
 
-    // dd($customer);
-    $customer->save();
+        // dd($customer);
+        $customer->save();
 
-    // $this->sendEmail($tenant);
+        // $this->sendEmail($tenant);
 
-    session()->flash('success', 'Thanks for filling. Your form submitted successfully!');
+        session()->flash('success', 'Thanks for filling. Your form submitted successfully!');
 
-    return redirect()->back();
+        return redirect()->back();
 
-}
+        } catch (\Exception $e) {
+            \Log::error('Error while saving corporate customer: ' . $e->getMessage());
+            session()->flash('error', 'An error occurred while submitting your form. Please try again later');
+            return redirect()->back();
+        }
+    }
+
+    public function getCorporateCustomers()
+    {
+        $business_id = Auth::user()->business_id;
+        $customers = CorporateCustomer::where('business_id', $business_id)->get();
+        return view('customer.all_corporate', compact('customers'));
+    }
 
     /**
      * Store a newly created resource in storage.

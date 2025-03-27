@@ -261,7 +261,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">&#8358;0</div>
+                                                        <div class="amount fw-normal">&#8358;{{ number_format($getOpenPrincipalRepayment) }}</div>
                                                         <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
 
                                                     </div>
@@ -283,7 +283,7 @@
                                                 </div>
                                                 <div class="data">
                                                     <div class="data-group">
-                                                        <div class="amount fw-normal">&#8358;0</div>
+                                                        <div class="amount fw-normal">&#8358;{{ number_format($getOpenInterestRepayment) }}</div>
                                                         <a href=""><span> View <em class="icon ni ni-arrow-right-round"></em></span></a>  
 
                                                     </div>

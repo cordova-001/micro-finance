@@ -116,10 +116,13 @@
                             <a href="{{ route('customer.create') }}" class="nk-menu-link"><span class="nk-menu-text"> Add Customer </span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="{{ route('customer.createCorporateCustomer') }}" class="nk-menu-link"><span class="nk-menu-text"> Add Corporate Customer </span></a>
+                            <a href="{{ route('customer.index') }}" class="nk-menu-link"><span class="nk-menu-text"> Manage All Customer </span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="{{ route('customer.index') }}" class="nk-menu-link"><span class="nk-menu-text"> Manage All Customer </span></a>
+                            <a href="{{ route('customer.register_corporate') }}" class="nk-menu-link"><span class="nk-menu-text"> Add Corporate Customer </span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ route('customer.createCorporateCustomer') }}" class="nk-menu-link"><span class="nk-menu-text"> Manage Corporate Customer </span></a>
                         </li>
 
 

@@ -17,6 +17,7 @@ use App\Http\Controllers\FinancialReportController;
 use App\Http\Controllers\AccountOfficerController;
 use App\Http\Controllers\AccountSystemController;
 use App\Http\Controllers\InvestmentProductController;
+use App\Http\Controllers\CorporateAccountController;
 use App\Http\Controllers\InvestmentController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\LoanRepaymentController;
@@ -109,7 +110,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/customer/{customer_id}/edit', [CustomerControllers::class, 'edit'])->name('customer.edit');
     Route::put('/customer/{customer_id}', [CustomerControllers::class, 'update'])->name('customer.update');
     Route::get('/getCustomer', [CustomerControllers::class, 'getCustomerToDashboard'])->name('customer.getCustomer');
-    Route::get('/corporate', [CustomerControllers::class, 'createCorporateCustomer'])->name('customer.createCorporateCustomer');
+    Route::get('/corporate', [CorporateAccountController::class, 'getCorporateCustomers'])->name('customer.createCorporateCustomer');
+    Route::get('/open_corporate_account', [CorporateAccountController::class, 'getAccountForm'])->name('customer.register_corporate');
+    Route::post('/store_corporate_account', [CorporateAccountController::class, 'addCorporateCustomer'])->name('customer.create_corporate');
     // Route::get('corporate', function(){
     //     return view('customer.create_corporate');
     // });

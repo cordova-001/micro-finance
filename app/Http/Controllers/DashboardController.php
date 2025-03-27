@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\LoanRepayment;
 use App\Models\Loans;
 use App\Models\SavingsProduct;
+use App\Models\LoanRepaymentSchedule;
 use App\Models\Transaction;
 use App\Models\User;
 
@@ -52,11 +53,14 @@ class DashboardController extends Controller
         $getLoanRepaymentThisYear = LoanRepayment::where('business_id', $business_id)->whereYear('created_at', date('Y'))->sum('paid_amount');
         $getLoanRepaymentThisMonth = LoanRepayment::where('business_id', $business_id)->whereMonth('created_at', date('m'))->sum('paid_amount');
         
+        // check from repayment schedules to get principal amount that at not paid
+        $getOpenPrincipalRepayment = LoanRepaymentSchedule::where('business_id', $business_id)->where('status', 'pending')->sum('principal_amount');
+        $getOpenInterestRepayment = LoanRepaymentSchedule::where('business_id', $business_id)->where('status', 'pending')->sum('interest_amount');
 
 
         return view('dashboard', compact('all_customers', 'totalSavings', 'totalWithdrawal', 'fullyPaidLoan', 'fullyPaidLoanThisMonth',
                          'fullyPaidLoanThisYear', 'getLoanRepayment', 'getLoanRepaymentThisMonth', 'getLoanRepaymentThisYear', 'totalBalance', 
-                         'totalPendingLoan', 'totalPrincipalLoanThisMonth', 'totalPrincipalLoanThisYear', 'totalPrincipalLoan', 'all_customers_this_year', 'all_customers_this_month'));
+                         'totalPendingLoan', 'totalPrincipalLoanThisMonth', 'getOpenInterestRepayment', 'getOpenPrincipalRepayment', 'totalPrincipalLoanThisYear', 'totalPrincipalLoan', 'all_customers_this_year', 'all_customers_this_month'));
     }
 
     /**

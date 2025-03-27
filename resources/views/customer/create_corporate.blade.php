@@ -85,6 +85,7 @@
                     </div><!-- .nk-block-head-content -->
                   </div><!-- .nk-block-between -->
                 </div><!-- .nk-block-head -->
+              
                 <div class="nk-block nk-block-lg">
                   <div class="card">
                     <div class="card-inner">
@@ -115,13 +116,13 @@
                                   </div>
                               @endif
                           
-                          <form action="{{ route('customer.add') }}" class="pt-2" method="POST" enctype="multipart/form-data">
+                          <form action="{{ route('customer.create_corporate') }}" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name">Company Name</label>
-                                  <input type="text" name="first_name" class="form-control" id="first-name" placeholder="Company Name">
+                                  <label class="form-label" for="first-name">Company Name <sup>*</sup></label>
+                                  <input type="text" name="company_name" required class="form-control" id="company-name" placeholder="Company Name">
                                 </div>
                               </div>
                               <div class="col-md-6">
@@ -132,26 +133,32 @@
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name">Company Email</label>
-                                  <input type="email" name="company_email" class="form-control" id="company-email" placeholder="Company Email">
+                                  <label class="form-label" for="first-name">Company Email <sup>*</sup></label>
+                                  <input type="email" name="company_email" required class="form-control" id="company-email" placeholder="Company Email">
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="first-name">Company Phone Number</label>
-                                  <input type="text" name="company_phone" class="form-control" id="company-phone" placeholder="Company Phone Number">
+                                  <label class="form-label" for="first-name">Company Phone Number <sup>*</sup></label>
+                                  <input type="text" name="company_phone" required class="form-control" id="company-phone" placeholder="Company Phone Number">
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="last-name">TIN</label>
-                                  <input type="text" name="last_name" class="form-control" id="last-name" placeholder="TIN">
+                                  <label class="form-label" for="tin">TIN</label>
+                                  <input type="text" name="tin" class="form-control" id="tin" placeholder="TIN">
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class="form-label" for="email">BVN</label>
-                                  <input type="email" name="email" class="form-control" id="email" placeholder="BVN">
+                                  <label class="form-label" for="bvn">BVN</label>
+                                  <input type="number" name="bvn" class="form-control" id="bvn" placeholder="BVN">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="form-label" for="address-st"> Account Number</label>
+                                  <input type="text" name="customer_id" maxlength="6" class="form-control" id="address-st" value="{{ rand(100000, 999999) }}">
                                 </div>
                               </div>
                               <div class="col-md-6">
@@ -170,46 +177,46 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="phone-no">First Name</label>
-                                  <input type="text" name="first_name" class="form-control" id="" placeholder="First Name ">
+                                  <input type="text" name="director_1_fname" class="form-control" id="" placeholder="First Name ">
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-l1">Middle Name</label>
-                                  <input type="text" class="form-control" name="middlename" placeholder="Middlename">
+                                  <input type="text" class="form-control" name="director_1_mname" placeholder="Middlename">
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-line2">Surname</label>
-                                  <input type="text" class="form-control" name="surname" id="surname">
+                                  <input type="text" class="form-control" name="director_1_surname" id="surname">
                                 </div>
                               </div>
                               
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Address</label>
-                                  <input type="text" name="address" class="form-control" id="address-st" placeholder="Address">
+                                  <input type="text" name="director_1_address" class="form-control" id="address-st" placeholder="Address">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Telephone Number</label>
-                                  <input type="text" name="telephone" class="form-control" id="address-st" placeholder="Telephone Number">
+                                  <input type="text" name="director_1_phone" class="form-control" id="address-st" placeholder="Telephone Number">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Email Address</label>
-                                  <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+                                  <input type="email" name="director_1_email" class="form-control" id="email" placeholder="Email">
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Passport Photograph</label>
-                                  <input type="file" name="passport" class="form-control" id="address-st" placeholder="Date of Birth">
+                                  <input type="file" name="passport1" class="form-control" id="address-st" placeholder="Passport Photograph">
                                 </div>
                               </div>
 
@@ -218,46 +225,46 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="phone-no">First Name</label>
-                                  <input type="text" name="first_name" class="form-control" id="" placeholder="First Name ">
+                                  <input type="text" name="director_2_fname" class="form-control" id="" placeholder="First Name ">
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-l1">Middle Name</label>
-                                  <input type="text" class="form-control" name="middlename" placeholder="Middlename">
+                                  <input type="text" class="form-control" name="director_2_mname" placeholder="Middlename">
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-line2">Surname</label>
-                                  <input type="text" class="form-control" name="surname" id="surname">
+                                  <input type="text" class="form-control" name="director_2_surname" id="surname">
                                 </div>
                               </div>
                               
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Address</label>
-                                  <input type="text" name="address" class="form-control" id="address-st" placeholder="Address">
+                                  <input type="text" name="director_2_address" class="form-control" id="address-st" placeholder="Address">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Telephone Number</label>
-                                  <input type="text" name="telephone" class="form-control" id="address-st" placeholder="Telephone Number">
+                                  <input type="text" name="director_2_phone" class="form-control" id="address-st" placeholder="Telephone Number">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Email Address</label>
-                                  <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+                                  <input type="email" name="director_2_email" class="form-control" id="email" placeholder="Email">
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-st">Passport Photograph</label>
-                                  <input type="file" name="passport" class="form-control" id="address-st" placeholder="Date of Birth">
+                                  <input type="file" name="passport2" class="form-control" id="address-st" placeholder="Passport Photograph">
                                 </div>
                               </div>
 
@@ -267,46 +274,46 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label class="form-label" for="phone-no">First Name</label>
-                                <input type="text" name="first_name" class="form-control" id="" placeholder="First Name ">
+                                <input type="text" name="director_3_fname" class="form-control" id="" placeholder="First Name ">
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label class="form-label" for="address-l1">Middle Name</label>
-                                <input type="text" class="form-control" name="middlename" placeholder="Middlename">
+                                <input type="text" class="form-control" name="director_3_mname" placeholder="Middlename">
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label class="form-label" for="address-line2">Surname</label>
-                                <input type="text" class="form-control" name="surname" id="surname">
+                                <input type="text" class="form-control" name="director_3_surname" id="surname">
                               </div>
                             </div>
                             
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label class="form-label" for="address-st">Address</label>
-                                <input type="text" name="address" class="form-control" id="address-st" placeholder="Address">
+                                <input type="text" name="director_3_address" class="form-control" id="address-st" placeholder="Address">
                               </div>
                             </div>
 
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label class="form-label" for="address-st">Telephone Number</label>
-                                <input type="text" name="telephone" class="form-control" id="address-st" placeholder="Telephone Number">
+                                <input type="text" name="director_3_phone" class="form-control" id="address-st" placeholder="Telephone Number">
                               </div>
                             </div>
 
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label class="form-label" for="address-st">Email Address</label>
-                                <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+                                <input type="email" name="director_3_email" class="form-control" id="email" placeholder="Email">
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label class="form-label" for="address-st">Passport Photograph</label>
-                                <input type="file" name="passport" class="form-control" id="address-st" placeholder="Date of Birth">
+                                <input type="file" name="passport3" class="form-control" id="address-st" placeholder="Passport Photograph">
                               </div>
                             </div>
 
@@ -326,7 +333,7 @@
                               <div class="col-md-12">
                                 <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                                   <li>
-                                    <button name="create_customer" class="btn btn-primary">Add Customer</button>
+                                    <button name="create_customer" class="btn btn-primary">Add Corporate Customer</button>
                                   </li>
 
                                 </ul>
