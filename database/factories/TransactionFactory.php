@@ -38,8 +38,8 @@ class TransactionFactory extends Factory
             'branch_id' => $customer ? $customer->branch_id : $this->faker->numberBetween(1, 10), // Fetch branch ID or random
             'deposit_date' => $this->faker->date('Y-m-d'),
             'withdrawal_date' => $this->faker->optional()->date('Y-m-d'),
-            'amount_received' => $totalAmountReceived,
-            'amount_paid' => $totalAmountPaid,
+            'outflow_amount' => $totalAmountReceived,
+            'inflow_amount' => $totalAmountPaid,
             'transaction_id' => substr(Str::uuid()->toString(), 0, 15), // Random 15-character transaction ID
             'narration' => $this->faker->sentence,
             'withdrawn_by' => $this->faker->optional()->name,

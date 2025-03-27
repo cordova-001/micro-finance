@@ -14,7 +14,7 @@ class AddAmountReceivedAmountTransactions extends Migration
     public function up()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->string('amount_received');
+            $table->string('outflow_amount');
         });
     }
 
@@ -26,7 +26,7 @@ class AddAmountReceivedAmountTransactions extends Migration
     public function down()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->string('amount_received');
+            $table->string('outflow_amount');
         });
     }
 }

@@ -33,10 +33,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
-                                              <div class="card card-bordered">
-                                                  <img src="{{ asset('images/' . $customer->uploads) }}" class="card-img-top" alt="">
-                                                  
-                                              </div>
+                                             
                                           </div>
 
                                         
@@ -87,224 +84,87 @@
                                   <ul class="nav nav-tabs mt-n3">
                                       <li class="nav-item">
                                           <a class="nav-link active" data-bs-toggle="tab" href="#tabItem5"><em class="icon ni ni-user"></em><span>Account Transactions</span></a>
-                                      </li>
-                                      <li class="nav-item">
-                                          <a class="nav-link" data-bs-toggle="tab" href="#tabItem6"><em class="icon ni ni-lock-alt"></em><span> Savings Transactions</span></a>
-                                      </li>
-                                      <li class="nav-item">
-                                          <a class="nav-link" data-bs-toggle="tab" href="#tabItem7"><em class="icon ni ni-bell"></em><span>Withdrawal Transactions</span></a>
-                                      </li>
+                                      </li>                                      
                                       <li class="nav-item">
                                           <a class="nav-link" data-bs-toggle="tab" href="#tabItem8"><em class="icon ni ni-link"></em><span> Loan Transactions</span></a>
                                       </li>
-                                      <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="tab" href="#tabItem8"><em class="icon ni ni-link"></em><span> Investment Transactions</span></a>
-                                    </li>
+                                      
                                   </ul>
                                   <div class="tab-content">
                                       <div class="tab-pane active" id="tabItem5">
                                          
                                         <div class="nk-block nk-block-lg">
-                                          <div class="nk-block-head">
-                                              
-                                          </div>
-                                          <div class="card card-bordered card-preview">
-                                              <div class="card-inner">
-                                                  <table class="datatable-init-export nowrap table" data-export-title="Export">
-                                                      <thead>
-                                                          <tr>
-                                                              <th>Name</th>
-                                                              <th>Account Number</th>
-                                                              <th>Phone Number</th>
-                                                              <th>Email</th>
-                                                              <th>Address date</th>
-                                                              <th>Status</th>    
-                                                              <th>Action</th>                                                   
-      
-                                                          </tr>
-                                                      </thead>
-                                                      <tbody>
-                                                          {{-- @foreach ($customer as $customers) --}}
-                                                              <tr>
-                                                                  {{-- <td> {{ $customers->first_name }} {{ $customers->last_name }} </td>
-                                                                  <td>{{ $customers->customer_id }}</td>
-                                                                  <td>{{ $customers->phone }}</td>
-                                                                  <td>{{ $customers->email }}</td>
-                                                                  <td>{{ $customers->address }}</td>
-                                                                  <td>{{ $customers->status }}</td> --}}
-                                                                  <td>Ands</td>
-                                                                  <td>hdgsg</td>
-                                                                  <td>hsdfsd</td>
-                                                                  <td>hgbsg</td>
-                                                                  <td>jhytr</td>
-                                                                  <td>juyhgt</td>
-                                                                  <td>
-                                                                      <li>
-                                                                          <div class='drodown'>
-                                                                              <a href='' class='dropdown-toggle btn btn-icon btn-trigger' data-bs-toggle='dropdown'><em class='icon ni ni-more-h'></em></a>
-                                                                              <div class='dropdown-menu dropdown-menu-end'>
-                                                                              <form method='get'>
-                                                                                  <ul class='link-list-opt no-bdr'>
-                                                                                    <li class="form-control"><span><em class='icon ni ni-eye'></em><input name='branch_details' formaction='branch_details' type='submit' style='border: 0px; background-color: white; float: center;' value='View Details' class='icon ni ni-eye' /></span></li>
-                                                                                    <br>
-                                                                                    <input type='text' name='bid' value='$bid' hidden />
-                                                                                    <li class="form-control"><em class='icon ni ni-activity-round'></em><input name='edit_branch'  type='submit' formaction='edit_branch' style='border: 0px; background-color: white; float: center;' value='Edit Customer' class='icon ni ni-eye' /></li>
-                                                                                      
-                                                                                  </ul>
-                                                                                  </form>
-                                                                              </div>
-                                                                          </div>
-                                                                      </li>
-                                                                  </td>
-                                                              </tr>
-                                                              
-                                                          {{-- @endforeach --}}
-                                                         
-                                                      </tbody>
-                                                  </table>
+                                            <div class="nk-block-head">
+                                                
+                                            </div>
+                                            <div class="nk-block nk-block-lg">
+                                              <div class="nk-block-head">
+                                                  
                                               </div>
-                                          </div><!-- .card-preview -->
+                                              <div class="card card-bordered card-preview">
+                                                  <div class="card-inner">
+                                                      <table class="datatable-init-export nowrap table" data-export-title="Export">
+                                                          <thead>
+                                                              <tr>
+                                                                  <th>SN</th>
+                                                                  <th>Account Name</th>
+                                                                  <th>Account Number</th>
+                                                                  <th>Transaction Type</th>
+                                                                  <th>Transaction ID</th>
+                                                                  <th>Inflow Amount</th>
+                                                                  <th>Outflow Amount</th> 
+                                                                  <th>Balance</th>
+                                                                  <th>Narration</th>
+                                                                    
+                                                                  <th>Transaction Date</th>                                                   
+          
+                                                              </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                              @foreach ($transactions as $transaction)
+                                                                  <tr>
+                                                                      <td> {{ $transaction->id }}</td>
+                                                                      <td> {{ $transaction->account_name }} </td>
+                                                                      <td>{{ $transaction->account_number }}</td>
+                                                                      <td>{{ $transaction->transaction_type }}</td>
+                                                                      <td>{{ $transaction->transaction_id }}</td>
+                                                                      <td>{{ number_format($transaction->inflow_amount) }}</td>
+                                                                      <td>{{ number_format($transaction->outflow_amount) }}</td>
+                                                                      <td>{{ number_format($transaction->total_balance) }}</td>
+                                                                      <td>{{ $transaction->narration }}</td>
+                                                                      
+                                                                      <td>
+                                                                          {{ $transaction->created_at }}
+                                                                         
+                                                                      </td>
+                                                                  </tr>
+                                                                  
+                                                              @endforeach
+                                                              <tr style="background-color: rgb(205, 205, 231); color:black; font-weight: bold;">
+                                                                  <td>Total</td>
+                                                                  <td></td>
+                                                                  <td></td>
+                                                                  <td></td>
+                                                                  <td></td>
+                                                                  <td>{{ $total_inflow }}</td>
+                                                                  <td> {{ $total_outflow }} </td>
+                                                                  <td>{{ $total_balance }}</td>
+                                                                  <td></td>
+                                                                  <td></td>
+                                                                  
+                                                              </tr>
+                                                             
+                                                          </tbody>
+                                                      </table>
+                                                  </div>
+                                              </div><!-- .card-preview -->
+                                          </div> <!-- nk-block -->
                                       </div> <!-- nk-block -->
 
 
                                       </div>
-                                      <div class="tab-pane" id="tabItem6">
-                                        <div class="nk-block nk-block-lg">
-                                          <div class="nk-block-head">
-                                              
-                                          </div>
-                                          <div class="nk-block nk-block-lg">
-                                            <div class="nk-block-head">
-                                                
-                                            </div>
-                                            <div class="card card-bordered card-preview">
-                                                <div class="card-inner">
-                                                    <table class="datatable-init-export nowrap table" data-export-title="Export">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>SN</th>
-                                                                <th>Account Name</th>
-                                                                <th>Account Number</th>
-                                                                <th>Transaction Type</th>
-                                                                <th>Transaction ID</th>
-                                                                <th>Depositor</th>
-                                                                <th>Savings Product</th> 
-                                                                <th>Amount Deposited</th>
-                                                                  
-                                                                <th>Transaction Date</th>                                                   
-        
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @foreach ($savings as $saving)
-                                                                <tr>
-                                                                    <td> {{ $saving->id }}</td>
-                                                                    <td> {{ $saving->account_name }} </td>
-                                                                    <td>{{ $saving->account_number }}</td>
-                                                                    <td>{{ $saving->transaction_type }}</td>
-                                                                    <td>{{ $saving->transaction_id }}</td>
-                                                                    <td>{{ $saving->depositor_name }}</td>
-                                                                    <td>{{ $saving->savings_product }}</td>
-                                                                    <td>{{ $saving->amount_paid }}</td>
-                                                                    
-                                                                    <td>
-                                                                        {{ $saving->created_at }}
-                                                                       
-                                                                    </td>
-                                                                </tr>
-                                                                
-                                                            @endforeach
-                                                            <tr style="background-color: rgb(205, 205, 231); color:white;">
-                                                                <td><H6>TOTAL</H6></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td><h6>{{ $totalSavings }}</h6></td>
-                                                                <td></td>
-                                                                
-                                                            </tr>
-                                                           
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div><!-- .card-preview -->
-                                        </div> <!-- nk-block -->
-                                      </div> <!-- nk-block -->
-                                      </div>
-                                      <div class="tab-pane" id="tabItem7">
-                                        <div class="nk-block nk-block-lg">
-                                            <div class="nk-block-head">
-                                                
-                                            </div>
-                                            <div class="card card-bordered card-preview">
-                                                <div class="card-inner">
-                                                    <table class="datatable-init-export nowrap table" data-export-title="Export">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>SN</th>
-                                                                <th>Account Name</th>
-                                                                <th>Account Number</th>
-                                                                <th>Transaction Type</th>
-                                                                <th>Transaction ID</th>
-                                                                <th>Withdrawn By</th>
-                                                                {{-- <th>Savings Product</th>  --}}
-                                                                <th>Amount Withdrawn</th>
-                                                                  
-                                                                <th>Transaction Date</th>                                                   
-        
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @foreach ($withdrawal as $withdrawals)
-                                                                <tr>
-                                                                    <td> {{ $withdrawals->id }}</td>
-                                                                    <td> {{ $withdrawals->account_name }} </td>
-                                                                    <td>{{ $withdrawals->account_number }}</td>
-                                                                    <td>{{ $withdrawals->transaction_type }}</td>
-                                                                    <td>{{ $withdrawals->transaction_id }}</td>
-                                                                    <td>{{ $withdrawals->withdrawn_by }}</td>
-                                                                    {{-- <td>{{ $transactions->savings_product }}</td> --}}
-                                                                    <td>{{ $withdrawals->amount_received }}</td>
-                                                                    
-                                                                    <td>
-                                                                        {{ $withdrawals->created_at }}
-                                                                        
-                                                                    </td>
-                                                                </tr>
-                                                                
-                                                            @endforeach
-                                                            <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                            </tr>
-                                                            <tr style="background-color: rgb(205, 205, 231); color:white;">
-                                                                <td><H6>TOTAL</H6></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                
-                                                                <td><h6>{{ $totalWithdrawal }}</h6></td>
-                                                                <td></td>
-                                                                
-                                                            </tr>
-                                                           
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div><!-- .card-preview -->
-                                        </div> <!-- nk-block -->
-                                      </div>
+                                      
+                                      
                                       <div class="tab-pane" id="tabItem8">
                                         <div class="nk-block nk-block-lg">
                                             <div class="nk-block-head">

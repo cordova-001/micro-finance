@@ -19,8 +19,8 @@ class CreateColumnForTransactions extends Migration
             $table->string('transfer_source_account')->nullable();
             $table->string('transfer_destination_account')->nullable();
             $table->string('transfer_date')->nullable();
-            $table->string('amount_received')->nullable();
-            $table->string('amount_paid')->nullable();
+            $table->string('outflow_amount')->nullable();
+            $table->string('inflow_amount')->nullable();
         });
     }
 
@@ -37,8 +37,8 @@ class CreateColumnForTransactions extends Migration
             $table->string('transfer_source_account')->nullable();
             $table->string('transfer_destination_account')->nullable();
             $table->string('transfer_date')->nullable();
-            $table->string('amount_received')->nullable();
-            $table->string('amount_paid')->nullable();
+            $table->string('outflow_amount')->nullable();
+            $table->string('inflow_amount')->nullable();
         });
     }
 }

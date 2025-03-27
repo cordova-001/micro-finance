@@ -19,8 +19,8 @@ class DeleteColumnFromTransactions extends Migration
             $table->dropColumn('transfer_source_account');
             $table->dropColumn('transfer_destination_acconut');
             $table->dropColumn('transfer_date');
-            $table->dropColumn('amount_received');
-            $table->dropColumn('amount_paid');
+            $table->dropColumn('outflow_amount');
+            $table->dropColumn('inflow_amount');
         });
     }
 
@@ -37,8 +37,8 @@ class DeleteColumnFromTransactions extends Migration
             $table->dropColumn('transfer_source_account');
             $table->dropColumn('transfer_destination_acconut');
             $table->dropColumn('transfer_date');
-            $table->dropColumn('amount_received');
-            $table->dropColumn('amount_paid');
+            $table->dropColumn('outflow_amount');
+            $table->dropColumn('inflow_amount');
         });
     }
 }

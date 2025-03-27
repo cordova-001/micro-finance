@@ -67,7 +67,7 @@
                                                             <td>{{ $transactions->transaction_id }}</td>
                                                             <td>{{ $transactions->withdrawn_by }}</td>
                                                             {{-- <td>{{ $transactions->savings_product }}</td> --}}
-                                                            <td>{{ $transactions->amount_received }}</td>
+                                                            <td>{{ $transactions->outflow_amount }}</td>
                                                             
                                                             <td>
                                                                 {{ $transactions->created_at }}

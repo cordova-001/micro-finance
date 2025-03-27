@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DeleteAmountTypeTransactions extends Migration
+class AddInflowAmountAndOutflowAmount extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class DeleteAmountTypeTransactions extends Migration
     public function up()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->dropColumn('inflow_amount');
-            $table->dropColumn('outflow_amount');
+            $table->decimal('inflow_amount', 10, 2)->nullable();
+            $table->decimal('outflow_amount', 10, 2)->nullable();
         });
     }
 

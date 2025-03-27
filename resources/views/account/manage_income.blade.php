@@ -67,7 +67,7 @@
                                                             <td>{{ $transactions->transaction_id }}</td>
                                                             <td>{{ $transactions->depositor_name }}</td>
                                                             <td>{{ $transactions->savings_product }}</td>
-                                                            <td>{{ $transactions->amount_paid }}</td> --}}
+                                                            <td>{{ $transactions->inflow_amount }}</td> --}}
                                                             
                                                             <td> asa</td>
                                                             <td> assaa </td>

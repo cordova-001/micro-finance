@@ -22,7 +22,7 @@
                                                         </li>
                                                         <li class="nk-block-tools-opt">
                                                             <a href="#" class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
-                                                            <a class="btn btn-primary d-none d-md-inline-flex"  href="{{ route('customer.register_corporate') }}"><em class="icon ni ni-plus"></em><span>Add Account</span></a>
+                                                            <a class="btn btn-primary d-none d-md-inline-flex"  href="{{ route('customer.register_corporate') }}"><em class="icon ni ni-plus"></em><span>Add Corporate Account</span></a>
                                                         </li>
                                                     </ul>
                                                 </div>

@@ -196,13 +196,14 @@ public function storex(request $request) {
                         ->get();
         
 
-            $savings = DB::table('transactions')
+            $transactions = DB::table('transactions')
                         ->where('account_number', $customer_id)
                         ->where('business_id', $business_id)
-                        ->where('transaction_type', 'credit') 
                         ->get();
 
-                        // dd($savings);
+            $total_inflow = Transaction::where('account_number', $customer_id)->sum('inflow_amount');
+            $total_outflow = Transaction::where('account_number', $customer_id)->sum('outflow_amount');
+            $total_balance = $total_inflow - $total_outflow;
 
             $withdrawal = DB::table('transactions')
                         ->where('account_number', $customer_id)
@@ -210,11 +211,11 @@ public function storex(request $request) {
                         ->where('transaction_type', 'debit') 
                         ->get();
 
-            $totalSavings = Transaction::where('account_number', $customer_id)->sum('amount_paid');
-            $totalWithdrawal = Transaction::where('account_number', $customer_id)->sum('amount_received');
+            $totalSavings = Transaction::where('account_number', $customer_id)->sum('inflow_amount');
+            $totalWithdrawal = Transaction::where('account_number', $customer_id)->sum('outflow_amount');
             $totalBalance = $totalSavings - $totalWithdrawal;
             
-            return view('customer.details', compact('customer', 'loans', 'savings', 'withdrawal', 'totalSavings', 'totalWithdrawal', 'totalBalance'));
+            return view('customer.details', compact('customer', 'total_inflow', 'total_outflow', 'total_balance', 'loans', 'transactions', 'withdrawal', 'totalSavings', 'totalWithdrawal', 'totalBalance'));
         
         } catch (\Exception $e) {
             \Log::error('Error fetching branch data: ' . $e->getMessage());

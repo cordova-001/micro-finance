@@ -69,10 +69,10 @@ class TransactionController extends Controller
             $savings_product = $request->savings_product;
             $d_date = $request->deposit_date;
 
-            $totalAmountReceived = Transaction::where('business_id', $business_id)->sum('amount_received');
-            $amount_paid = $request->input('deposit_amount');
-            $totalAmountPaid = Transaction::where('business_id', $business_id)->sum('amount_paid');
-            $balance = $totalAmountPaid - $totalAmountReceived + $amount_paid;
+            $totalAmountReceived = Transaction::where('business_id', $business_id)->sum('inflow_amount');
+            $inflow_amount = $request->input('deposit_amount');
+            $totalAmountPaid = Transaction::where('business_id', $business_id)->sum('outflow_amount');
+            $balance = $totalAmountPaid - $totalAmountReceived + $inflow_amount;
             
             $transaction_type = 'Credit';
             $branch = $request->input('branch');
@@ -102,13 +102,13 @@ class TransactionController extends Controller
              // Calculate existing balance for the account
             $totalAmountReceived = Transaction::where('account_number', $acctNo)
                 ->where('business_id', $business_id)
-                ->sum('amount_received');
+                ->sum('inflow_amount');
 
             $totalAmountPaid = Transaction::where('account_number', $acctNo)
                 ->where('business_id', $business_id)
-                ->sum('amount_paid');
+                ->sum('outflow_amount');
 
-            $currentBalance = $totalAmountPaid - $totalAmountReceived;
+            $currentBalance = $totalAmountReceived - $totalAmountPaid ;
             $transaction_id = substr(Str::uuid()->toString(), 0, 15);
 
              // Handle file upload
@@ -130,43 +130,15 @@ class TransactionController extends Controller
                // Begin Database Transaction
         DB::beginTransaction();            
         try{  
-            if ($openingFeeApplicable && !$feeAlreadyDeducted) {
-                // Deduct opening fee (Transaction 1)
-                Transaction::create([                    
-                    'account_name' => $customer->first_name . ' ' . $customer->last_name,
-                    'account_number' => $acctNo,
-                    'business_id' => $business_id,
-                    'narration' => 'Opening Fee',
-                    'amount_received' => 0,
-                    'amount_paid' => $openingFee,
-                    'total_balance' => $currentBalance - $openingFee,
-                    'depositor_phone' => $request->input('depositor_phone'),
-                    'depositor_name' => $request->input('depositor_name'),
-                    'branch_id' => $branch,
-                    'transaction_date' => $d_date,
-                    'savings_product' => $savings_product,
-                    'transaction_id' => $transaction_id,
-                    'transaction_means' => $request->input('transactions_means'),
-                    'transaction_type' => $transaction_type,
-                    'staff' => $user->name,
-                    'file' => $imageName1,
-                ]);
-    
-                // Update balance after deducting the opening fee
-                $currentBalance -= $openingFee;
-    
-                // Adjust the deposit amount after deducting the opening fee
-                $amountReceived -= $openingFee;
-            }       
-                // Process deposit transaction (Transaction 2)
+
             if ($amountReceived > 0) {
                 Transaction::create([
                     'account_name' => $customer->first_name . ' ' . $customer->last_name,
                     'account_number' => $acctNo,
                     'business_id' => $business_id,
                     'narration' => 'Deposit',
-                    'amount_received' => 0,
-                    'amount_paid' => $amountReceived,
+                    'outflow_amount' => 0,
+                    'inflow_amount' => $amountReceived,
                     'total_balance' => $currentBalance + $amountReceived,
                     'depositor_phone' => $request->input('depositor_phone'),
                     'depositor_name' => $request->input('depositor_name'),
@@ -180,7 +152,42 @@ class TransactionController extends Controller
                     'file' => $imageName1,
                 ]);
                
-            }         
+            }   
+        
+            $currentBalance += $amountReceived;
+    
+            if ($openingFeeApplicable && !$feeAlreadyDeducted) {
+                // Deduct opening fee (Transaction 1)
+                Transaction::create([                    
+                    'account_name' => $customer->first_name . ' ' . $customer->last_name,
+                    'account_number' => $acctNo,
+                    'business_id' => $business_id,
+                    'narration' => 'Opening Fee',
+                    'outflow_amount' => $openingFee,
+                    'inflow_amount' => 0,
+                    'total_balance' => $currentBalance - $openingFee,
+                    'depositor_phone' => $request->input('depositor_phone'),
+                    'depositor_name' => $request->input('depositor_name'),
+                    'branch_id' => $branch,
+                    'transaction_date' => $d_date,
+                    'savings_product' => $savings_product,
+                    'transaction_id' => $transaction_id,
+                    'transaction_means' => $request->input('transactions_means'),
+                    'transaction_type' => 'Debit',
+                    'staff' => $user->name,
+                    'file' => $imageName1,
+                ]);
+
+                $currentBalance -= $openingFee;
+    
+                
+            }       
+                // Process deposit transaction (Transaction 2)
+                  
+            Log::info("Current Balance Before Deposit: " . $currentBalance);
+            Log::info("Deposit Amount: " . $amountReceived);
+            Log::info("Balance After Deposit: " . ($currentBalance + $amountReceived));
+
             
              // Commit transaction
              DB::commit();                                                 
@@ -200,10 +207,10 @@ class TransactionController extends Controller
             $user = Auth::user();
             $business_id = Auth::user()->business_id;
             $acctNo = $request->input('account_number');
-            $totalAmountReceived = Transaction::sum('amount_received');
-            $amount_paid = $request->input('deposit_amount');
-            $amount_paid = (float) $amount_paid;
-            $totalAmountPaid = Transaction::sum('amount_paid');
+            $totalAmountReceived = Transaction::sum('outflow_amount');
+            $inflow_amount = $request->input('deposit_amount');
+            $inflow_amount = (float) $inflow_amount;
+            $totalAmountPaid = Transaction::sum('inflow_amount');
             $customer = Customers::where('customer_id', $acctNo)->first(); // Fetch the customer record
             if (!$customer) {
                 return back()->withErrors(['error' => 'Account number not found!']);
@@ -219,7 +226,7 @@ class TransactionController extends Controller
             $getSavingsProductDetails = SavingsProduct::where('product_name', $savings_product)->where('business_id', $business_id)->first();
             
 
-            $balance = $totalAmountPaid - $totalAmountReceived + $amount_paid;
+            $balance = $totalAmountPaid - $totalAmountReceived + $inflow_amount;
             $transaction_id = substr(Str::uuid()->toString(), 0, 15);
 
             // dd($getSavingsProductDetails);
@@ -237,7 +244,7 @@ class TransactionController extends Controller
                 $transaction = new Transaction();
                 $transaction->account_number = $request->input('account_number');
                 $transaction->account_name = $customer->first_name . ' ' . $customer->last_name;
-                $transaction->amount_paid = $request->input('deposit_amount');
+                $transaction->inflow_amount = $request->input('deposit_amount');
                 $transaction->depositor_phone = $request->input('depositor_phone');
                 $transaction->depositor_name = $request->input('depositor_name');
                 $transaction->branch_id = $request->input('branch');
@@ -269,10 +276,10 @@ class TransactionController extends Controller
                     'transaction_type' => 'Customer Deposit',
                     'account_name' => 'Cash',
                     'account_number' => '100', // Assume this is the cash account number
-                    'debit' => $amount_paid,
+                    'debit' => $inflow_amount,
                     'credit' => 0,
                     'balance' => GeneralLedger::where('account_number', '100')->sum('debit') - 
-                                 GeneralLedger::where('account_number', '100')->sum('credit') + $amount_paid,
+                                 GeneralLedger::where('account_number', '100')->sum('credit') + $inflow_amount,
                     'transaction_date' => $d_date,
                     'desription' => 'Customer deposit received',
                     'created_by' => $user->name,
@@ -287,9 +294,9 @@ class TransactionController extends Controller
                     'account_name' => 'Customer Savings Account',
                     'account_number' => $acctNo, // Customer’s account number
                     'debit' => 0,
-                    'credit' => $amount_paid,
+                    'credit' => $inflow_amount,
                     'balance' => GeneralLedger::where('account_number', $acctNo)->sum('debit') - 
-                                 GeneralLedger::where('account_number', $acctNo)->sum('credit') - $amount_paid,
+                                 GeneralLedger::where('account_number', $acctNo)->sum('credit') - $inflow_amount,
                     'transaction_date' => $d_date,
                     'description' => 'Deposit into savings account',
                     'created_by' => $user->name,
@@ -344,8 +351,8 @@ class TransactionController extends Controller
             return redirect()->back()->with('error', 'Invalid Account Number');
         }
         $chkAcctDetail = Transaction::where('account_number', $checkAccountNo->customer_id)->first(); //this is to get the details of account transactions
-        $totalSavings = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('amount_paid');
-        $totalWithdrawal = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('amount_received');
+        $totalSavings = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('inflow_amount');
+        $totalWithdrawal = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('outflow_amount');
         $totalBalance = $totalSavings - $totalWithdrawal;
         return view('transactions.create_withdrawal', compact('checkAccountNo', 'chkAcctDetail', 'business_id', 'totalSavings', 'totalWithdrawal', 'totalBalance'));
         
@@ -364,8 +371,8 @@ class TransactionController extends Controller
         $business_id = Auth::user()->business_id;
         $acctNo = $request->input('account_number');
         $checkAccountNo = Customers::where('business_id', $business_id)->where('customer_id', $acctNo)->first();
-        $totalSavings = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('amount_paid');
-        $totalWithdrawal = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('amount_received');
+        $totalSavings = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('inflow_amount');
+        $totalWithdrawal = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('outflow_amount');
         $withdraw_amount = $request->input('withdraw_amount');
         $balance = $totalSavings - $totalWithdrawal;
         $currentBalance = $balance - $withdraw_amount;
@@ -394,7 +401,7 @@ class TransactionController extends Controller
         $add_withdrawal = Transaction::create([
             'account_name' => $checkAccountNo->first_name . ' ' . $checkAccountNo->last_name,
             'account_number' => $request->input('account_number'),
-            'amount_received' => $withdraw_amount,
+            'outflow_amount' => $withdraw_amount,
             'withdrawn_by' => $withdrawn_by,
             'branch_id' => $request->input('branch_id'),
             'transaction_date' => $request->input('withdrawal_date'),
@@ -402,6 +409,7 @@ class TransactionController extends Controller
             'total_balance' => $currentBalance,
             'transaction_id' => $transaction_id,
             'transaction_type' => $transaction_type,
+            'narration' => 'Withdrawal',
             'staff' => $staff,
         ]);
 
@@ -429,8 +437,8 @@ class TransactionController extends Controller
             return "Invalid Account Number";
         }
         $chkAcctDetail = Transaction::where('account_number', $checkAccountNo->customer_id)->first(); //this is to get the details of account transactions
-        $totalSavings = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('amount_paid');
-        $totalWithdrawal = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('amount_received');
+        $totalSavings = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('inflow_amount');
+        $totalWithdrawal = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('outflow_amount');
         $totalBalance = $totalSavings - $totalWithdrawal;
         return view('transactions.intra_bank_transfer', compact('checkAccountNo', 'chkAcctDetail', 'business_id', 'totalSavings', 'totalWithdrawal', 'totalBalance'));        
     }
@@ -465,15 +473,15 @@ class TransactionController extends Controller
         
 
         // * Validate the account balance and check with transfer amount        
-        $totalSavings = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('amount_paid');
-        $totalWithdrawal = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('amount_received');
+        $totalSavings = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('inflow_amount');
+        $totalWithdrawal = Transaction::where('account_number', $checkAccountNo->customer_id)->sum('outflow_amount');
         $transfer_amount = $request->input('transfer_amount');
         $balance = $totalSavings - $totalWithdrawal;
         $currentBalance = $balance - $transfer_amount;                 // this is the balance for the paying account
 
-        $destination_amount_received = $checkDestinationAccountNo->sum('amount_received');
-        $destination_amount_paid = $checkDestinationAccountNo->sum('amount_paid');
-        $destination_balance = ($destination_amount_received - $destination_amount_paid) + $transfer_amount;
+        $destination_outflow_amount = $checkDestinationAccountNo->sum('outflow_amount');
+        $destination_inflow_amount = $checkDestinationAccountNo->sum('inflow_amount');
+        $destination_balance = ($destination_outflow_amount - $destination_inflow_amount) + $transfer_amount;
         
         $transaction_id = substr(Str::uuid()->toString(), 0, 15);
         $withdraw_date = $request->input('withdraw_date');
@@ -496,7 +504,7 @@ class TransactionController extends Controller
 
         $add_withdrawal = Transaction::create([
             'account_number' => $request->input('account_number'),
-            'amount_received' => $withdraw_amount,
+            'outflow_amount' => $withdraw_amount,
             'withdrawn_by' => $withdrawn_by,
             'branch' => $request->input('branch'),
             'withdraw_date' => $request->input('withdraw_date'),

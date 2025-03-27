@@ -14,8 +14,8 @@ class ChangeAmountTypeTransactions extends Migration
     public function up()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->decimal('amount_paid', 15, 2)->nullable()->default(0.00);  // 15 digits total, 2 decimal places
-            $table->decimal('amount_received', 15, 2)->nullable()->default(0.00);
+            $table->decimal('inflow_amount', 15, 2)->nullable()->default(0.00);  // 15 digits total, 2 decimal places
+            $table->decimal('outflow_amount', 15, 2)->nullable()->default(0.00);
         });
     }
 
@@ -27,8 +27,8 @@ class ChangeAmountTypeTransactions extends Migration
     public function down()
     {
         Schema::table('transactions', function (Blueprint $table) {
-            $table->decimal('amount_paid', 15, 2)->nullable()->default(0.00);  // 15 digits total, 2 decimal places
-            $table->decimal('amount_received', 15, 2)->nullable()->default(0.00);
+            $table->decimal('inflow_amount', 15, 2)->nullable()->default(0.00);  // 15 digits total, 2 decimal places
+            $table->decimal('outflow_amount', 15, 2)->nullable()->default(0.00);
         });
     }
 }

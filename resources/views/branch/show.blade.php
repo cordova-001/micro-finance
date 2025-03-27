@@ -518,8 +518,8 @@
                                                     <td>{{ $transaction->transaction_id }}</td>
                                                     
                                                     
-                                                    <td>{{ $transaction->amount_paid }}</td>
-                                                    <td>{{ $transaction->amount_received }}</td>
+                                                    <td>{{ $transaction->inflow_amount }}</td>
+                                                    <td>{{ $transaction->outflow_amount }}</td>
                                                     <td>{{ $transaction->narration }}</td>                                                  
                                                     <td>
                                                         {{ $transaction->created_at }}

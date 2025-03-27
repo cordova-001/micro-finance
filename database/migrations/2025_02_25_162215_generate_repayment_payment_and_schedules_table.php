@@ -36,7 +36,7 @@ class GenerateRepaymentPaymentAndSchedulesTable extends Migration
             $table->foreignId('business_id')->constrained()->onDelete('cascade'); // Loan Reference
             $table->foreignId('customer_id')->constrained()->onDelete('cascade'); // Loan Reference
             $table->foreignId('schedule_id')->constrained('repayment_schedules')->onDelete('cascade');
-            $table->decimal('amount_paid', 15, 2);
+            $table->decimal('inflow_amount', 15, 2);
             $table->date('payment_date');
             $table->timestamps();
         });

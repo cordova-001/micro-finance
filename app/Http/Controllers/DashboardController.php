@@ -31,9 +31,9 @@ class DashboardController extends Controller
         $all_customers_this_year = Customers::where('business_id', $business_id)->whereYear('created_at', date('Y'))->count();
         // get all custmers registered this month
         $all_customers_this_month = Customers::where('business_id', $business_id)->whereMonth('created_at', date('m'))->count();      
-        $totalSavings = Transaction::where('business_id', $business_id)->sum('amount_paid');
+        $totalSavings = Transaction::where('business_id', $business_id)->sum('inflow_amount');
         // dd($totalSavings);
-        $totalWithdrawal = Transaction::where('business_id', $business_id)->sum('amount_received');
+        $totalWithdrawal = Transaction::where('business_id', $business_id)->sum('outflow_amount');
 
         $totalBalance = $totalSavings - $totalWithdrawal;
 

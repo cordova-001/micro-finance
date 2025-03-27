@@ -122,7 +122,7 @@
                             <a href="{{ route('customer.register_corporate') }}" class="nk-menu-link"><span class="nk-menu-text"> Add Corporate Customer </span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="{{ route('customer.createCorporateCustomer') }}" class="nk-menu-link"><span class="nk-menu-text"> Manage Corporate Customer </span></a>
+                            <a href="{{ route('customer.createCorporateCustomer') }}" class="nk-menu-link"><span class="nk-menu-text"> All Corporate Customer </span></a>
                         </li>
 
 
@@ -177,7 +177,7 @@
                             <a href="{{ route('manage_deposit') }}" class="nk-menu-link"><span class="nk-menu-text">View All Savings</span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="add_withdrawal" class="nk-menu-link"><span class="nk-menu-text">Add Withdrawal</span></a>
+                            <a href="{{ route('add.withdrawal') }}" class="nk-menu-link"><span class="nk-menu-text">Add Withdrawal</span></a>
                         </li>
                         <li class="nk-menu-item">
                             <a href="{{ route('manage_withdrawal') }}" class="nk-menu-link"><span class="nk-menu-text">View Withdrawal</span></a>
@@ -297,25 +297,20 @@
                     </ul><!-- .nk-menu-sub -->
                 </li><!-- .nk-menu-item -->
                 
-                <li class="nk-menu-item has-sub">
+                {{-- <li class="nk-menu-item has-sub">
                     <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
                         <span class="nk-menu-icon"><em class="icon ni ni-book-fill"></em></span>
                         <span class="nk-menu-text">Transfers Management </span>
                     </a>
                     <ul class="nk-menu-sub" style="background-color: aliceblue;">
                         <li class="nk-menu-item">
-                            <!-- <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a> -->
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">Manage Roles</span></a>
                         </li>
                         <li class="nk-menu-item">
                             <a href="{{ route('start_transfer') }}" class="nk-menu-link"><span class="nk-menu-text">Intra-Bank Transfer</span></a>
-                        </li>
-                        {{-- <li class="nk-menu-item">
-                            <a href="{{ route('center.index') }}" class="nk-menu-link"><span class="nk-menu-text">Inter-Bank Transfer</span></a>
-                        </li> --}}
-                        
-                        
+                        </li>                                                                        
                     </ul><!-- .nk-menu-sub -->
-                </li><!-- .nk-menu-item -->
+                </li><!-- .nk-menu-item --> --}}
 
                 <li class="nk-menu-item has-sub" >
                     <a href="#" class="nk-menu-link nk-menu-toggle" style="background-color: aliceblue;">
