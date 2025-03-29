@@ -51,6 +51,13 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/branch/{id}', [BranchController::class, 'update'])->name('branch.update');
     Route::get('/branch/{id}/details', [BranchController::class, 'show'])->name('branch.show');
 
+    // Account Officer Details
+    Route::get('account_officer', [AccountOfficerController::class, 'index'])->name('account_officer');
+    Route::get('create_officer', [AccountOfficerController::class, 'createNewOfficer'])->name('create_officer');
+
+    Route::get('subscription', function(){
+        return view ('subscriptions.subscription');
+    });
 
     //Loan product uri later
     Route::resource('/loan_product', LoanProductController::class);
@@ -122,6 +129,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/all_savings_product', [SavingsProductController::class, 'index'])->name('all.savings.product');
     Route::get('/add_savings_product', [SavingsProductController::class, 'create'])->name('savings.product');
     Route::post('/addSavingsProduct', [SavingsProductController::class, 'createSavingsProduct'])->name('savings.add.product');
+    Route::get('savings_product_details/{id}', [SavingsProductController::class, 'displaySavingsProductDetails'])->name('savings.product.details');
+    Route::get('edit_savings_product/{id}', [SavingsProductController::class, 'editSavingsProduct'])->name('edit.savings.product'); 
+    Route::put('update_savings_product/{id}', [SavingsProductController::class, 'updateSavingsProduct'])->name('update.savings.product'); 
 
     Route::get('/validate_account_number', [TransactionController::class, 'validateAccountNumber'])->name('validate.account.number');
     Route::get('/add_deposit', [TransactionController::class, 'newDeposit'])->name('customer.for.transaction');

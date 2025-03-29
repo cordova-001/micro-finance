@@ -33,7 +33,7 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="last-name">Account Officer Number</label>
-                                  <input type="text" name="account_officer_name" class="form-control" id="email" placeholder="Account Officer Name">
+                                  <input type="text" name="account_officer_number" class="form-control" id="email" placeholder="Account Officer Name">
                                 </div>
                               </div>
                               

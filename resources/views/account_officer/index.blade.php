@@ -7,8 +7,7 @@
                                 <div class="nk-block-head nk-block-head-sm">
                                     <div class="nk-block-between">
                                         <div class="nk-block-head-content">
-                                            <h3 class="nk-block-title page-title"> Manage Account Officer </h3>
-                                            
+                                            <h3 class="nk-block-title page-title"> Customer Management</h3>
                                         </div>
                                         <div class="nk-block-head-content">
                                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -23,7 +22,7 @@
                                                         </li>
                                                         <li class="nk-block-tools-opt">
                                                             <a href="#" class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
-                                                            <a class="btn btn-primary d-none d-md-inline-flex"  href="{{ route('branch.create') }}"><em class="icon ni ni-plus"></em><span>Add Branch</span></a>
+                                                            <a class="btn btn-primary d-none d-md-inline-flex"  href="{{ route('customer.create') }}"><em class="icon ni ni-plus"></em><span>Add Customer</span></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -31,119 +30,96 @@
                                         </div><!-- .nk-block-head-content -->
                                     </div><!-- .nk-block-between -->
                                 </div><!-- .nk-block-head -->
-                                <div class="nk-block">
-                                    <div class="card">
-                                        <div class="card-inner-group">
-                                            <div class="card-inner p-0">
-                                                <div class="nk-tb-list nk-tb-ulist">
-                                                    <div class="nk-tb-item nk-tb-head">
-                                                        <div class="nk-tb-col nk-tb-col-check">
-                                                            <div class="custom-control custom-control-sm custom-checkbox notext">
-                                                                <input type="checkbox" class="custom-control-input" id="uid">
-                                                                <label class="custom-control-label" for="uid"></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="nk-tb-col"><span class="sub-text">Role</span></div>
-                                                        <div class="nk-tb-col"><span class="sub-text">Account Officer Name</span></div>
-                                                        <div class="nk-tb-col tb-col-md"><span class="sub-text">Branch</span></div>
-                                                        <div class="nk-tb-col tb-col-md"><span class="sub-text">Phone</span></div>
-                                                        <div class="nk-tb-col tb-col-lg"><span class="sub-text">Email</span></div>
-                                                        <div class="nk-tb-col tb-col-lg"><span class="sub-text">Address</span></div>
+                                
 
-                                                        <div class="nk-tb-col nk-tb-col-tools">
-                                                            <ul class="nk-tb-actions gx-1 my-n1">
-                                                                <li>
-                                                                    <div class="drodown">
-                                                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                                        <div class="dropdown-menu dropdown-menu-end">
+                                    @if (session('success'))
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            {{ session('success') }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    @endif
 
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div><!-- .nk-tb-item -->
-                                                    @foreach ($branch as $branches)
-                                                      
-                                                   
-                                                   <div class='nk-tb-item'>
-                                                        <div class='nk-tb-col nk-tb-col-check'>
-                                                            <div class='custom-control custom-control-sm custom-checkbox notext'>
-                                                                <input type='checkbox' class='custom-control-input' id='uid1'>
-                                                                <label class='custom-control-label' for='uid1'></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class='nk-tb-col'>
-                                                            <a href='#'>
-                                                                <div class='user-card'>
+                                    @if (session('error'))
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            {{ session('error') }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    @endif
 
-                                                                    <div class='user-info'>
-                                                                        <span class='tb-lead'>{{ $branches->branch_name }} <span class='dot dot-success d-md-none ms-1'></span></span>
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
 
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                        <div class='nk-tb-col tb-col-md'>
-                                                            <span>{{ $branches->branch_no }}</span>
-                                                        </div>
-                                                        <div class='nk-tb-col tb-col-md'>
-                                                            <span>{{ $branches->branch_no }}</span>
-                                                        </div> 
-                                                        <div class='nk-tb-col tb-col-lg'>
-                                                            <span>{{ $branches->phone }}</span>
-                                                        </div>
-                                                        <div class='nk-tb-col tb-col-lg'>
-                                                            <span>{{ $branches->email }}</span>
-                                                        </div>
-                                                        <div class='nk-tb-col tb-col-md'>
-                                                            <span class='tb-status text-success'>{{ $branches->address }}</span>
-                                                        </div>
 
-                                                       
-                                                        <div class='nk-tb-col nk-tb-col-tools'>
-                                                            <ul class='nk-tb-actions gx-1'>
 
+
+                                <div class="nk-block nk-block-lg">
+                                    <div class="nk-block-head">
+                                        
+                                    </div>
+                                    <div class="card card-bordered card-preview">
+                                        <div class="card-inner">
+                                            <table class="datatable-init-export nowrap table" data-export-title="Export">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Account Number</th>
+                                                        <th>Phone Number</th>
+                                                        <th>Email</th>
+                                                        <th>Address</th>
+                                                         
+                                                        <th>Action</th>                                                   
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($officer as $officers)
+                                                        <tr>
+                                                            <td>{{ $officers->name }}  </td>
+                                                            <td>{{ $officers->roles }}</td>
+                                                            <td>{{ $officers->phone }}</td>
+                                                            <td>{{ $officers->email }}</td>
+                                                            <td>{{ $officers->address }}</td> 
+                                                            
+                                                            <td>
                                                                 <li>
                                                                     <div class='drodown'>
                                                                         <a href='' class='dropdown-toggle btn btn-icon btn-trigger' data-bs-toggle='dropdown'><em class='icon ni ni-more-h'></em></a>
                                                                         <div class='dropdown-menu dropdown-menu-end'>
-                                                                        
+                                                                        <form method='get'>
                                                                             <ul class='link-list-opt no-bdr'>
+                                                                                <li class="form-control"><span><a href="{{ route('customer.details', $officers->id) }}"><em class='icon ni ni-eye'></em> Customer Profile</a> </span></li>
+                                                                                <li class="form-control"><span><a href="{{ route('customer.edit', $officers->id) }}"><em class='icon ni ni-eye'></em> Edit Customer</a> </span></li>
+                                                                                <li class="form-control"><span><a href="{{ route('customer.details', $officers->id) }}"><em class='icon ni ni-eye'></em>  Transaction History</a> </span></li>
+                                                                                {{-- <li class="form-control"><span><a href="{{ route('customer.details', $customers->customer_id) }}"><em class='icon ni ni-eye'></em>  Send Email </a> </span></li> --}}
                                                                               
-                                                                              <a href="{{ route('branch.edit', $branches->id) }}" class="dropdown-item">Edit Branch {{ $branches->id }}</a>
-                                                                              <hr>
-                                                                              {{-- <a href="{{ route('branch.edit', $branch->id) }}" class="dropdown-item">View Details</a> --}}
-                                                                                
+                                                                              
                                                                             </ul>
-                                                                            
+                                                                            </form>
                                                                         </div>
                                                                     </div>
                                                                 </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div><!-- .nk-tb-item -->
+                                                            </td>
+                                                        </tr>
+                                                        
                                                     @endforeach
-                                                    
-
-
-
-
-                                                </div><!-- .nk-tb-list -->
-                                            </div>
-                                            <div class="card-inner">
-                                                <div class="nk-block-between-md g-3">
-
-                                                    <div class="g">
-
-                                                    </div><!-- .pagination-goto -->
-                                                </div><!-- .nk-block-between -->
-                                            </div>
-                                            <!--card inner-->
+                                                   
+                                                </tbody>
+                                            </table>
                                         </div>
-                                    </div>
-                                    <!--card-->
-                                </div><!-- .nk-block -->
+                                    </div><!-- .card-preview -->
+                                </div> <!-- nk-block -->
+
+
+
+
+
                             </div>
                         </div>
                     </div>

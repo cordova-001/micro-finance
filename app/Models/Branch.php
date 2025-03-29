@@ -84,4 +84,9 @@ class Branch extends Model
     {
         return $this->hasMany(CorporateCustomer::class);
     }
+
+    public function accountOfficer()
+    {
+        return $this->hasMany(AccountOfficer::class);
+    }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\SavingsProduct;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class SavingsProductController extends Controller
@@ -55,7 +57,7 @@ class SavingsProductController extends Controller
                 'maximum_withdrawal_amount' => ['nullable'],
                 'opening_fee' => ['nullable'],
                 'maintenance_fee' => ['nullable'],    
-            ]);
+            ]);  
         }catch (\Illuminate\Validation\ValidationException $e) {
             // Log validation errors
             Log::error('Validation errors:', $e->errors());
@@ -103,9 +105,34 @@ class SavingsProductController extends Controller
      * @param  \App\Models\SavingsProduct  $savingsProduct
      * @return \Illuminate\Http\Response
      */
-    public function show(SavingsProduct $savingsProduct)
+    public function displaySavingsProductDetails($id)
     {
-        //
+        $business_id = Auth::user()->business_id;
+        $savingsProduct = SavingsProduct::where('id', $id)
+                    ->where('business_id', $business_id)
+                    ->firstOrFail();
+        
+            $no_of_account = Transaction::where('savings_product', $savingsProduct->product_name)
+                    ->where('business_id', $business_id)
+                    ->count();
+            $savings_product_transactions = Transaction::where('savings_product', $savingsProduct->product_name)
+                    ->where('business_id', $business_id)
+                    ->get();
+            // return $transactions;
+            $savings_product_credit = Transaction::where('savings_product', $savingsProduct->product_name)
+                    ->where('business_id', $business_id)
+                    ->where('transaction_type', 'credit')
+                    ->sum('inflow_amount');
+            $savings_product_debit = Transaction::where('savings_product', $savingsProduct->product_name)
+                    ->where('business_id', $business_id)
+                    ->where('transaction_type', 'debit')
+                    ->sum('outflow_amount');
+            $savings_product_balance = $savings_product_credit - $savings_product_debit;
+
+            // dd($savingsProduct, $savings_product_transactions, $no_of_account, $savings_product_credit, $savings_product_debit, $savings_product_balance); 
+            return view('transactions.savings_product_details', compact('savingsProduct', 'savings_product_transactions', 'no_of_account', 'savings_product_credit', 'savings_product_debit', 'savings_product_balance')); 
+        // });
+        
     }
 
     /**
@@ -114,9 +141,12 @@ class SavingsProductController extends Controller
      * @param  \App\Models\SavingsProduct  $savingsProduct
      * @return \Illuminate\Http\Response
      */
-    public function edit(SavingsProduct $savingsProduct)
+    public function editSavingsProduct($id)
     {
-        //
+        $business_id = Auth::user()->business_id;
+        $savingsProduct = SavingsProduct::where('id', $id)->where('business_id', $business_id)->firstOrFail();
+        // dd($savingsProduct);
+        return view('transactions.edit_savings_product', compact('savingsProduct', 'business_id'));
     }
 
     /**
@@ -126,9 +156,33 @@ class SavingsProductController extends Controller
      * @param  \App\Models\SavingsProduct  $savingsProduct
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SavingsProduct $savingsProduct)
+    public function updateSavingsProduct(Request $request, $id)
     {
-        //
+        try{
+            $business_id = Auth::user()->business_id;
+             $savingsProduct = SavingsProduct::findOrFail($id);
+    
+            $validated = $request->validate([
+                'product_name' => 'required|string|max:255',
+                'min_deposit' => 'required|string|max:50',
+                'max_deposit' => 'required|string|max:15',
+                'interest_rate' => 'nullable|numeric',
+                'duration' => 'nullable',
+                'opening_fee' => 'nullable|numeric',
+                'target_amount' => 'nullable|numeric',
+                'maintenance_fee' => 'nullable|numeric',
+                'maximum_withdrawal_amount' => 'nullable|numeric',
+                'description' => 'nullable',
+            ]);
+
+            // dd($savingsProduct);
+    
+            $savingsProduct->update($validated);
+    
+            return redirect()->back()->with('success', 'Product updated successfully.');
+            } catch (\Exception $e){
+                return redirect()->back()->with('error', 'Failed to update the product.');
+            }
     }
 
     /**
