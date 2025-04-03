@@ -11,6 +11,7 @@ use App\Models\LoanRepaymentSchedule;
 use App\Models\JournalEntry;
 use App\Models\GeneralLedger;
 use App\Models\BankAccount;
+use App\Models\Chart;
 use App\Models\Loans;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -546,9 +547,6 @@ class LoanManagementController extends Controller
             $business_id = $user->business_id;
             $loan = Loans::findOrFail($id);
 
-            // dd($loan);
-
-
             $scheduleExists = LoanRepaymentSchedule::where('loan_id', $loan->id)->exists();
 
             if ($scheduleExists) {
@@ -574,34 +572,18 @@ class LoanManagementController extends Controller
                 default => throw new \Exception('Invalid Frequency'),
             }; 
 
+            if (!$loan->loan_amount || !$loan->interest_rate || !$loan->repayment_period) {
+                throw new \Exception('Invalid loan data.');
+            }
             
-
             $installments = $duration;
 
-            // dd($loan );
             if ($loan->interest_type === 'flat') {
                 $totalInterest = $amount * $interestRate * $installments;
                 $totalRepayable = $amount + $totalInterest;
                 $installmentAmount = $totalRepayable / $installments;
                 $interestPerInstallment = $totalInterest / $installments;
-                $principalPerInstallment = $amount / $installments;
-
-                // dd($totalInterest, $totalRepayable, $installmentAmount, $interestPerInstallment, $principalPerInstallment);
-                // dd($installments, $startDate, $interval);
-                
-
-                // \Log::info('Creating repayment schedule', [
-                //     'loan_id' => $loan->id,
-                //     'principal_amount' => $principalPerInstallment,
-                //     'interest_amount' => $interestForInstallment,
-                //     'total_amount_due' => $installmentAmount,
-                //     'due_date' => $startDate->copy()->$interval($i),
-                //     'status' => 'Pending',
-                //     'business_id' => $business_id,
-                //     'branch_id' => $loan->branch_id,
-                //     'customer_id' => $account_number,
-                // ]);
-
+                $principalPerInstallment = $amount / $installments;            
             
                 for ($i = 0; $i < $installments; $i++) {
                     LoanRepaymentSchedule::create([
@@ -645,11 +627,15 @@ class LoanManagementController extends Controller
 
             $transaction_id = substr(Str::uuid()->toString(), 0, 15);
 
-            $cashPreviousBalance = GeneralLedger::where('account_number', '100')->sum('debit') 
-                - GeneralLedger::where('account_number', '100')->sum('credit');
+            $cashAmount = Chart::where('account_name', 'Cash')->value('account_number');
+            $loanReceivable = Chart::where('account_name', 'Loan Receivable')->value('account_number'); 
 
-            $customerPreviousBalance = GeneralLedger::where('account_number', $account_number)->sum('debit') 
-                - GeneralLedger::where('account_number', $account_number)->sum('credit');
+            $cashPreviousBalance = GeneralLedger::where('account_number', $cashAmount)->sum('debit') 
+                - GeneralLedger::where('account_number', $cashAmount)->sum('credit');
+
+            $customerPreviousBalance = GeneralLedger::where('account_number', $loanReceivable)->sum('debit') 
+                - GeneralLedger::where('account_number', $loanReceivable)->sum('credit');
+            
 
             // ✅ General Ledger Entries
             GeneralLedger::create([
@@ -657,8 +643,8 @@ class LoanManagementController extends Controller
                 'branch_id' => $loan->branch_id,
                 'transaction_id' => $transaction_id,
                 'transaction_type' => 'Loan Disbursement',
-                'account_name' => 'Cash ' . $loan->bank_account,
-                'account_number' => '100',
+                'account_name' => 'Cash ',
+                'account_number' => $cashAmount,
                 'debit' => 0,
                 'credit' => $amount,
                 'balance' => $cashPreviousBalance - $amount,
@@ -673,7 +659,7 @@ class LoanManagementController extends Controller
                 'transaction_id' => $transaction_id,
                 'transaction_type' => 'Loan Receivable',
                 'account_name' => 'Loan Receivable',
-                'account_number' => 201,
+                'account_number' => $loanReceivable,
                 'debit' => $amount,
                 'credit' => 0,
                 'balance' => $customerPreviousBalance + $amount,
@@ -689,7 +675,7 @@ class LoanManagementController extends Controller
                 'transaction_id' => $transaction_id,
                 'transaction_type' => 'Loan Receivable',
                 'account_name' => 'Cash ' . $loan->bank_account,
-                'account_number' => '100',
+                'account_number' => $cashAmount,
                 'balance' => $cashPreviousBalance - $amount,
                 'debit' => 0,
                 'credit' => $amount,
@@ -705,7 +691,7 @@ class LoanManagementController extends Controller
                 'transaction_id' => $transaction_id,
                 'transaction_type' => 'Loan Receivable',
                 'account_name' => 'Loan Receivable',
-                'account_number' => 201,
+                'account_number' => $loanReceivable,
                 'debit' => $amount,
                 'credit' => 0,
                 'balance' => $customerPreviousBalance + $amount,

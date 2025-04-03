@@ -146,7 +146,7 @@
                                             <div class="card card-bordered pricing text-left">
                                                 <div class="pricing-body">
                                                     
-                                                    <form action="{{ route('branch.store') }}" class="pt-2" method="POST" enctype="multipart/form-data">
+                                                    <form action="{{ route('subscribe') }}" class="pt-2" method="POST" enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="row gy-4">
                                                           
@@ -188,7 +188,7 @@
                                                           </div>
 
                                                           <div class="pricing-action">
-                                                            <a href="#" class="btn btn-primary"> Make Payment</a>
+                                                            <button class="btn btn-primary"> Make Payment</button>
                                                         </div>
 
 

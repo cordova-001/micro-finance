@@ -48,7 +48,7 @@
                             <a href="{{ route('account_officer') }}" class="nk-menu-link"><span class="nk-menu-text"> Manage Account Officer </span></a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="{{ route('customer.index') }}" class="nk-menu-link"><span class="nk-menu-text">  Account Officer Roles </span></a>
+                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">  Account Officer Roles </span></a>
                         </li>
 
 

@@ -19,6 +19,7 @@ class AccountOfficer extends Model
         'email',
         'phone',
         'address',
+        'officer_number'
     ];
 
     public function user()

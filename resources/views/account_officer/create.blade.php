@@ -18,7 +18,7 @@
                         <div class="tab-pane active" id="tabItem5">
                           <h5 class="title">Add Account Officer </h5>
                           
-                          <form action="{{ route('branch.store') }}" class="pt-2" method="POST" enctype="multipart/form-data">
+                          <form action="{{ route('add_officer') }}" class="pt-2" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
                               
@@ -26,14 +26,14 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="last-name">Account Officer Name</label>
-                                  <input type="text" name="account_officer_name" class="form-control" id="email" placeholder="Account Officer Name">
+                                  <input type="text" name="name" class="form-control" id="email" placeholder="Account Officer Name">
                                 </div>
                               </div>
 
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="last-name">Account Officer Number</label>
-                                  <input type="text" name="account_officer_number" class="form-control" id="email" placeholder="Account Officer Name">
+                                  <input type="text" name="officer_number" class="form-control" id="email" placeholder="Account Officer Name">
                                 </div>
                               </div>
                               
@@ -54,7 +54,7 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                   <label class="form-label" for="address-line2">Address</label>
-                                  <input type="text" class="form-control" name="address" id="address-line2" value="">
+                                  <input type="text" class="form-control" name="address" id="address-line2" >
                                 </div>
                               </div>
                               <div class="col-md-6">
@@ -75,13 +75,11 @@
                                 <div class="form-group">
                                   <label class="form-label" for="first-name"> Branch </label>
                                   {{-- <input type="text" name="branch_name"  id="branch-name" placeholder="Branch name"> --}}
-                                  <select name="roles" id="" class="form-control" required>
-                                    <option value="">Select a Role</option>
-                                    <option value="Teller">Teller</option>
-                                    <option value="Loan Officer">Loan Officer</option>
-                                    <option value="Supervisor">Supervisor</option>
-                                    <option value="Manager">Manager</option>
-                                    <option value="Super Admin">Super Admin</option>
+                                  <select name="branch_id" id="" class="form-control" required>
+                                    <option value="">Select Branch</option>
+                                    @foreach ($branch as $branches)
+                                    <option value="{{ $branches->id }}"> {{ $branches->branch_name }} </option>
+                                    @endforeach                                  
                                   </select>
                                 </div>
                               </div>

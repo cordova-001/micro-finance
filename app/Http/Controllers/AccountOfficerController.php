@@ -15,7 +15,7 @@ class AccountOfficerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getOfficer()
     {
         $user = Auth::user();
         $business_id = $user->business_id;
@@ -45,9 +45,10 @@ class AccountOfficerController extends Controller
      */
     public function addNewOfficer(Request $request)
     {
+        try{
         $user = Auth::user();
         $business_id = $user->business_id;
-        $branch = Branch::where('business_id', $business_id)->get();
+        // $branch = Branch::where('business_id', $business_id)->get();
         $request->validate([
             'roles' => 'required|string',
             'name' => 'required',
@@ -57,18 +58,23 @@ class AccountOfficerController extends Controller
         ]);
 
         $accountOfficer = new AccountOfficer();
-        $accountOfficer->name = $request->input('account_officer_name');
+        $accountOfficer->name = $request->input('name');
         $accountOfficer->roles = $request->input('roles');
         $accountOfficer->email = $request->input('email');
         $accountOfficer->phone = $request->input('phone');
-        $accountOfficer->officer_number = $request->input('account_officer_number');
+        $accountOfficer->officer_number = $request->input('officer_number');
         $accountOfficer->address = $request->input('address');
         $accountOfficer->business_id = $business_id;
-        $accountOfficer->branch_id = $branch->id;
+        $accountOfficer->branch_id = $request->input('branch_id');
 
+        // dd($accountOfficer);
         $accountOfficer->save();
 
         session()->flash('success', 'Thanks for filling. Your form submitted successfully!');
+    } catch (\Exception $e) {
+        session()->flash('error', 'Something went wrong! Error: ' . $e->getMessage());
+    }
+        return redirect()->back()->with('success', 'The new user has been added successfully');
 
     }
 

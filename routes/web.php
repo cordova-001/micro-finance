@@ -16,6 +16,7 @@ use App\Http\Controllers\LoanRepaymentManagementController;
 use App\Http\Controllers\FinancialReportController;
 use App\Http\Controllers\AccountOfficerController;
 use App\Http\Controllers\AccountSystemController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\InvestmentProductController;
 use App\Http\Controllers\CorporateAccountController;
 use App\Http\Controllers\InvestmentController;
@@ -52,11 +53,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/branch/{id}/details', [BranchController::class, 'show'])->name('branch.show');
 
     // Account Officer Details
-    Route::get('account_officer', [AccountOfficerController::class, 'index'])->name('account_officer');
+    Route::get('account_officer', [AccountOfficerController::class, 'getOfficer'])->name('account_officer');
     Route::get('create_officer', [AccountOfficerController::class, 'createNewOfficer'])->name('create_officer');
+    Route::post('add_officer', [AccountOfficerController::class, 'addNewOfficer'])->name('add_officer');
 
     Route::get('subscription', function(){
         return view ('subscriptions.subscription');
+    });
+
+
+    // Paystack Subscription
+    Route::middleware(['auth'])->group(function () {
+        Route::post('/subscribe', [SubscriptionController::class, 'initiateSubscription'])->name('subscribe');
+        Route::get('/paystack/subscription/callback', [SubscriptionController::class, 'handleSubscriptionCallback'])->name('paystack.subscription.callback');
+        Route::post('/webhook/paystack', [PaystackWebhookController::class, 'handleWebhook']); // Paystack Webhook
     });
 
     //Loan product uri later
@@ -284,29 +294,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
-    /**
-     * 
-     *   Report (Customer reports, Loan Report, Disbursement Report, Loan Product Report, Daily Report, Monthly Report etc)
-     *   Accounting (Cash flow, Balance Sheet, Trial Balance, General Ledger, Chart of Account, Journal Entries etc)
-     */
-
-    Route::get('transactions_report', function(){
-        return view('reports.transactions');
-    });
     
-
-    // Account Officer
-    Route::get('add_account_officer', function(){
-        return view ('account_officer.create');
-    });
-
-    Route::get('all_user', function(){
-        return view ('account_officer.index');
-    });
-
-    Route::get('branch_detail', function(){
-        return view ('branch.show');
-    });
 });
 
 

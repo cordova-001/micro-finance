@@ -182,7 +182,124 @@ class TransactionController extends Controller
     
                 
             }       
-                // Process deposit transaction (Transaction 2)
+
+
+            $transaction_id = substr(Str::uuid()->toString(), 0, 15);
+
+            $cashAmount = Chart::where('account_name', 'Cash')->value('account_number');
+            $savingsDeposit = Chart::where('account_name', 'Customer Savings Deposit')->value('account_number'); 
+            $openingFeeAccount = Chart::where('account_name', 'Opening Fee Account')->value('account_number');
+
+            $cashPreviousBalance = GeneralLedger::where('account_number', $cashAmount)->sum('debit') 
+                - GeneralLedger::where('account_number', $cashAmount)->sum('credit');
+
+            $customerPreviousBalance = GeneralLedger::where('account_number', $savingsDeposit)->sum('debit') 
+                - GeneralLedger::where('account_number', $savingsDeposit)->sum('credit');
+            
+
+                if ($amountReceived > 0) {
+                    // General Ledger Entry - Debit Cash Account (Customer Deposited Cash)
+                    GeneralLedger::create([
+                        'business_id' => $business_id,
+                        'branch_id' => $branch,
+                        'transaction_id' => $transaction_id,
+                        'transaction_type' => 'Customer Savings Deposit',
+                        'account_name' => 'Cash',
+                        'account_number' => $cashAmount,
+                        'debit' => $amountReceived,
+                        'credit' => 0,
+                        'balance' => $cashPreviousBalance + $amountReceived, // Increase in cash balance
+                        'transaction_date' => now(),
+                        'description' => 'Cash deposit received from customer',
+                        'created_by' => $user->name,
+                    ]);
+                
+                    // General Ledger Entry - Credit Customer Savings Account
+                    GeneralLedger::create([
+                        'business_id' => $business_id,
+                        'branch_id' => $branch,
+                        'transaction_id' => $transaction_id,
+                        'transaction_type' => 'Customer Savings Deposit',
+                        'account_name' => 'Customer Savings Deposit',
+                        'account_number' => $savingsDeposit,
+                        'debit' => 0,
+                        'credit' => $amountReceived,
+                        'balance' => $customerPreviousBalance + $amountReceived, // Increase in savings deposit
+                        'transaction_date' => now(),
+                        'description' => 'Customer savings deposit credited',
+                        'created_by' => $user->name,
+                    ]);
+                
+                    // Journal Entry - Credit Cash Account
+                    JournalEntry::create([
+                        'business_id' => $business_id,
+                        'branch_id' => $branch,
+                        'transaction_id' => $transaction_id,
+                        'transaction_type' => 'Customer Savings Deposit',
+                        'account_name' => 'Cash',
+                        'account_number' => $cashAmount,
+                        'balance' => $cashPreviousBalance + $amountReceived,
+                        'debit' => 0,
+                        'credit' => $amountReceived,
+                        'transaction_date' => now(),
+                        'description' => 'Credit Cash Account for customer deposit',
+                        'created_by' => $user->name,
+                    ]);
+                
+                    // Journal Entry - Debit Customer Savings Account
+                    JournalEntry::create([
+                        'business_id' => $business_id,
+                        'branch_id' => $branch,
+                        'transaction_id' => $transaction_id,
+                        'transaction_type' => 'Customer Savings Deposit',
+                        'account_name' => 'Customer Savings Deposit',
+                        'account_number' => $savingsDeposit,
+                        'debit' => $amountReceived,
+                        'credit' => 0,
+                        'balance' => $customerPreviousBalance + $amountReceived,
+                        'transaction_date' => now(),
+                        'description' => 'Debit Customer Savings Deposit for deposit transaction',
+                        'created_by' => $user->name,
+                    ]);
+                }
+
+
+            if ($openingFeeApplicable && !$feeAlreadyDeducted) {
+                $feeTransactionId = substr(Str::uuid()->toString(), 0, 15);
+            
+                // General Ledger - Opening Fee Deduction
+                GeneralLedger::create([
+                    'business_id' => $business_id,
+                    'branch_id' => $branch,
+                    'transaction_id' => $feeTransactionId,
+                    'transaction_type' => 'Opening Fee',
+                    'account_name' => 'Opening Fee Income',
+                    'account_number' => $openingFeeAccount,
+                    'debit' => 0,
+                    'credit' => $openingFee,
+                    'balance' => $customerPreviousBalance - $openingFee,
+                    'transaction_date' => now(),
+                    'description' => 'Opening Fee charged on account',
+                    'created_by' => $user->name,
+                ]);
+            
+                // Journal Entry - Debit Customer Account for Opening Fee
+                JournalEntry::create([
+                    'business_id' => $business_id,
+                    'branch_id' => $branch,
+                    'transaction_id' => $feeTransactionId,
+                    'transaction_type' => 'Opening Fee',
+                    'account_name' => 'customer Savings Deposit',
+                    'account_number' => $savingsDeposit,
+                    'debit' => $openingFee,
+                    'credit' => 0,
+                    'balance' => $currentBalance - $openingFee,
+                    'transaction_date' => now(),
+                    'description' => 'Opening Fee deducted from customer account',
+                    'created_by' => $user->name,
+                ]);
+            }
+
                   
             Log::info("Current Balance Before Deposit: " . $currentBalance);
             Log::info("Deposit Amount: " . $amountReceived);

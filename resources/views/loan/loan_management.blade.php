@@ -71,11 +71,11 @@
                                                             <td>{{ $allLoan->first_name }} {{ $allLoan->last_name }}</td>
                                                             <td>{{ $allLoan->customer_id }}</td>
                                                             <td>{{ $allLoan->loan_product }}</td>
-                                                            <td>{{ $allLoan->loan_amount }}</td>
+                                                            <td>{{ number_format($allLoan->loan_amount) }}</td>
                                                             {{-- <td>{{ $allLoan->interest_rate }}</td> --}}
-                                                            <td>{{ $allLoan->interest_amount }}</td>
-                                                            <td>{{ $allLoan->total_repayment_amount }}</td>
-                                                            <td>{{ $allLoan->each_repayment_amount }}</td>
+                                                            <td>{{ number_format($allLoan->interest_amount) }}</td>
+                                                            <td>{{ number_format($allLoan->total_repayment_amount) }}</td>
+                                                            <td>{{ number_format($allLoan->each_repayment_amount) }}</td>
                                                             <td>{{ $allLoan->repayment_period }}</td>
                                                             <td>{{ $allLoan->application_date }}</td>
                                                             <td>{{ $allLoan->status }}</td>
